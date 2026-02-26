@@ -79,7 +79,7 @@ namespace Pokemon
                 Type2Pokemon.Source = null;
             }
             PVPokemon.Value = stats.hp;
-            AttPkemon.Value = stats.atk;
+            AttPokemon.Value = stats.atk;
             DefPokemon.Value = stats.def;
             DefSpePokemon.Value = stats.spe_def;
             AttSpePokemon.Value = stats.spe_atk;
