@@ -27,7 +27,9 @@ namespace Pokemon
         public MainWindow()
         {
             InitializeComponent();
-            GetPokemon getPokemon = new GetPokemon();
+            getPokemon = new GetPokemon();
+            string idPoke = "1";
+        _: GetPokemon(idPoke);
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -49,9 +51,9 @@ namespace Pokemon
                 tb.Foreground = Brushes.Gray; // placeholder gris
             }
         }
-        public async void callMeteo(string ville)
+        public async void GetPokemon(string numPoke)
         {
-            var asyncTask = await getPokemon.GetApiPokemon(ville);
+            var asyncTask = await getPokemon.GetApiPokemon(numPoke);
             Evolution evolution = asyncTask.evolution;
             Root root = asyncTask;
             Sexe sexe = asyncTask.sexe;
@@ -67,7 +69,7 @@ namespace Pokemon
             Pre pre = asyncTask.pre;
             List<Resistance> resistances = asyncTask.resistances;
             NomPokemon.Text = name.fr;
-            NumPokemon.Text = root.pokedex_id.ToString();
+            NumPokemon.Text = "#"+root.pokedex_id.ToString();
             ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
             Type1Pokemon.Source = new BitmapImage(new Uri(root.types[0].image));
             try 
