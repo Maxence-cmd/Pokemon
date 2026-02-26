@@ -87,6 +87,5 @@ namespace Pokemon
             AttSpePokemon.Value = stats.spe_atk;
             VitPokemon.Value = stats.vit;
         }
-
     }
 }

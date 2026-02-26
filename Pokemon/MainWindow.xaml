@@ -132,6 +132,23 @@
                                               Opacity="0.2"/>
                         </Image.Effect>
                     </Image>
+                    <CheckBox Name="ShinyCheckBox"
+          HorizontalAlignment="Right"
+          VerticalAlignment="Top"
+          Margin="8"
+          ToolTip="Afficher version Shiny">
+                        <CheckBox.Template>
+                            <ControlTemplate TargetType="CheckBox">
+                                <Border Width="28"
+                    Height="28"
+                    CornerRadius="14"
+                    Background="#CCFFFFFF">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </CheckBox.Template>
+                    </CheckBox>
 
                     <!-- Image Pokémon -->
 
