@@ -68,7 +68,7 @@
                             Foreground="White"
                             BorderThickness="0"
                             Cursor="Hand"
-                            Background="#6366F1">
+                            Background="#6366F1" Click="Button_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border"

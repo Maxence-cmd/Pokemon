@@ -86,5 +86,9 @@ namespace Pokemon
             VitPokemon.Value = stats.vit;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
