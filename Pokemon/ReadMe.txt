@@ -1,0 +1,1 @@
+J'utiliser une architecture MVC pour ce projet, j'ai utilisé le framework Spring Boot pour le backend et React pour le frontend. J'ai également utilisé une base de données MySQL pour stocker les données des Pokémon.
