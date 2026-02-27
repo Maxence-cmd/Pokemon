@@ -49,7 +49,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- TextBox avec placeholder -->
-                    <TextBox Height="44"
+                    <TextBox x:Name="NumPokeRecherche" Height="44"
                              Margin="0,0,12,0"
                              FontSize="16"
                              VerticalContentAlignment="Center"
@@ -61,14 +61,14 @@
                              LostFocus="TextBox_LostFocus"/>
 
                     <!-- Bouton arrondi avec hover -->
-                    <Button Grid.Column="1"
+                    <Button x:Name="BttRecherche" Grid.Column="1"
                             Content="🔍 Rechercher"
                             Padding="20,10"
                             FontWeight="SemiBold"
                             Foreground="White"
                             BorderThickness="0"
                             Cursor="Hand"
-                            Background="#6366F1">
+                            Background="#6366F1" Click="BttRecherche_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border"
@@ -132,6 +132,23 @@
                                               Opacity="0.2"/>
                         </Image.Effect>
                     </Image>
+                    <CheckBox Name="ShinyCheckBox"
+          HorizontalAlignment="Right"
+          VerticalAlignment="Top"
+          Margin="8"
+          ToolTip="Afficher version Shiny">
+                        <CheckBox.Template>
+                            <ControlTemplate TargetType="CheckBox">
+                                <Border Width="28"
+                    Height="28"
+                    CornerRadius="14"
+                    Background="#CCFFFFFF">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </CheckBox.Template>
+                    </CheckBox>
 
                     <!-- Image Pokémon -->
 
@@ -181,7 +198,7 @@
                                 <TextBlock Name="PV" Text="PV"/>
                                 <TextBlock Name="PVNumPokemon"  Text="50" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="PVPokemon" Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="PVPokemon" Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>
@@ -201,7 +218,7 @@
                                 <TextBlock Name="Att" Text="Attaque"/>
                                 <TextBlock Name="AttNumPokemon" Text="50" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="AttPokemon" Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="AttPokemon" Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>
@@ -221,7 +238,7 @@
                                 <TextBlock Name="Def" Text="Défense"/>
                                 <TextBlock Name="DefNumPokemon" Text="50" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="DefPokemon" Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="DefPokemon" Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>
@@ -241,7 +258,7 @@
                                 <TextBlock Name="AttSpe" Text="Atq. Spé"/>
                                 <TextBlock Name="AttSpeNumPokemon" Text="50" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="AttSpePokemon" Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="AttSpePokemon" Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>
@@ -261,7 +278,7 @@
                                 <TextBlock Name="DefSpe" Text="Déf. Spé"/>
                                 <TextBlock Name="DefSpeNumPokemon" Text="50" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="DefSpePokemon" Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="DefSpePokemon" Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>
@@ -281,7 +298,7 @@
                                 <TextBlock Name="Vit" Text="Vitesse"/>
                                 <TextBlock Name="VitNumPokemon" Text="80" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="VitPokemon"  Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="VitPokemon"  Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>

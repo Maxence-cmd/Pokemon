@@ -15,7 +15,7 @@ namespace Pokemon.Services
         public async Task<Root> GetApiPokemon(string poke)
         {
             HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync("https://tyradex.app/api/v1/Pokemon/"+poke);
+            HttpResponseMessage response = await httpClient.GetAsync("https://tyradex.app/api/v1/pokemon/"+poke);
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -29,8 +29,6 @@ namespace Pokemon.Services
                     MessageBox.Show("Erreur JSON : " + ex.Message);
                     return null;
                 }
-
-
                 return pokeData;
             }
 
