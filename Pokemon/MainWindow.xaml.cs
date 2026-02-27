@@ -56,7 +56,16 @@ namespace Pokemon
         }
         public async void GetPokemon(string numPoke)
         {
-            var asyncTask = await getPokemon.GetApiPokemon(numPoke);
+            var asyncTask=new Root();
+            try
+            {
+                 asyncTask = await getPokemon.GetApiPokemon(numPoke);
+            }
+            catch(Exception ex)
+            {
+                 asyncTask = await getPokemon.GetApiPokemon("1");
+            }
+            
             Evolution evolution = asyncTask.evolution;
             Root root = asyncTask;
             Sexe sexe = asyncTask.sexe;
@@ -97,7 +106,7 @@ namespace Pokemon
             VitNumPokemon.Text = stats.vit.ToString();
         }
 
-        private async void BttRecherche_Click(object sender, RoutedEventArgs e)
+        private async Task BttRecherche_Click(object sender, RoutedEventArgs e)
         {
 
             string idPoke = NumPokeRecherche.Text.Trim().ToLower();
@@ -123,7 +132,7 @@ namespace Pokemon
 
                 try
                 {
-                _: GetPokemon(idPoke);
+                 var pokemonTRUE = GetPokemon(idPoke);
                 }
                 catch(Exception ex)
                 {
