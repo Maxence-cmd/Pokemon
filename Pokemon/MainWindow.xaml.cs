@@ -120,11 +120,12 @@ namespace Pokemon
             }
             else
             {
+
                 try
                 {
                 _: GetPokemon(idPoke);
                 }
-                catch
+                catch(Exception ex)
                 {
                     MessageBox.Show("Pokémon introuvable, veuillez vérifier le nom.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
