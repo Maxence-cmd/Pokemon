@@ -122,33 +122,33 @@
                                        HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>
-                    <Image Name="ImgPokemon" Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/1/regular.png"
-                           Width="200"
-                           Height="200"
-                           >
-                        <Image.Effect>
-                            <DropShadowEffect BlurRadius="15"
-                                              ShadowDepth="4"
-                                              Opacity="0.2"/>
-                        </Image.Effect>
-                    </Image>
-                    <CheckBox Name="ShinyCheckBox"
-          HorizontalAlignment="Right"
-          VerticalAlignment="Top"
-          Margin="8"
-          ToolTip="Afficher version Shiny">
-                        <CheckBox.Template>
-                            <ControlTemplate TargetType="CheckBox">
-                                <Border Width="28"
-                    Height="28"
-                    CornerRadius="14"
-                    Background="#CCFFFFFF">
-                                    <ContentPresenter HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </CheckBox.Template>
-                    </CheckBox>
+                    <Grid HorizontalAlignment="Center" Margin="0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Image Pokémon -->
+                        <Image Name="ImgPokemon"
+           Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/1/regular.png"
+           Width="200"
+           Height="200">
+                            <Image.Effect>
+                                <DropShadowEffect BlurRadius="15"
+                              ShadowDepth="4"
+                              Opacity="0.2"/>
+                            </Image.Effect>
+                        </Image>
+
+                        <!-- Bouton Shiny à droite -->
+                        <CheckBox Name="ShinyCheckBox"
+              Grid.Column="1"
+              Margin="12,0,0,0"
+              VerticalAlignment="Top"
+              ToolTip="Afficher version Shiny" Checked="ShinyCheckBox_Checked" Unchecked="ShinyCheckBox_Unchecked" >
+                            <TextBlock Text="✨"/>
+                        </CheckBox>
+                    </Grid>
 
                     <!-- Image Pokémon -->
 
@@ -174,7 +174,7 @@
                             <Border Padding="4"
                                     CornerRadius="12"
                                     Margin="0,0,0,24">
-                                    <Image Name="Type2Pokemon" 
+                                <Image Name="Type2Pokemon" 
                                          Width="40"
                                          Height="40"
                                          Stretch="Uniform"/>
@@ -307,11 +307,42 @@
                                 </ProgressBar.Foreground>
                             </ProgressBar>
                         </StackPanel>
+                        <!-- Catégorie et Génération -->
+                        <TextBlock FontWeight="Bold" Foreground="#666" Text="AUTRES INFORMATIONS :" Margin="0,0,0,8"/>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Catégorie : " FontWeight="SemiBold"/>
+                            <TextBlock Name="CategoriePokemon" Text="Pokémon Graine"/>
+                            <TextBlock Text="Génération : " FontWeight="SemiBold" Margin="20,0,0,0"/>
+                            <TextBlock Name="GenerationPokemon" Text="1"/>
+                        </StackPanel>
+
+                        <!-- Noms dans les différentes langues -->
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Nom EN : " FontWeight="SemiBold"/>
+                            <TextBlock Name="NomEN" Text="Venusaur"/>
+                            <TextBlock Text="Nom JP : " FontWeight="SemiBold" Margin="20,0,0,0"/>
+                            <TextBlock Name="NomJP" Text="フシギバナ"/>
+                        </StackPanel>
+
+                        <!-- Talents -->
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Talents : " FontWeight="SemiBold"/>
+                            <ItemsControl Name="TalentsPokemon" >
+                                <!-- Les talents seront ajoutés depuis le code-behind -->
+                            </ItemsControl>
+                        </StackPanel>
+
+                        <!-- Taille et Poids -->
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Taille : " FontWeight="SemiBold"/>
+                            <TextBlock Name="TaillePokemon" Text="2,0 m"/>
+                            <TextBlock Text="Poids : " FontWeight="SemiBold" Margin="20,0,0,0"/>
+                            <TextBlock Name="PoidsPokemon" Text="100,0 kg"/>
+                        </StackPanel>
 
                     </StackPanel>
                 </StackPanel>
             </Border>
-
         </StackPanel>
     </ScrollViewer>
 </Window>
