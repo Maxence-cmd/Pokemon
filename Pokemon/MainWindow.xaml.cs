@@ -54,59 +54,57 @@ namespace Pokemon
                 tb.Foreground = Brushes.Gray; // placeholder gris
             }
         }
-        public async void GetPokemon(string numPoke)
-        {
-            var asyncTask=new Root();
-            try
+        public async Task GetPokemon(string numPoke)
+        {  
+            var asyncTask = await getPokemon.GetApiPokemon(numPoke);
+            if (asyncTask == null || asyncTask.stats == null)
             {
-                 asyncTask = await getPokemon.GetApiPokemon(numPoke);
+                MessageBox.Show("Pokémon introuvable, veuillez vérifier le nom.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch(Exception ex)
+            else
             {
-                 asyncTask = await getPokemon.GetApiPokemon("1");
-            }
-            
-            Evolution evolution = asyncTask.evolution;
-            Root root = asyncTask;
-            Sexe sexe = asyncTask.sexe;
-            Sprites sprites = asyncTask.sprites;
-            Stats stats = asyncTask.stats;
-            Talent talent = asyncTask.talents[0];
-            TypePokemon typePokemon = asyncTask.types[0];
-            List<Forme> formes = asyncTask.formes; 
-            Gmax gmax = asyncTask.gmax;
-            Mega mega = asyncTask.mega;
-            Name name = asyncTask.name;
-            Next next = asyncTask.next;
-            Pre pre = asyncTask.pre;
-            List<Resistance> resistances = asyncTask.resistances;
-            NomPokemon.Text = name.fr;
-            NumPokemon.Text = "#" + root.pokedex_id.ToString();
-            ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
-            Type1Pokemon.Source = new BitmapImage(new Uri(root.types[0].image));
-            try 
-            {
-                Type2Pokemon.Source = new BitmapImage(new Uri(root.types[1].image));
-            }
+                Evolution evolution = asyncTask.evolution;
+                Root root = asyncTask;
+                Sexe sexe = asyncTask.sexe;
+                Sprites sprites = asyncTask.sprites;
+                Stats stats = asyncTask.stats;
+                Talent talent = asyncTask.talents[0];
+                TypePokemon typePokemon = asyncTask.types[0];
+                List<Forme> formes = asyncTask.formes;
+                Gmax gmax = asyncTask.gmax;
+                Mega mega = asyncTask.mega;
+                Name name = asyncTask.name;
+                Next next = asyncTask.next;
+                Pre pre = asyncTask.pre;
+                List<Resistance> resistances = asyncTask.resistances;
+                NomPokemon.Text = name.fr;
+                NumPokemon.Text = "#" + root.pokedex_id.ToString();
+                ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+                Type1Pokemon.Source = new BitmapImage(new Uri(root.types[0].image));
+                try
+                {
+                    Type2Pokemon.Source = new BitmapImage(new Uri(root.types[1].image));
+                }
                 catch (Exception ex)
-            {
-                Type2Pokemon.Source = null;
+                {
+                    Type2Pokemon.Source = null;
+                }
+                PVPokemon.Value = stats.hp;
+                PVNumPokemon.Text = stats.hp.ToString();
+                AttPokemon.Value = stats.atk;
+                AttNumPokemon.Text = stats.atk.ToString();
+                DefPokemon.Value = stats.def;
+                DefNumPokemon.Text = stats.def.ToString();
+                DefSpePokemon.Value = stats.spe_def;
+                DefSpeNumPokemon.Text = stats.spe_def.ToString();
+                AttSpePokemon.Value = stats.spe_atk;
+                AttSpeNumPokemon.Text = stats.spe_atk.ToString();
+                VitPokemon.Value = stats.vit;
+                VitNumPokemon.Text = stats.vit.ToString();
             }
-            PVPokemon.Value = stats.hp;
-            PVNumPokemon.Text = stats.hp.ToString();
-            AttPokemon.Value = stats.atk;
-            AttNumPokemon.Text = stats.atk.ToString();
-            DefPokemon.Value = stats.def;
-            DefNumPokemon.Text = stats.def.ToString();
-            DefSpePokemon.Value = stats.spe_def;
-            DefSpeNumPokemon.Text = stats.spe_def.ToString();
-            AttSpePokemon.Value = stats.spe_atk;
-            AttSpeNumPokemon.Text = stats.spe_atk.ToString();
-            VitPokemon.Value = stats.vit;
-            VitNumPokemon.Text = stats.vit.ToString();
         }
 
-        private async Task BttRecherche_Click(object sender, RoutedEventArgs e)
+        private async void BttRecherche_Click(object sender, RoutedEventArgs e)
         {
 
             string idPoke = NumPokeRecherche.Text.Trim().ToLower();
@@ -128,16 +126,9 @@ namespace Pokemon
                 _: GetPokemon(numero.ToString());
             }
             else
-            {
-
-                try
-                {
-                 var pokemonTRUE = GetPokemon(idPoke);
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show("Pokémon introuvable, veuillez vérifier le nom.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+            { 
+                   await GetPokemon(idPoke);
+                
                 //if ((string.IsNullOrWhiteSpace(idPoke)))
                 //{
                 //// On a trouvé le Pokémon, on appelle GetPokemon avec l'ID
