@@ -25,11 +25,10 @@ namespace Pokemon
     public partial class MainWindow : Window
     {
         public GetPokemon getPokemon;
-        public GetIDFromName getIDFromName;
+        public Sprites sprites;
         public MainWindow()
         {
             InitializeComponent();
-            getIDFromName = new GetIDFromName();
             getPokemon = new GetPokemon();
             string idPoke = "1";
         _: GetPokemon(idPoke);
@@ -64,9 +63,9 @@ namespace Pokemon
             else
             {
                 Evolution evolution = asyncTask.evolution;
-                Root root = asyncTask;
+                Root root = asyncTask;        
                 Sexe sexe = asyncTask.sexe;
-                Sprites sprites = asyncTask.sprites;
+                sprites = asyncTask.sprites;
                 Stats stats = asyncTask.stats;
                 Talent talent = asyncTask.talents[0];
                 TypePokemon typePokemon = asyncTask.types[0];
@@ -101,12 +100,47 @@ namespace Pokemon
                 AttSpeNumPokemon.Text = stats.spe_atk.ToString();
                 VitPokemon.Value = stats.vit;
                 VitNumPokemon.Text = stats.vit.ToString();
+                NomEN.Text = name.en;
+                NomJP.Text = name.jp;
+                CategoriePokemon.Text=root.category;
+                GenerationPokemon.Text=root.generation.ToString();
+                TaillePokemon.Text = root.height.ToString();
+                PoidsPokemon.Text = root.weight.ToString();
+                string talent1 = root.talents[0].name;
+                bool tc1=root.talents[0].tc;
+                if (talent1 != "Null")
+                {
+                    if (tc1)
+                    {
+                        TalentsPokemon.Items.Add(talent1 + " Talent caché");
+                    }
+                    else
+                    {
+                        TalentsPokemon.Items.Add(talent1 + " Talent non caché");
+                    }
+                }
+                string talent2 = root.talents[1].name;
+                bool tc2 = root.talents[1].tc;
+                if (talent1 != "Null")
+                {
+                    if (tc1)
+                    {
+                        TalentsPokemon.Items.Add(talent2 + " Talent caché");
+                    }
+                    else
+                    {
+                        TalentsPokemon.Items.Add(talent2 + " Talent non caché");
+                    }
+                }
+
+
             }
         }
 
         private async void BttRecherche_Click(object sender, RoutedEventArgs e)
         {
-
+            ShinyCheckBox.IsChecked = false;
+            TalentsPokemon.Items.Clear();
             string idPoke = NumPokeRecherche.Text.Trim().ToLower();
 
 
@@ -126,19 +160,28 @@ namespace Pokemon
                 _: GetPokemon(numero.ToString());
             }
             else
-            { 
-                   await GetPokemon(idPoke);
-                
-                //if ((string.IsNullOrWhiteSpace(idPoke)))
-                //{
-                //// On a trouvé le Pokémon, on appelle GetPokemon avec l'ID
-                //_: GetPokemon(idPoke);
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Pokémon introuvable, veuillez vérifier le nom.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                //}
+            {
+            _: GetPokemon(idPoke);
             }
+        }
+
+        private void ShinyCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(sprites?.shiny))
+            {
+                ImgPokemon.Source = new BitmapImage(new Uri(sprites.shiny));
+            }
+            else
+            {
+                ShinyCheckBox.IsChecked = false;
+                ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+                MessageBox.Show("Aucune image shiny disponible.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void ShinyCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
         }
     }
 }
