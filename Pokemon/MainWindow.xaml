@@ -123,16 +123,14 @@
                         </StackPanel>
                     </Border>
                     <Grid HorizontalAlignment="Center" Margin="0,10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
 
-                        <!-- Image Pokémon -->
+                        <!-- Image centrée -->
                         <Image Name="ImgPokemon"
            Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/1/regular.png"
            Width="200"
-           Height="200">
+           Height="200"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center">
                             <Image.Effect>
                                 <DropShadowEffect BlurRadius="15"
                               ShadowDepth="4"
@@ -140,14 +138,35 @@
                             </Image.Effect>
                         </Image>
 
-                        <!-- Bouton Shiny à droite -->
-                        <CheckBox Name="ShinyCheckBox"
-              Grid.Column="1"
-              Margin="12,0,0,0"
-              VerticalAlignment="Top"
-              ToolTip="Afficher version Shiny" Checked="ShinyCheckBox_Checked" Unchecked="ShinyCheckBox_Unchecked" >
-                            <TextBlock Text="✨"/>
-                        </CheckBox>
+                        <!-- Boutons en haut à droite, sans décaler l'image -->
+                        <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="12">
+
+                            <CheckBox Name="ShinyCheckBox"
+                  ToolTip="Afficher version Shiny"
+                  Margin="0,0,8,0"
+                  Checked="ShinyCheckBox_Checked"
+                  Unchecked="ShinyCheckBox_Unchecked">
+                                <TextBlock Text="✨"/>
+                            </CheckBox>
+
+                            <CheckBox Name="GmaxCheckBox"
+                  ToolTip="Afficher version Gigamax"
+                  Margin="0,0,8,0"
+                  Checked="GmaxCheckBox_Checked"
+                  Unchecked="GmaxCheckBox_Unchecked">
+                                <TextBlock Text="🔥"/>
+                            </CheckBox>
+
+                            <CheckBox Name="MegaCheckBox"
+                  ToolTip="Afficher Méga-Évolution" Checked="MegaCheckBox_Checked" Unchecked="MegaCheckBox_Unchecked">
+                                <TextBlock Text="💠"/>
+                            </CheckBox>
+
+                        </StackPanel>
+
                     </Grid>
 
                     <!-- Image Pokémon -->

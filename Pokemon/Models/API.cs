@@ -108,10 +108,15 @@ namespace Pokemon.Models
     {
         public string regular { get; set; }
         public string shiny { get; set; }
-        public Gmax? gmax { get; set; }
+        public GmaxSprites? gmax { get; set; }
+    }
+    public class GmaxSprites
+{
+        public string regular { get; set; }
+        public string shiny { get; set; }
     }
 
-    public class Stats
+public class Stats
     {
         public int hp { get; set; }
         public int atk { get; set; }

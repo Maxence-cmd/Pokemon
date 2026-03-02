@@ -26,6 +26,9 @@ namespace Pokemon
     {
         public GetPokemon getPokemon;
         public Sprites sprites;
+        public Gmax gmax;
+        public Mega mega;
+        public Evolution evolution;
         public MainWindow()
         {
             InitializeComponent();
@@ -62,7 +65,7 @@ namespace Pokemon
             }
             else
             {
-                Evolution evolution = asyncTask.evolution;
+                evolution = asyncTask.evolution;
                 Root root = asyncTask;        
                 Sexe sexe = asyncTask.sexe;
                 sprites = asyncTask.sprites;
@@ -70,8 +73,8 @@ namespace Pokemon
                 Talent talent = asyncTask.talents[0];
                 TypePokemon typePokemon = asyncTask.types[0];
                 List<Forme> formes = asyncTask.formes;
-                Gmax gmax = asyncTask.gmax;
-                Mega mega = asyncTask.mega;
+                gmax = asyncTask.gmax;
+                mega = asyncTask.mega;
                 Name name = asyncTask.name;
                 Next next = asyncTask.next;
                 Pre pre = asyncTask.pre;
@@ -140,6 +143,8 @@ namespace Pokemon
         private async void BttRecherche_Click(object sender, RoutedEventArgs e)
         {
             ShinyCheckBox.IsChecked = false;
+            GmaxCheckBox.IsChecked = false;
+            MegaCheckBox.IsChecked = false;
             TalentsPokemon.Items.Clear();
             string idPoke = NumPokeRecherche.Text.Trim().ToLower();
 
@@ -167,19 +172,94 @@ namespace Pokemon
 
         private void ShinyCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(sprites?.shiny))
+            if (GmaxCheckBox.IsChecked == false && MegaCheckBox.IsChecked == false)
             {
-                ImgPokemon.Source = new BitmapImage(new Uri(sprites.shiny));
+                if (!string.IsNullOrEmpty(sprites?.shiny))
+                {
+                    ImgPokemon.Source = new BitmapImage(new Uri(sprites.shiny));
+                }
+                else
+                {
+                    ShinyCheckBox.IsChecked = false;
+                    ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+                    MessageBox.Show("Ce pokemon ne dispose pas de version Shiny.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else if (GmaxCheckBox.IsChecked == true)
+            {
+                if (!string.IsNullOrEmpty(sprites.gmax?.shiny))
+                {
+                    ImgPokemon.Source = new BitmapImage(new Uri(sprites.gmax.shiny));
+                }
+                else
+                {
+                    ShinyCheckBox.IsChecked = false;
+                    ImgPokemon.Source = new BitmapImage(new Uri(sprites.gmax.regular));
+                    MessageBox.Show("Ce pokemon ne dispose pas de version Shiny pour la version Gmax.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
             else
             {
-                ShinyCheckBox.IsChecked = false;
-                ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
-                MessageBox.Show("Aucune image shiny disponible.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (!string.IsNullOrEmpty(sprites?.shiny))
+                {
+                    ImgPokemon.Source = new BitmapImage(new Uri(evolution.mega[0].sprites.shiny));
+                }
+                else
+                {
+                    ShinyCheckBox.IsChecked = false;
+                    ImgPokemon.Source = new BitmapImage(new Uri(evolution.mega[0].sprites.regular));
+                    MessageBox.Show("Ce pokemon ne dispose pas de version Shiny pour sa Mega Evolution.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
 
         private void ShinyCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+        }
+
+        private void GmaxCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ShinyCheckBox.IsChecked=false;
+            MegaCheckBox.IsChecked=false;
+            if (sprites?.gmax != null && !string.IsNullOrEmpty(sprites.gmax?.regular))
+            {
+                ImgPokemon.Source = new BitmapImage(new Uri(sprites.gmax.regular));
+            }
+            else
+            {
+                GmaxCheckBox.IsChecked = false;
+                ShinyCheckBox.IsChecked = false;
+                ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+                MessageBox.Show("Ce pokemon ne dispose pas de version Gmax.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void GmaxCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+        }
+
+        private void MegaCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ShinyCheckBox.IsChecked = false;
+            GmaxCheckBox.IsChecked=false;
+            if (evolution?.mega != null &&
+    evolution.mega.Count > 0 &&
+    !string.IsNullOrEmpty(evolution.mega[0]?.sprites?.regular))
+            {
+                ImgPokemon.Source = new BitmapImage(new Uri(evolution.mega[0].sprites.regular));
+            }
+            else
+            {
+                MegaCheckBox.IsChecked = false;
+                ShinyCheckBox.IsChecked = false;
+                ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+                MessageBox.Show("Ce pokemon ne peut pas Mega Evolué.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void MegaCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
         }
