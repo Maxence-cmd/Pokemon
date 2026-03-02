@@ -130,7 +130,7 @@
            Width="200"
            Height="200"
            HorizontalAlignment="Center"
-           VerticalAlignment="Center">
+           VerticalAlignment="Top" Margin="0,42,0,0">
                             <Image.Effect>
                                 <DropShadowEffect BlurRadius="15"
                               ShadowDepth="4"
@@ -360,6 +360,102 @@
                         </StackPanel>
 
                     </StackPanel>
+                    <!-- Chaîne d'évolution stylée -->
+                    <TextBlock Text="CHAÎNE D'ÉVOLUTION"
+           FontWeight="Bold"
+           Foreground="#666"
+           Margin="0,20,0,12"/>
+
+                    <StackPanel Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
+                        <!-- BASE 1 -->
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <TextBlock Name="Base1Nom"
+                   Text="Nom 1"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center"/>
+                            <Image Name="Base1Img"
+                                   Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/1/regular.png"
+               Width="110"
+               Height="110"/>
+                            <TextBlock Name="Base1Id"
+                   Text="#000"
+                   HorizontalAlignment="Center"
+                   Opacity="0.7"/>
+                        </StackPanel>
+
+                        <!-- FLECHE + CONDITION 1 -->
+                        <StackPanel Margin="10"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+
+                            <!-- Condition au-dessus -->
+                            <TextBlock Name="Cond1Txt"
+                   Text="Niv. ??"
+                   FontSize="12"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,4"/>
+
+                            <!-- Flèche -->
+                            <TextBlock Text="➡"
+                   FontSize="28"
+                   HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- BASE 2 -->
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <TextBlock Name="Base2Nom"
+                   Text="Nom 2"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center"/>
+                            <Image Name="Base2Img"
+                                    Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/2/regular.png"
+               Width="110"
+               Height="110"/>
+                            <TextBlock Name="Base2Id"
+                                      
+                   Text="#000"
+                   HorizontalAlignment="Center"
+                   Opacity="0.7"/>
+                        </StackPanel>
+
+                        <!-- FLECHE + CONDITION 2 -->
+                        <StackPanel Margin="10"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+
+                            <TextBlock Name="Cond2Txt"
+                   Text="Niv. ??"
+                   FontSize="12"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,4"/>
+
+                            <TextBlock Text="➡"
+                   FontSize="28"
+                   HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- BASE 3 -->
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <TextBlock Name="Base3Nom"
+                   Text="Nom 3"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center"/>
+                            <Image Name="Base3Img"
+                                   Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/3/regular.png"
+               Width="110"
+               Height="110"/>
+                            <TextBlock Name="Base3Id"
+                   Text="#000"
+                   HorizontalAlignment="Center"
+                   Opacity="0.7"/>
+                        </StackPanel>
+
+                    
+
+                </StackPanel>
                 </StackPanel>
             </Border>
         </StackPanel>

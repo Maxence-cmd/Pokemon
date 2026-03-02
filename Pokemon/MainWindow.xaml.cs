@@ -29,6 +29,7 @@ namespace Pokemon
         public Gmax gmax;
         public Mega mega;
         public Evolution evolution;
+        public Root root;
         public MainWindow()
         {
             InitializeComponent();
@@ -66,7 +67,7 @@ namespace Pokemon
             else
             {
                 evolution = asyncTask.evolution;
-                Root root = asyncTask;        
+                 root = asyncTask;        
                 Sexe sexe = asyncTask.sexe;
                 sprites = asyncTask.sprites;
                 Stats stats = asyncTask.stats;
@@ -135,7 +136,107 @@ namespace Pokemon
                         TalentsPokemon.Items.Add(talent2 + " Talent non caché");
                     }
                 }
+                // Réinitialisation
+                Base1Img.Source = null;
+                Base2Img.Source = null;
+                Base3Img.Source = null;
 
+                Base1Nom.Text = "";
+                Base2Nom.Text = "";
+                Base3Nom.Text = "";
+
+                Base1Id.Text = "";
+                Base2Id.Text = "";
+                Base3Id.Text = "";
+
+                Cond1Txt.Text = "";
+                Cond2Txt.Text = "";
+
+                // CAS : Aucune pré-évolution et aucune next
+                if (evolution.pre == null && evolution.next == null)
+                {
+                    Base1Id.Text = "#" + root.pokedex_id.ToString();
+                    Base1Nom.Text = root.name.fr;
+                    Base1Img.Source = new BitmapImage(new Uri(root.sprites.regular));
+                }
+
+                // CAS : Pas de pre mais next existe
+                else if (evolution.pre == null && evolution.next != null)
+                {
+                    // Base1 = actuel
+                    Base1Id.Text = "#" + root.pokedex_id.ToString();
+                    Base1Nom.Text = root.name.fr;
+                    Base1Img.Source = new BitmapImage(new Uri(root.sprites.regular));
+
+                    // Base2 = 1ère évolution
+                    var next1 = evolution.next[0];
+                    Base2Id.Text = "#" + next1.pokedex_id.ToString();
+                    Base2Nom.Text = next1.name;
+                    Base2Img.Source = new BitmapImage(new Uri($"https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/{next1.pokedex_id}/regular.png"));
+                    Cond1Txt.Text = next1.condition;
+
+                    // Base3 = 2ème évolution si elle existe
+                    if (evolution.next.Count > 1)
+                    {
+                        var next2 = evolution.next[1];
+                        Base3Id.Text = "#" + next2.pokedex_id.ToString();
+                        Base3Nom.Text = next2.name;
+                        Base3Img.Source = new BitmapImage(new Uri($"https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/{next2.pokedex_id}/regular.png"));
+                        Cond2Txt.Text = next2.condition;
+                    }
+                }
+
+                // CAS : Pre existe mais pas next
+                else if (evolution.pre != null && evolution.next == null)
+                {
+                    // Base1 = 1ère pré
+                    var pre1 = evolution.pre[0];
+                    Base1Id.Text = "#" + pre1.pokedex_id.ToString();
+                    Base1Nom.Text = pre1.name;
+                    Base1Img.Source = new BitmapImage(new Uri($"https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/{pre1.pokedex_id}/regular.png"));
+                    Cond1Txt.Text = pre1.condition;
+
+                    // Base2 = 2ème pré si elle existe
+                    if (evolution.pre.Count > 1)
+                    {
+                        var pre2 = evolution.pre[1];
+                        Base2Id.Text = "#" + pre2.pokedex_id.ToString();
+                        Base2Nom.Text = pre2.name;
+                        Base2Img.Source = new BitmapImage(new Uri($"https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/{pre2.pokedex_id}/regular.png"));
+                        Cond2Txt.Text = pre2.condition;
+                    }
+
+                    // Base3 = actuel
+                    Base3Id.Text = "#" + root.pokedex_id.ToString();
+                    Base3Nom.Text = root.name.fr;
+                    Base3Img.Source = new BitmapImage(new Uri(root.sprites.regular));
+                }
+
+                // CAS : Pre ET Next existent
+                else
+                {
+                    // Base1 = 1ère pré
+                    var pre1 = evolution.pre[0];
+                    Base1Id.Text = "#" + pre1.pokedex_id.ToString();
+                    Base1Nom.Text = pre1.name;
+                    Base1Img.Source = new BitmapImage(new Uri($"https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/{pre1.pokedex_id}/regular.png"));
+                    Cond1Txt.Text = pre1.condition;
+
+                    // Base2 = actuel
+                    Base2Id.Text = "#" + root.pokedex_id.ToString();
+                    Base2Nom.Text = root.name.fr;
+                    Base2Img.Source = new BitmapImage(new Uri(root.sprites.regular));
+
+                    // Base3 = 1ère next si elle existe
+                    if (evolution.next.Count > 0)
+                    {
+                        var next1 = evolution.next[0];
+                        Base3Id.Text = "#" + next1.pokedex_id;
+                        Base3Nom.Text = next1.name;
+                        Base3Img.Source = new BitmapImage(new Uri($"https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/{next1.pokedex_id}/regular.png"));
+                        Cond2Txt.Text = next1.condition;
+                    }
+                }
 
             }
         }
@@ -200,7 +301,7 @@ namespace Pokemon
             }
             else
             {
-                if (!string.IsNullOrEmpty(sprites?.shiny))
+                if (!string.IsNullOrEmpty(evolution.mega[0].sprites.shiny))
                 {
                     ImgPokemon.Source = new BitmapImage(new Uri(evolution.mega[0].sprites.shiny));
                 }
@@ -215,7 +316,18 @@ namespace Pokemon
 
         private void ShinyCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+            if (GmaxCheckBox.IsChecked == true)
+            {
+                ImgPokemon.Source = new BitmapImage(new Uri(sprites.gmax.regular));
+            }
+            else if (MegaCheckBox.IsChecked == true)
+            {
+                ImgPokemon.Source = new BitmapImage(new Uri(evolution.mega[0].sprites.regular));
+            }
+            else
+            {
+                ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+            }
         }
 
         private void GmaxCheckBox_Checked(object sender, RoutedEventArgs e)
