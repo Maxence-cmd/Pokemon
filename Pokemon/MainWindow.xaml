@@ -361,10 +361,11 @@
 
                     </StackPanel>
                     <!-- Chaîne d'évolution stylée -->
-                    <TextBlock Text="CHAÎNE D'ÉVOLUTION"
+                    <TextBlock Text="CHAÎNE D'ÉVOLUTION : "
+                           Margin="20,0,0,0"    
            FontWeight="Bold"
            Foreground="#666"
-           Margin="0,20,0,12"/>
+           />
 
                     <StackPanel Orientation="Horizontal"
             HorizontalAlignment="Center"
@@ -387,7 +388,7 @@
                         </StackPanel>
 
                         <!-- FLECHE + CONDITION 1 -->
-                        <StackPanel Margin="10"
+                        <StackPanel x:Name="FlecheCond1" Margin="10"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center">
 
@@ -423,6 +424,7 @@
 
                         <!-- FLECHE + CONDITION 2 -->
                         <StackPanel Margin="10"
+                                    x:Name="FlecheCond2"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center">
 

@@ -122,24 +122,30 @@ namespace Pokemon
                     {
                         TalentsPokemon.Items.Add(talent1 + " Talent non caché");
                     }
-                }
-                string talent2 = root.talents[1].name;
-                bool tc2 = root.talents[1].tc;
-                if (talent1 != "Null")
+                }              
+                if (root.talents.Count > 1)
                 {
-                    if (tc1)
+                    string talent2 = root.talents[1].name;
+                    bool tc2 = root.talents[1].tc;
+                    if (talent2 != "Null")
                     {
-                        TalentsPokemon.Items.Add(talent2 + " Talent caché");
-                    }
-                    else
-                    {
-                        TalentsPokemon.Items.Add(talent2 + " Talent non caché");
+                        if (tc2)
+                        {
+                            TalentsPokemon.Items.Add(talent2 + " Talent caché");
+                        }
+                        else
+                        {
+                            TalentsPokemon.Items.Add(talent2 + " Talent non caché");
+                        }
                     }
                 }
                 // Réinitialisation
                 Base1Img.Source = null;
                 Base2Img.Source = null;
                 Base3Img.Source = null;
+
+                FlecheCond1.Visibility = Visibility.Collapsed;
+                FlecheCond2.Visibility = Visibility.Collapsed;
 
                 Base1Nom.Text = "";
                 Base2Nom.Text = "";
@@ -153,11 +159,11 @@ namespace Pokemon
                 Cond2Txt.Text = "";
 
                 // CAS : Aucune pré-évolution et aucune next
-                if (evolution.pre == null && evolution.next == null)
+                if (evolution == null)
                 {
-                    Base1Id.Text = "#" + root.pokedex_id.ToString();
-                    Base1Nom.Text = root.name.fr;
-                    Base1Img.Source = new BitmapImage(new Uri(root.sprites.regular));
+                    Base2Id.Text = "#" + root.pokedex_id.ToString();
+                    Base2Nom.Text = name.fr;
+                    Base2Img.Source = new BitmapImage(new Uri(root.sprites.regular));
                 }
 
                 // CAS : Pas de pre mais next existe
@@ -167,7 +173,7 @@ namespace Pokemon
                     Base1Id.Text = "#" + root.pokedex_id.ToString();
                     Base1Nom.Text = root.name.fr;
                     Base1Img.Source = new BitmapImage(new Uri(root.sprites.regular));
-
+                    FlecheCond1.Visibility= Visibility.Visible;
                     // Base2 = 1ère évolution
                     var next1 = evolution.next[0];
                     Base2Id.Text = "#" + next1.pokedex_id.ToString();
@@ -178,6 +184,7 @@ namespace Pokemon
                     // Base3 = 2ème évolution si elle existe
                     if (evolution.next.Count > 1)
                     {
+                        FlecheCond2.Visibility= Visibility.Visible;
                         var next2 = evolution.next[1];
                         Base3Id.Text = "#" + next2.pokedex_id.ToString();
                         Base3Nom.Text = next2.name;
@@ -195,6 +202,7 @@ namespace Pokemon
                     Base1Nom.Text = pre1.name;
                     Base1Img.Source = new BitmapImage(new Uri($"https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/{pre1.pokedex_id}/regular.png"));
                     Cond1Txt.Text = pre1.condition;
+                    FlecheCond1.Visibility = Visibility.Visible;
 
                     // Base2 = 2ème pré si elle existe
                     if (evolution.pre.Count > 1)
@@ -204,16 +212,24 @@ namespace Pokemon
                         Base2Nom.Text = pre2.name;
                         Base2Img.Source = new BitmapImage(new Uri($"https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/{pre2.pokedex_id}/regular.png"));
                         Cond2Txt.Text = pre2.condition;
+                        FlecheCond2.Visibility = Visibility.Visible;
+                        // Base3 = actuel
+                        Base3Id.Text = "#" + root.pokedex_id.ToString();
+                        Base3Nom.Text = root.name.fr;
+                        Base3Img.Source = new BitmapImage(new Uri(root.sprites.regular));
                     }
-
-                    // Base3 = actuel
-                    Base3Id.Text = "#" + root.pokedex_id.ToString();
-                    Base3Nom.Text = root.name.fr;
-                    Base3Img.Source = new BitmapImage(new Uri(root.sprites.regular));
+                    else 
+                    {
+                        // Base3 = actuel
+                        Base2Id.Text = "#" + root.pokedex_id.ToString();
+                        Base2Nom.Text = root.name.fr;
+                        Base2Img.Source = new BitmapImage(new Uri(root.sprites.regular));
+                    }
+                      
                 }
 
                 // CAS : Pre ET Next existent
-                else
+                else if (evolution.pre != null && evolution.next != null)
                 {
                     // Base1 = 1ère pré
                     var pre1 = evolution.pre[0];
@@ -221,6 +237,7 @@ namespace Pokemon
                     Base1Nom.Text = pre1.name;
                     Base1Img.Source = new BitmapImage(new Uri($"https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/{pre1.pokedex_id}/regular.png"));
                     Cond1Txt.Text = pre1.condition;
+                    FlecheCond1.Visibility = Visibility.Visible;
 
                     // Base2 = actuel
                     Base2Id.Text = "#" + root.pokedex_id.ToString();
@@ -230,6 +247,7 @@ namespace Pokemon
                     // Base3 = 1ère next si elle existe
                     if (evolution.next.Count > 0)
                     {
+                        FlecheCond2.Visibility = Visibility.Visible;
                         var next1 = evolution.next[0];
                         Base3Id.Text = "#" + next1.pokedex_id;
                         Base3Nom.Text = next1.name;
@@ -237,6 +255,7 @@ namespace Pokemon
                         Cond2Txt.Text = next1.condition;
                     }
                 }
+                
 
             }
         }
