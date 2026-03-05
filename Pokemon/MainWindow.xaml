@@ -168,14 +168,11 @@
                         </StackPanel>
 
                     </Grid>
-
-                    <!-- Image Pokémon -->
-
                     <!-- Contenu -->
                     <StackPanel Margin="20,0,20,24">
 
                         <!-- Type -->
-                        <TextBlock Text="TYPE"
+                        <TextBlock Text="TYPE : "
                                    FontWeight="Bold"
                                    Foreground="#666"
                                    Margin="0,0,0,8"/>
@@ -202,7 +199,7 @@
                         </StackPanel>
 
                         <!-- Stats -->
-                        <TextBlock Text="STATISTIQUES DE BASE"
+                        <TextBlock Text="STATISTIQUES DE BASE : "
                                    FontWeight="Bold"
                                    Foreground="#666"
                                    Margin="0,0,0,12"/>
