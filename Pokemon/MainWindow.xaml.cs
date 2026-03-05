@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using Pokemon.Services;
 using Newtonsoft.Json;
+using Pokemon.View;
 
 namespace Pokemon
 {
@@ -49,9 +50,9 @@ namespace Pokemon
                 tb.Foreground = Brushes.Gray; // placeholder gris
             }
         }
-        public async void callMeteo(string ville)
+        public async void Pokemon(string poke)
         {
-            var asyncTask = await getPokemon.GetApiPokemon(ville);
+            var asyncTask = await getPokemon.GetApiPokemon(poke);
             Evolution evolution = asyncTask.evolution;
             Root root = asyncTask;
             Sexe sexe = asyncTask.sexe;
@@ -86,9 +87,5 @@ namespace Pokemon
             VitPokemon.Value = stats.vit;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

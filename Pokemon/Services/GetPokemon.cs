@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace Pokemon.Services
 {
@@ -39,6 +40,29 @@ namespace Pokemon.Services
                 MessageBox.Show("Error fetching weather data.");
                 return null;
             }
+        }
+    }
+
+    public static class PokemonHelper
+    {
+        public static Random rnd = new Random();
+
+        public static Root GetRandomPokemon(List<Root> poke)
+        {
+            if (poke == null || poke.Count == 0)
+                return null;
+
+            int index = rnd.Next(poke.Count);
+            return poke[index];
+        }
+
+        public static BitmapImage GetPokemonImage(Root pokemon)
+        {
+            if (pokemon?.sprites?.regular != null)
+            {
+                return new BitmapImage(new Uri(pokemon.sprites.regular, UriKind.Absolute));
+            }
+            return null;
         }
     }
 }
