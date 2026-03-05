@@ -457,6 +457,7 @@
                 </StackPanel>
                 </StackPanel>
             </Border>
+            <Button x:Name="Combat" Content="Button" Click="Combat_Click"/>
         </StackPanel>
     </ScrollViewer>
 </Window>

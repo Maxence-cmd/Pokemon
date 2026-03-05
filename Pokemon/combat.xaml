@@ -1,0 +1,142 @@
+﻿<Window x:Class="Pokemon.combat"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pokemon"
+        mc:Ignorable="d"
+        Title="combat" Height="450" Width="800">
+    <Grid>
+        <Grid x:Name="CombatScreenRoot">
+            <Grid.Background>
+                <ImageBrush ImageSource="Image/fondpoke.png"
+                    Stretch="UniformToFill"/>
+            </Grid.Background>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Zone des Pokémon -->
+            <Grid x:Name="PokemonBattleArea">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Pokémon Joueur -->
+                <StackPanel x:Name="PlayerPokemonContainer"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    >
+
+                    <Image x:Name="PlayerPokemonSprite"
+                   Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/98/regular.png"
+                   Width="200"
+                   Height="200"/>
+
+                    <StackPanel x:Name="PlayerPokemonStatus"
+                        Width="220">
+
+                        <TextBlock x:Name="PlayerPokemonName"
+                           Text="Lokhlass"
+                           FontSize="18"
+                           FontWeight="Bold"/>
+
+                        <ProgressBar x:Name="PlayerPokemonHPBar"
+                             Height="12"
+                             Maximum="260"
+                             Value="260"/>
+
+                        <TextBlock x:Name="PlayerPokemonHPText"
+                           Text="260 / 260"
+                           HorizontalAlignment="Right"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+
+                <!-- Pokémon Ennemi -->
+                <StackPanel x:Name="EnemyPokemonContainer"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    >
+
+                    <Image x:Name="EnemyPokemonSprite"
+                   Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/67/shiny.png"
+                   Width="200"
+                   Height="200"/>
+
+                    <StackPanel x:Name="EnemyPokemonStatus"
+                        Width="220">
+
+                        <TextBlock x:Name="EnemyPokemonName"
+                           Text="Brutapode"
+                           FontSize="18"
+                           FontWeight="Bold"/>
+
+                        <ProgressBar x:Name="EnemyPokemonHPBar"
+                             Height="12"
+                             Maximum="100"
+                             Value="100"/>
+
+                        <TextBlock x:Name="EnemyPokemonHPText"
+                           Text="100 / 100"
+                           HorizontalAlignment="Right"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Grid>
+
+
+            <!-- Menu Combat -->
+            <Grid x:Name="CombatMenu"
+          Grid.Row="1"
+          Height="70"
+          Background="#EEE"
+          Margin="0,10,0,0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="AttackButton"
+                Content="Attaque"
+                 Background="Red"
+                FontSize="16"
+                Margin="10" Click="AttackButton_Click"/>
+
+                <Button x:Name="BagButton"
+                Grid.Column="1"
+                Content="Sac"
+                Background="Blue"
+                FontSize="16"
+                Margin="10"/>
+
+                <Button x:Name="PokemonButton"
+                Grid.Column="2"
+                Content="Pokémon"
+                Background="Green"
+                FontSize="16"
+                Margin="10"/>
+
+                <Button x:Name="RunButton"
+                Grid.Column="3"
+                Content="Fuite"
+                Background="YellowGreen"
+                FontSize="16"
+                Margin="10"/>
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>

@@ -35,7 +35,7 @@ namespace Pokemon
             InitializeComponent();
             getPokemon = new GetPokemon();
             string idPoke = "1";
-        _: GetPokemon(idPoke);
+            _: GetPokemon(idPoke);
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -393,6 +393,12 @@ namespace Pokemon
         private void MegaCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+        }
+
+        private void Combat_Click(object sender, RoutedEventArgs e)
+        {
+            combat combatWindow = new combat();
+            combatWindow.Show();
         }
     }
 }
