@@ -147,6 +147,7 @@ namespace Pokemon
                 MessageBox.Show(root2.name.fr + " est KO !");
                 return;
             }
+           
 
             // ========================
             // ATTAQUE ENNEMI
