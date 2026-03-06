@@ -43,6 +43,10 @@ namespace Pokemon
         public Mega mega;
         public Evolution evolution1;
         public Root root;
+        public  Root root1;
+        public Root root2;
+        public Stats stats1;
+        public  Stats stats2;
         public combat()
         {
             InitializeComponent();
@@ -58,12 +62,12 @@ namespace Pokemon
             var asyncTask2 = await getPokemon.GetApiPokemon(poke2.ToString());
             Evolution evolution1 = asyncTask1.evolution;
             Evolution evolution = asyncTask2.evolution;
-            Root root1 = asyncTask1;
-            Root root2 = asyncTask2;
+             root1 = asyncTask1;
+             root2 = asyncTask2;
             Sprites sprites1 = asyncTask1.sprites;
             Sprites sprites2 = asyncTask2.sprites;
-            Stats stats1 = asyncTask1.stats;
-            Stats stats2 = asyncTask2.stats;
+             stats1 = asyncTask1.stats;
+             stats2 = asyncTask2.stats;
             Talent talent1 = asyncTask1.talents[0];
             Talent talent2 = asyncTask2.talents[0];
             Gmax gmax1 = asyncTask1.gmax;
@@ -74,14 +78,21 @@ namespace Pokemon
             Name name2 = asyncTask2.name;
             TypePokemon types1 = asyncTask1.types[0];
             TypePokemon types2 = asyncTask2.types[0];
-            Type1Pokemon.Source = new BitmapImage(new Uri(root.types[0].image));
             try
             {
-                Type2Pokemon.Source = new BitmapImage(new Uri(root.types[1].image));
+                TypePokemon types12 =asyncTask1.types[1];
             }
             catch (Exception ex)
             {
-                Type2Pokemon.Source = null;
+                TypePokemon types12 = null;
+            }
+            try
+            {
+                TypePokemon types22 = asyncTask1.types[1];
+            }
+            catch (Exception ex)
+            {
+                TypePokemon types22 = null;
             }
             List<Resistance> resistances1 = asyncTask1.resistances;
             List<Resistance> resistances2 = asyncTask2.resistances;
@@ -99,6 +110,72 @@ namespace Pokemon
         }
         private void AttackButton_Click(object sender, RoutedEventArgs e)
         {
+            GererViePoke gestion = new GererViePoke();
+            int niveauJoueur;
+            int niveauEnnemi;
+            Random rnd = new Random();
+            niveauJoueur = rnd.Next(30, 60);
+            niveauEnnemi = rnd.Next(30, 60);
+            int puissance = 60;
+
+            // ========================
+            // ATTAQUE JOUEUR
+            // ========================
+
+            int attaqueJoueur = stats1.atk;
+            int defenseEnnemi = stats2.def;
+
+            int pvEnnemi = (int)EnemyPokemonHPBar.Value;
+
+            int degatsJoueur = gestion.CalculerDegats(
+                niveauJoueur,
+                attaqueJoueur,
+                defenseEnnemi,
+                puissance,
+                stab: 1.0,
+                efficacite: 1.0,
+                critique: false
+            );
+
+            pvEnnemi = gestion.AppliquerDegats(pvEnnemi, degatsJoueur);
+
+            EnemyPokemonHPBar.Value = pvEnnemi;
+            EnemyPokemonHPText.Text = pvEnnemi + " / " + EnemyPokemonHPBar.Maximum;
+
+            if (gestion.EstKO(pvEnnemi))
+            {
+                MessageBox.Show(root2.name.fr + " est KO !");
+                return;
+            }
+
+            // ========================
+            // ATTAQUE ENNEMI
+            // ========================
+
+            int attaqueEnnemi = stats2.atk;
+            int defenseJoueur = stats1.def;
+
+            int pvJoueur = (int)PlayerPokemonHPBar.Value;
+
+            int degatsEnnemi = gestion.CalculerDegats(
+                niveauEnnemi,
+                attaqueEnnemi,
+                defenseJoueur,
+                puissance,
+                stab: 1.0,
+                efficacite: 1.0,
+                critique: false
+            );
+
+            pvJoueur = gestion.AppliquerDegats(pvJoueur, degatsEnnemi);
+
+            PlayerPokemonHPBar.Value = pvJoueur;
+            PlayerPokemonHPText.Text = pvJoueur + " / " + PlayerPokemonHPBar.Maximum;
+
+            if (gestion.EstKO(pvJoueur))
+            {
+                MessageBox.Show(root1.name.fr + " est KO !");
+            }
 
         }
     }
