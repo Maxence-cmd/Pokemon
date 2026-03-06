@@ -49,7 +49,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- TextBox avec placeholder -->
-                    <TextBox Height="44"
+                    <TextBox x:Name="NumPokeRecherche" Height="44"
                              Margin="0,0,12,0"
                              FontSize="16"
                              VerticalContentAlignment="Center"
@@ -61,14 +61,14 @@
                              LostFocus="TextBox_LostFocus"/>
 
                     <!-- Bouton arrondi avec hover -->
-                    <Button Grid.Column="1"
+                    <Button x:Name="BttRecherche" Grid.Column="1"
                             Content="🔍 Rechercher"
                             Padding="20,10"
                             FontWeight="SemiBold"
                             Foreground="White"
                             BorderThickness="0"
                             Cursor="Hand"
-                            Background="#6366F1" Click="Button_Click">
+                            Background="#6366F1" Click="BttRecherche_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border"
@@ -122,24 +122,57 @@
                                        HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>
-                    <Image Name="ImgPokemon" Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/1/regular.png"
-                           Width="200"
-                           Height="200"
-                           >
-                        <Image.Effect>
-                            <DropShadowEffect BlurRadius="15"
-                                              ShadowDepth="4"
-                                              Opacity="0.2"/>
-                        </Image.Effect>
-                    </Image>
+                    <Grid HorizontalAlignment="Center" Margin="0,10">
 
-                    <!-- Image Pokémon -->
+                        <!-- Image centrée -->
+                        <Image Name="ImgPokemon"
+           Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/1/regular.png"
+           Width="200"
+           Height="200"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Top" Margin="0,42,0,0">
+                            <Image.Effect>
+                                <DropShadowEffect BlurRadius="15"
+                              ShadowDepth="4"
+                              Opacity="0.2"/>
+                            </Image.Effect>
+                        </Image>
 
+                        <!-- Boutons en haut à droite, sans décaler l'image -->
+                        <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="12">
+
+                            <CheckBox Name="ShinyCheckBox"
+                  ToolTip="Afficher version Shiny"
+                  Margin="0,0,8,0"
+                  Checked="ShinyCheckBox_Checked"
+                  Unchecked="ShinyCheckBox_Unchecked">
+                                <TextBlock Text="✨"/>
+                            </CheckBox>
+
+                            <CheckBox Name="GmaxCheckBox"
+                  ToolTip="Afficher version Gigamax"
+                  Margin="0,0,8,0"
+                  Checked="GmaxCheckBox_Checked"
+                  Unchecked="GmaxCheckBox_Unchecked">
+                                <TextBlock Text="🔥"/>
+                            </CheckBox>
+
+                            <CheckBox Name="MegaCheckBox"
+                  ToolTip="Afficher Méga-Évolution" Checked="MegaCheckBox_Checked" Unchecked="MegaCheckBox_Unchecked">
+                                <TextBlock Text="💠"/>
+                            </CheckBox>
+
+                        </StackPanel>
+
+                    </Grid>
                     <!-- Contenu -->
                     <StackPanel Margin="20,0,20,24">
 
                         <!-- Type -->
-                        <TextBlock Text="TYPE"
+                        <TextBlock Text="TYPE : "
                                    FontWeight="Bold"
                                    Foreground="#666"
                                    Margin="0,0,0,8"/>
@@ -157,7 +190,7 @@
                             <Border Padding="4"
                                     CornerRadius="12"
                                     Margin="0,0,0,24">
-                                    <Image Name="Type2Pokemon" 
+                                <Image Name="Type2Pokemon" 
                                          Width="40"
                                          Height="40"
                                          Stretch="Uniform"/>
@@ -166,7 +199,7 @@
                         </StackPanel>
 
                         <!-- Stats -->
-                        <TextBlock Text="STATISTIQUES DE BASE"
+                        <TextBlock Text="STATISTIQUES DE BASE : "
                                    FontWeight="Bold"
                                    Foreground="#666"
                                    Margin="0,0,0,12"/>
@@ -181,7 +214,7 @@
                                 <TextBlock Name="PV" Text="PV"/>
                                 <TextBlock Name="PVNumPokemon"  Text="50" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="PVPokemon" Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="PVPokemon" Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>
@@ -201,7 +234,7 @@
                                 <TextBlock Name="Att" Text="Attaque"/>
                                 <TextBlock Name="AttNumPokemon" Text="50" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="AttPokemon" Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="AttPokemon" Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>
@@ -221,7 +254,7 @@
                                 <TextBlock Name="Def" Text="Défense"/>
                                 <TextBlock Name="DefNumPokemon" Text="50" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="DefPokemon" Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="DefPokemon" Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>
@@ -241,7 +274,7 @@
                                 <TextBlock Name="AttSpe" Text="Atq. Spé"/>
                                 <TextBlock Name="AttSpeNumPokemon" Text="50" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="AttSpePokemon" Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="AttSpePokemon" Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>
@@ -261,7 +294,7 @@
                                 <TextBlock Name="DefSpe" Text="Déf. Spé"/>
                                 <TextBlock Name="DefSpeNumPokemon" Text="50" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="DefSpePokemon" Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="DefSpePokemon" Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>
@@ -281,7 +314,7 @@
                                 <TextBlock Name="Vit" Text="Vitesse"/>
                                 <TextBlock Name="VitNumPokemon" Text="80" Grid.Column="1" FontWeight="Bold"/>
                             </Grid>
-                            <ProgressBar Name="VitPokemon"  Height="8" Value="50" Maximum="100" Background="#E5E7EB" BorderThickness="0">
+                            <ProgressBar Name="VitPokemon"  Height="8" Value="50" Maximum="255" Background="#E5E7EB" BorderThickness="0">
                                 <ProgressBar.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#60A5FA" Offset="0"/>
@@ -290,12 +323,140 @@
                                 </ProgressBar.Foreground>
                             </ProgressBar>
                         </StackPanel>
+                        <!-- Catégorie et Génération -->
+                        <TextBlock FontWeight="Bold" Foreground="#666" Text="AUTRES INFORMATIONS :" Margin="0,0,0,8"/>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Catégorie : " FontWeight="SemiBold"/>
+                            <TextBlock Name="CategoriePokemon" Text="Pokémon Graine"/>
+                            <TextBlock Text="Génération : " FontWeight="SemiBold" Margin="20,0,0,0"/>
+                            <TextBlock Name="GenerationPokemon" Text="1"/>
+                        </StackPanel>
+
+                        <!-- Noms dans les différentes langues -->
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Nom EN : " FontWeight="SemiBold"/>
+                            <TextBlock Name="NomEN" Text="Venusaur"/>
+                            <TextBlock Text="Nom JP : " FontWeight="SemiBold" Margin="20,0,0,0"/>
+                            <TextBlock Name="NomJP" Text="フシギバナ"/>
+                        </StackPanel>
+
+                        <!-- Talents -->
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Talents : " FontWeight="SemiBold"/>
+                            <ItemsControl Name="TalentsPokemon" >
+                                <!-- Les talents seront ajoutés depuis le code-behind -->
+                            </ItemsControl>
+                        </StackPanel>
+
+                        <!-- Taille et Poids -->
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Taille : " FontWeight="SemiBold"/>
+                            <TextBlock Name="TaillePokemon" Text="2,0 m"/>
+                            <TextBlock Text="Poids : " FontWeight="SemiBold" Margin="20,0,0,0"/>
+                            <TextBlock Name="PoidsPokemon" Text="100,0 kg"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                    <!-- Chaîne d'évolution stylée -->
+                    <TextBlock Text="CHAÎNE D'ÉVOLUTION : "
+                           Margin="20,0,0,0"    
+           FontWeight="Bold"
+           Foreground="#666"
+           />
+
+                    <StackPanel Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
+                        <!-- BASE 1 -->
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <TextBlock Name="Base1Nom"
+                   Text="Nom 1"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center"/>
+                            <Image Name="Base1Img"
+                                   Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/1/regular.png"
+               Width="110"
+               Height="110"/>
+                            <TextBlock Name="Base1Id"
+                   Text="#000"
+                   HorizontalAlignment="Center"
+                   Opacity="0.7"/>
+                        </StackPanel>
+
+                        <!-- FLECHE + CONDITION 1 -->
+                        <StackPanel x:Name="FlecheCond1" Margin="10"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+
+                            <!-- Condition au-dessus -->
+                            <TextBlock Name="Cond1Txt"
+                   Text="Niv. ??"
+                   FontSize="12"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,4"/>
+
+                            <!-- Flèche -->
+                            <TextBlock Text="➡"
+                   FontSize="28"
+                   HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- BASE 2 -->
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <TextBlock Name="Base2Nom"
+                   Text="Nom 2"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center"/>
+                            <Image Name="Base2Img"
+                                    Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/2/regular.png"
+               Width="110"
+               Height="110"/>
+                            <TextBlock Name="Base2Id"
+                                      
+                   Text="#000"
+                   HorizontalAlignment="Center"
+                   Opacity="0.7"/>
+                        </StackPanel>
+
+                        <!-- FLECHE + CONDITION 2 -->
+                        <StackPanel Margin="10"
+                                    x:Name="FlecheCond2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+
+                            <TextBlock Name="Cond2Txt"
+                   Text="Niv. ??"
+                   FontSize="12"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,4"/>
+
+                            <TextBlock Text="➡"
+                   FontSize="28"
+                   HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- BASE 3 -->
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <TextBlock Name="Base3Nom"
+                   Text="Nom 3"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center"/>
+                            <Image Name="Base3Img"
+                                   Source="https://raw.githubusercontent.com/Yarkis01/TyraDex/images/sprites/3/regular.png"
+               Width="110"
+               Height="110"/>
+                            <TextBlock Name="Base3Id"
+                   Text="#000"
+                   HorizontalAlignment="Center"
+                   Opacity="0.7"/>
+                        </StackPanel>
+
+
 
                     </StackPanel>
                 </StackPanel>
             </Border>
-            
-
         </StackPanel>
     </ScrollViewer>
 </Window>
