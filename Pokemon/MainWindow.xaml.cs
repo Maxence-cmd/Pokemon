@@ -59,27 +59,27 @@ namespace Pokemon
         }
         public async Task GetPokemon(string numPoke)
         {  
-            var asyncTask = await getPokemon.GetApiPokemon(numPoke);
-            if (asyncTask == null || asyncTask.stats == null)
+            var Pokemon = await getPokemon.GetApiPokemon(numPoke);
+            if (Pokemon == null || Pokemon.stats == null)
             {
                 MessageBox.Show("Pokémon introuvable, veuillez vérifier le nom.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                evolution = asyncTask.evolution;
-                 root = asyncTask;        
-                Sexe sexe = asyncTask.sexe;
-                sprites = asyncTask.sprites;
-                Stats stats = asyncTask.stats;
-                Talent talent = asyncTask.talents[0];
-                TypePokemon typePokemon = asyncTask.types[0];
-                List<Forme> formes = asyncTask.formes;
-                gmax = asyncTask.gmax;
-                mega = asyncTask.mega;
-                Name name = asyncTask.name;
-                Next next = asyncTask.next;
-                Pre pre = asyncTask.pre;
-                List<Resistance> resistances = asyncTask.resistances;
+                evolution = Pokemon.evolution;
+                 root = Pokemon;        
+                Sexe sexe = Pokemon.sexe;
+                sprites = Pokemon.sprites;
+                Stats stats = Pokemon.stats;
+                Talent talent = Pokemon.talents[0];
+                TypePokemon typePokemon = Pokemon.types[0];
+                List<Forme> formes = Pokemon.formes;
+                gmax = Pokemon.gmax;
+                mega = Pokemon.mega;
+                Name name = Pokemon.name;
+                Next next = Pokemon.next;
+                Pre pre = Pokemon.pre;
+                List<Resistance> resistances = Pokemon.resistances;
                 NomPokemon.Text = name.fr;
                 NumPokemon.Text = "#" + root.pokedex_id.ToString();
                 ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
@@ -335,13 +335,21 @@ namespace Pokemon
 
         private void ShinyCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (GmaxCheckBox.IsChecked == true)
+            if (GmaxCheckBox.IsChecked == true && !string.IsNullOrEmpty(sprites.gmax?.regular))
             {
                 ImgPokemon.Source = new BitmapImage(new Uri(sprites.gmax.regular));
             }
             else if (MegaCheckBox.IsChecked == true)
+
             {
-                ImgPokemon.Source = new BitmapImage(new Uri(evolution.mega[0].sprites.regular));
+                if (evolution?.mega != null &&
+     evolution.mega.Count > 0 &&
+     evolution.mega[0]?.sprites?.regular != null &&
+     !string.IsNullOrEmpty(evolution.mega[0].sprites.regular))
+                
+                { 
+                    ImgPokemon.Source = new BitmapImage(new Uri(evolution.mega[0].sprites.regular));
+                }
             }
             else
             {
@@ -369,6 +377,7 @@ namespace Pokemon
         private void GmaxCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+            ShinyCheckBox.IsChecked = false;
         }
 
         private void MegaCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -393,12 +402,20 @@ namespace Pokemon
         private void MegaCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
+            ShinyCheckBox.IsChecked = false;
         }
 
         private void Combat_Click(object sender, RoutedEventArgs e)
         {
             combat combatWindow = new combat();
             combatWindow.Show();
+        }
+
+        private void AideBtn_Click(object sender, RoutedEventArgs e)
+        {
+            chatbot aideWindow = new chatbot();
+            aideWindow.Show();
+
         }
     }
 }
