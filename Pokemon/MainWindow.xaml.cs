@@ -15,6 +15,7 @@ using System.Text.Json;
 using Pokemon.Services;
 using Newtonsoft.Json;
 using Pokemon.Models;
+using Pokemon.View;
 
 namespace Pokemon
 {
@@ -394,5 +395,23 @@ namespace Pokemon
         {
             ImgPokemon.Source = new BitmapImage(new Uri(sprites.regular));
         }
+
+
+        private void BtnCombat_Click(object sender, RoutedEventArgs e) 
+        {
+            Window combatWindow = new Window
+            {
+                Content = new combat(), // ton UserControl Combat
+                Width = 1250,            // largeur de la fenêtre combat
+                Height = 750,           // hauteur de la fenêtre combat
+                Title = "Combat Pokémon",
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                ResizeMode = ResizeMode.NoResize
+            };
+
+            combatWindow.Show();
+        }
     }
+
+
 }
