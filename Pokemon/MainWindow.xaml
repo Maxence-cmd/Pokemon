@@ -41,24 +41,51 @@
                                       ShadowDepth="4"
                                       Opacity="0.15"/>
                 </Border.Effect>
-
                 <Grid>
+
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- TextBox avec placeholder -->
-                    <TextBox x:Name="NumPokeRecherche" Height="44"
-                             Margin="0,0,12,0"
-                             FontSize="16"
-                             VerticalContentAlignment="Center"
-                             Text="Nom ou numéro"
-                             Foreground="Gray"
-                             Background="Transparent"
-                             BorderThickness="0"
-                             GotFocus="TextBox_GotFocus"
-                             LostFocus="TextBox_LostFocus"/>
+                    <!-- TEXTBOX -->
+                    <Grid Grid.Column="0">
+
+                        <TextBox x:Name="NumPokeRecherche"
+                 Height="44"
+                 Margin="0,0,12,0"
+                 FontSize="16"
+                 VerticalContentAlignment="Center"
+                 TextChanged="NumPokeRecherche_TextChanged"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 Panel.ZIndex="1"/>
+
+                        <!-- POPUP SUGGESTIONS -->
+                        <Popup x:Name="SuggestionPopup"
+               PlacementTarget="{Binding ElementName=NumPokeRecherche}"
+               Placement="Bottom"
+               StaysOpen="False"
+               AllowsTransparency="True">
+
+                            <Border Background="White"
+                    CornerRadius="8"
+                    Padding="5"
+                    Width="{Binding ActualWidth, ElementName=NumPokeRecherche}"
+                    BorderBrush="#DDD"
+                    BorderThickness="1">
+
+                                <ListBox x:Name="SuggestionList"
+                         MaxHeight="200"
+                         SelectionChanged="SuggestionList_SelectionChanged"/>
+
+                            </Border>
+
+                        </Popup>
+
+                    </Grid>
+
+
 
                     <!-- Bouton arrondi avec hover -->
                     <Button x:Name="BttRecherche" Grid.Column="1"

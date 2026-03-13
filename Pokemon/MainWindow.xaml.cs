@@ -1,5 +1,12 @@
-﻿using Pokemon.Models;
+﻿using Newtonsoft.Json;
+using Pokemon.Models;
+using Pokemon.Models;
+using Pokemon.Services;
+using System.Globalization;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,12 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Text.Json;
-using Pokemon.Services;
-using Newtonsoft.Json;
-using Pokemon.Models;
 
 namespace Pokemon
 {
@@ -24,6 +25,7 @@ namespace Pokemon
 
     public partial class MainWindow : Window
     {
+        List<string> pokemonNames = new List<string>();
         public GetPokemon getPokemon;
         public Sprites sprites;
         public Gmax gmax;
@@ -36,6 +38,22 @@ namespace Pokemon
             getPokemon = new GetPokemon();
             string idPoke = "1";
             _: GetPokemon(idPoke);
+            ChargerListePokemon();
+        }
+        private async Task ChargerListePokemon()
+        {
+            HttpClient client = new HttpClient();
+
+            string url = "https://tyradex.app/api/v1/pokemon";
+
+            var json = await client.GetStringAsync(url);
+
+            dynamic pokemons = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+
+            foreach (var p in pokemons)
+            {
+                pokemonNames.Add((string)p.name.fr);
+            }
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -286,6 +304,7 @@ namespace Pokemon
             }
             else
             {
+                idPoke = RemoveAccents(idPoke);
             _: GetPokemon(idPoke);
             }
         }
@@ -416,6 +435,55 @@ namespace Pokemon
             chatbot aideWindow = new chatbot();
             aideWindow.Show();
 
+        }
+        private void NumPokeRecherche_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string text = NumPokeRecherche.Text.ToLower().Trim();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                SuggestionPopup.IsOpen = false;
+                return;
+            }
+
+            var suggestions = pokemonNames
+                .Where(p => p.ToLower().StartsWith(text))
+                .Take(6)
+                .ToList();
+
+            if (suggestions.Count > 0)
+            {
+                SuggestionList.ItemsSource = suggestions;
+                SuggestionPopup.IsOpen = true;
+            }
+            else
+            {
+                SuggestionPopup.IsOpen = false;
+            }
+        }
+        private void SuggestionList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SuggestionList.SelectedItem != null)
+            {
+                NumPokeRecherche.Text = SuggestionList.SelectedItem.ToString();
+                SuggestionPopup.IsOpen = false;
+            }
+        }
+        public static string RemoveAccents(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+
+            var normalized = text.Normalize(NormalizationForm.FormD);
+            var sb = new StringBuilder();
+
+            foreach (var c in normalized)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                    sb.Append(c);
+            }
+
+            return sb.ToString().Normalize(NormalizationForm.FormC);
         }
     }
 }
