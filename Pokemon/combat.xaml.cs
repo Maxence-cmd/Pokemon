@@ -150,7 +150,7 @@ namespace Pokemon
             int degatsJoueur = result.degats;
             bool critique = result.critique;
             bool esquive = result.esquive;
-            ShakePokemon(EnemyShakeTransform);
+           
             pvEnnemi = gestion.AppliquerDegats(pvEnnemi, degatsJoueur);
 
             EnemyPokemonHPBar.Value = pvEnnemi;
@@ -162,6 +162,7 @@ namespace Pokemon
             }
             else
             {
+                ShakePokemon(EnemyShakeTransform);
                 if (critique)
                     message += "💥 Coup critique !";
                 else
@@ -170,15 +171,17 @@ namespace Pokemon
                     message += "C'est super efficace !";
                 else if (efficacite < 1)
                     message += "Ce n'est pas très efficace...";
-
+            }
 
                 if (message != "")
                     MessageBox.Show(message);
+            
                 if (gestion.EstKO(pvEnnemi))
                 {
                     MessageBox.Show(root2.name.fr + " est KO !");
 
                 }
+            
                 await Task.Delay(500); // Pause avant l'attaque ennemie
                                        // ========================
                                        // ATTAQUE ENNEMI
@@ -199,7 +202,7 @@ namespace Pokemon
                 bool esquiveEne = degatsEnnemi.esquive;
 
                 pvJoueur = gestion.AppliquerDegats(pvJoueur, degatsEne);
-                ShakePokemon(PlayerShakeTransform);
+                
                 PlayerPokemonHPBar.Value = pvJoueur;
                 PlayerPokemonHPText.Text = pvJoueur + " / " + PlayerPokemonHPBar.Maximum;
                 string message2 = "";
@@ -209,7 +212,8 @@ namespace Pokemon
                 }
                 else
                 {
-                    if (critique)
+                ShakePokemon(PlayerShakeTransform);
+                if (critique)
                         message2 += "💥 Coup critique !\n";
 
                     if (efficacite > 1)
@@ -226,7 +230,7 @@ namespace Pokemon
                 }
 
             }
-        }
+        
         public void ShakePokemon(TranslateTransform transform)
         {
             DoubleAnimation animation = new DoubleAnimation
