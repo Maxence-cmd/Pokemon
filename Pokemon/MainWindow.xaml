@@ -412,38 +412,123 @@
                             </ProgressBar>
                         </StackPanel>
                         <!-- Catégorie et Génération -->
-                        <TextBlock FontWeight="Bold" Foreground="#666" Text="AUTRES INFORMATIONS :" Margin="0,0,0,8"/>
-                        <StackPanel Orientation="Horizontal" >
-                            <TextBlock Text="Catégorie : " FontWeight="SemiBold"/>
-                            <TextBlock Name="CategoriePokemon" Text="Pokémon Graine"/>
-                            <TextBlock Text="Génération : " FontWeight="SemiBold" Margin="20,0,0,0"/>
-                            <TextBlock Name="GenerationPokemon" Text="1"/>
-                        </StackPanel>
+                        <Border Background="#F9FAFB"
+        CornerRadius="16"
+        Padding="16"
+        Margin="0,20,0,0">
 
-                        <!-- Noms dans les différentes langues -->
-                        <StackPanel Orientation="Horizontal" >
-                            <TextBlock Text="Nom EN : " FontWeight="SemiBold"/>
-                            <TextBlock Name="NomEN" Text="Venusaur"/>
-                            <TextBlock Text="Nom JP : " FontWeight="SemiBold" Margin="20,0,0,0"/>
-                            <TextBlock Name="NomJP" Text="フシギバナ"/>
-                        </StackPanel>
+                            <StackPanel>
 
-                        <!-- Talents -->
-                        <StackPanel Orientation="Horizontal" >
-                            <TextBlock Text="Talents : " FontWeight="SemiBold"/>
-                            <ItemsControl Name="TalentsPokemon" >
-                                <!-- Les talents seront ajoutés depuis le code-behind -->
-                            </ItemsControl>
-                        </StackPanel>
+                                <TextBlock Text="AUTRES INFORMATIONS"
+                   FontWeight="Bold"
+                   FontSize="16"
+                   Margin="0,0,0,12"/>
 
-                        <!-- Taille et Poids -->
-                        <StackPanel Orientation="Horizontal" >
-                            <TextBlock Text="Taille : " FontWeight="SemiBold"/>
-                            <TextBlock Name="TaillePokemon" Text="2,0 m"/>
-                            <TextBlock Text="Poids : " FontWeight="SemiBold" Margin="20,0,0,0"/>
-                            <TextBlock Name="PoidsPokemon" Text="100,0 kg"/>
-                        </StackPanel>
+                                <!-- GRID -->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
 
+                                    <!-- COLONNE 1 -->
+                                    <StackPanel Grid.Column="0" Margin="0,0,20,0">
+
+                                        <!-- Catégorie -->
+                                        <StackPanel Margin="0,0,0,10">
+                                            <TextBlock Text="Catégorie"
+                               Foreground="#6B7280"
+                               FontSize="12"/>
+                                            <TextBlock Name="CategoriePokemon"
+                               Text="Pokémon Graine"
+                               FontWeight="SemiBold"
+                               FontSize="14"/>
+                                        </StackPanel>
+
+                                        <!-- Génération -->
+                                        <StackPanel Margin="0,0,0,10">
+                                            <TextBlock Text="Génération"
+                               Foreground="#6B7280"
+                               FontSize="12"/>
+                                            <TextBlock Name="GenerationPokemon"
+                               Text="1"
+                               FontWeight="SemiBold"
+                               FontSize="14"/>
+                                        </StackPanel>
+
+                                        <!-- Taille / Poids -->
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel Margin="0,0,20,0">
+                                                <TextBlock Text="Taille" Foreground="#6B7280" FontSize="12"/>
+                                                <TextBlock Name="TaillePokemon" Text="0.7 m" FontWeight="SemiBold"/>
+                                            </StackPanel>
+
+                                            <StackPanel>
+                                                <TextBlock Text="Poids" Foreground="#6B7280" FontSize="12"/>
+                                                <TextBlock Name="PoidsPokemon" Text="6.9 kg" FontWeight="SemiBold"/>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </StackPanel>
+
+                                    <!-- COLONNE 2 -->
+                                    <StackPanel Grid.Column="1">
+
+                                        <!-- Noms -->
+                                        <StackPanel Margin="0,0,0,10">
+                                            <TextBlock Text="Nom EN"
+                               Foreground="#6B7280"
+                               FontSize="12"/>
+                                            <TextBlock Name="NomEN"
+                               Text="Bulbasaur"
+                               FontWeight="SemiBold"/>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="0,0,0,10">
+                                            <TextBlock Text="Nom JP"
+                               Foreground="#6B7280"
+                               FontSize="12"/>
+                                            <TextBlock Name="NomJP"
+                               Text="フシギダネ"
+                               FontWeight="SemiBold"/>
+                                        </StackPanel>
+
+                                        <!-- Talents -->
+                                        <StackPanel>
+                                            <TextBlock Text="Talents"
+                               Foreground="#6B7280"
+                               FontSize="12"
+                               Margin="0,0,0,6"/>
+
+                                            <ItemsControl Name="TalentsPokemon">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border Background="#E0E7FF"
+                                        CornerRadius="10"
+                                        Padding="6,2"
+                                        Margin="0,0,6,6">
+                                                            <TextBlock Text="{Binding}"
+                                               FontSize="12"
+                                               FontWeight="SemiBold"/>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+
+                                    </StackPanel>
+
+                                </Grid>
+
+                            </StackPanel>
+
+                        </Border>
                     </StackPanel>
                     <!-- Chaîne d'évolution stylée -->
                     <TextBlock Text="CHAÎNE D'ÉVOLUTION : "

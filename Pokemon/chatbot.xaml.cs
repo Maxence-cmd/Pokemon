@@ -49,7 +49,15 @@ namespace Pokemon
 
             var messages = new List<ChatMessage>
     {
-        new ChatMessage { Role="system", Content="Tu es un assistant utile." },
+        new ChatMessage { Role="system", Content=@"
+Tu es un assistant spécialisé UNIQUEMENT dans les pokemons.
+
+Règles :
+- Tu refuses toute question hors de ce domaine
+- Tu refuses toute demande illégale ou dangereuse
+- Tu réponds de façon claire et professionnelle
+- Si la question est interdite, tu réponds : 'Je ne peux pas répondre à cette demande car je m'occupe que de pokemons.'
+" },
         new ChatMessage { Role="user", Content=userText }
     };
 

@@ -10,27 +10,34 @@ namespace Pokemon.Services
     {
         private Random random = new Random();
 
-        public int CalculerDegats(
-            int niveau,
-            int attaque,
-            int defense,
-            int puissance,
-            double stab = 1.0,
-            double efficacite = 1.0,
-            bool critique = false)
+        public (int degats, bool critique,bool esquive) CalculerDegats(
+     int niveau,
+     int attaque,
+     int defense,
+     int puissance,
+     double stab = 1.0,
+     double efficacite = 1.0)
         {
-            // Facteur aléatoire entre 0.85 et 1
-            double aleatoire = random.Next(85, 101) / 100.0;
+            // 🎯 Chance de critique (ex: 10%)
+            bool critique = random.Next(0, 100) < 5;
+            bool esquive = random.Next(0, 100) < 100;
 
             double critiqueBonus = critique ? 1.5 : 1.0;
+
+            // 🎲 Aléatoire entre 0.85 et 1
+            double aleatoire = random.Next(85, 101) / 100.0;
 
             double modificateurs = stab * efficacite * critiqueBonus * aleatoire;
 
             double degats =
                 (((2 * niveau / 5.0 + 2) * attaque * puissance / defense) / 50 + 2)
                 * modificateurs;
+            if (esquive)
+            {
+                degats = 0;
+            }
 
-            return (int)Math.Floor(degats);
+            return ((int)Math.Floor(degats), critique, esquive);
         }
 
         public int AppliquerDegats(int pvActuel, int degats)

@@ -1,34 +1,35 @@
-﻿using Pokemon.Services;
+﻿using Newtonsoft.Json;
+using Pokemon.Models;
+using Pokemon.Models;
+using Pokemon.Services;
+using Pokemon.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Pokemon.Models;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Text.Json;
-using Pokemon.Services;
-using Newtonsoft.Json;
-using Pokemon.Models;
+using System.Windows.Shapes;
 
 namespace Pokemon
 {
@@ -37,6 +38,8 @@ namespace Pokemon
     /// </summary>
     public partial class combat : Window
     {
+        public List<Resistance> resistances1;
+        public List<Resistance> resistances2;
         public GetPokemon getPokemon;
         public Sprites sprites;
         public Gmax gmax;
@@ -94,8 +97,8 @@ namespace Pokemon
             {
                 TypePokemon types22 = null;
             }
-            List<Resistance> resistances1 = asyncTask1.resistances;
-            List<Resistance> resistances2 = asyncTask2.resistances;
+            resistances1 = asyncTask1.resistances;
+            resistances2 = asyncTask2.resistances;
             PlayerPokemonSprite.Source = new BitmapImage(new Uri(sprites1.regular));
             EnemyPokemonSprite.Source = new BitmapImage(new Uri(sprites2.regular));
             PlayerPokemonName.Text=name1.fr;
@@ -108,7 +111,16 @@ namespace Pokemon
             EnemyPokemonHPText.Text= stats2.hp.ToString() + "/" + stats2.hp.ToString();
 
         }
-        private void AttackButton_Click(object sender, RoutedEventArgs e)
+        public double GetEfficaciteDepuisAPI(List<Resistance> resistances, string typeAttaque)
+        {
+            var res = resistances.FirstOrDefault(r => r.name == typeAttaque);
+
+            if (res != null)
+                return res.multiplier;
+
+            return 1.0;
+        }
+        private async void AttackButton_Click(object sender, RoutedEventArgs e)
         {
             GererViePoke gestion = new GererViePoke();
             int niveauJoueur;
@@ -117,67 +129,116 @@ namespace Pokemon
             niveauJoueur = rnd.Next(30, 60);
             niveauEnnemi = rnd.Next(30, 60);
             int puissance = 60;
-
+            int attaqueEnnemi = stats2.atk;
+            int defenseJoueur = stats1.def;
+            int attaqueJoueur = stats1.atk;
+            int defenseEnnemi = stats2.def;
             // ========================
             // ATTAQUE JOUEUR
             // ========================
-
-            int attaqueJoueur = stats1.atk;
-            int defenseEnnemi = stats2.def;
-
             int pvEnnemi = (int)EnemyPokemonHPBar.Value;
+            double efficacite = GetEfficaciteDepuisAPI(resistances2, "Feu");
+            var result = gestion.CalculerDegats(
+    niveauEnnemi,
+    attaqueEnnemi,
+    defenseJoueur,
+    puissance,
+     stab: 1.0,
+     efficacite: efficacite
+ );
 
-            int degatsJoueur = gestion.CalculerDegats(
-                niveauJoueur,
-                attaqueJoueur,
-                defenseEnnemi,
-                puissance,
-                stab: 1.0,
-                efficacite: 1.0,
-                critique: false
-            );
-
+            int degatsJoueur = result.degats;
+            bool critique = result.critique;
+            bool esquive = result.esquive;
+            ShakePokemon(EnemyShakeTransform);
             pvEnnemi = gestion.AppliquerDegats(pvEnnemi, degatsJoueur);
 
             EnemyPokemonHPBar.Value = pvEnnemi;
             EnemyPokemonHPText.Text = pvEnnemi + " / " + EnemyPokemonHPBar.Maximum;
-
-            if (gestion.EstKO(pvEnnemi))
+            string message = "";
+            if (esquive)
             {
-                MessageBox.Show(root2.name.fr + " est KO !");
-                return;
+                message = "L'ennemi a esquivé l'attaque !";
             }
-           
-
-            // ========================
-            // ATTAQUE ENNEMI
-            // ========================
-
-            int attaqueEnnemi = stats2.atk;
-            int defenseJoueur = stats1.def;
-
-            int pvJoueur = (int)PlayerPokemonHPBar.Value;
-
-            int degatsEnnemi = gestion.CalculerDegats(
-                niveauEnnemi,
-                attaqueEnnemi,
-                defenseJoueur,
-                puissance,
-                stab: 1.0,
-                efficacite: 1.0,
-                critique: false
-            );
-
-            pvJoueur = gestion.AppliquerDegats(pvJoueur, degatsEnnemi);
-
-            PlayerPokemonHPBar.Value = pvJoueur;
-            PlayerPokemonHPText.Text = pvJoueur + " / " + PlayerPokemonHPBar.Maximum;
-
-            if (gestion.EstKO(pvJoueur))
+            else
             {
-                MessageBox.Show(root1.name.fr + " est KO !");
-            }
+                if (critique)
+                    message += "💥 Coup critique !";
+                else
+                    message += "Coup normal.";
+                if (efficacite > 1)
+                    message += "C'est super efficace !";
+                else if (efficacite < 1)
+                    message += "Ce n'est pas très efficace...";
 
+
+                if (message != "")
+                    MessageBox.Show(message);
+                if (gestion.EstKO(pvEnnemi))
+                {
+                    MessageBox.Show(root2.name.fr + " est KO !");
+
+                }
+                await Task.Delay(500); // Pause avant l'attaque ennemie
+                                       // ========================
+                                       // ATTAQUE ENNEMI
+                                       // ========================
+
+
+
+                int pvJoueur = (int)PlayerPokemonHPBar.Value;
+                var degatsEnnemi = gestion.CalculerDegats(
+                    niveauJoueur,
+                    attaqueJoueur,
+                    defenseEnnemi,
+                    puissance
+                );
+
+                int degatsEne = degatsEnnemi.degats;
+                bool critiqueEn = degatsEnnemi.critique;
+                bool esquiveEne = degatsEnnemi.esquive;
+
+                pvJoueur = gestion.AppliquerDegats(pvJoueur, degatsEne);
+                ShakePokemon(PlayerShakeTransform);
+                PlayerPokemonHPBar.Value = pvJoueur;
+                PlayerPokemonHPText.Text = pvJoueur + " / " + PlayerPokemonHPBar.Maximum;
+                string message2 = "";
+                if (esquiveEne)
+                {
+                    message2 = "Vous avez esquivé l'attaque !";
+                }
+                else
+                {
+                    if (critique)
+                        message2 += "💥 Coup critique !\n";
+
+                    if (efficacite > 1)
+                        message2 += "C'est super efficace !";
+                    else if (efficacite < 1)
+                        message2 += "Ce n'est pas très efficace...";
+                }
+                if (message2 != "")
+                    MessageBox.Show(message2);
+                if (gestion.EstKO(pvJoueur))
+                {
+                    MessageBox.Show(root1.name.fr + " est KO !");
+                    return;
+                }
+
+            }
+        }
+        public void ShakePokemon(TranslateTransform transform)
+        {
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                From = -15,
+                To = 15,
+                Duration = TimeSpan.FromMilliseconds(100),
+                AutoReverse = true,
+                RepeatBehavior = new RepeatBehavior(5)
+            };
+
+            transform.BeginAnimation(TranslateTransform.XProperty, animation);
         }
     }
 }
