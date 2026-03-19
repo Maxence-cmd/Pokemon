@@ -41,6 +41,8 @@ namespace Pokemon.Services
                 return null;
             }
         }
+
+
     }
 
     public static class PokemonHelper
@@ -65,4 +67,6 @@ namespace Pokemon.Services
             return null;
         }
     }
+
+
 }

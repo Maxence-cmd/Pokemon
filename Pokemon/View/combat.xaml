@@ -117,6 +117,11 @@
                         Content="Choisir un Pokémon aléatoire"
                         HorizontalAlignment="Center" Click="RandomPokemonButton_Click"/>
 
+                <Button x:Name="FightButton"
+        Content="⚔️ Combattre"
+        Margin="0,20,0,0"
+        Click="FightButton_Click"/>
+
             </StackPanel>
 
             <!-- Player 2 -->
