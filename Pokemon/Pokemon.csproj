@@ -10,6 +10,58 @@
 
   <ItemGroup>
     <None Remove="Image\fondpoke.png" />
+    <None Remove="Image\map poke\safari1.png" />
+    <None Remove="Image\map poke\safari2.png" />
+    <None Remove="Image\map poke\safari3.png" />
+    <None Remove="Image\map poke\safaricentral.png" />
+    <None Remove="Image\sprites duo\01_front_idle.png" />
+    <None Remove="Image\sprites duo\02_front_stepL.png" />
+    <None Remove="Image\sprites duo\03_front_stepR.png" />
+    <None Remove="Image\sprites duo\04_back_idle.png" />
+    <None Remove="Image\sprites duo\05_back_stepL.png" />
+    <None Remove="Image\sprites duo\06_back_stepR.png" />
+    <None Remove="Image\sprites duo\07_left_idle.png" />
+    <None Remove="Image\sprites duo\08_left_stepL.png" />
+    <None Remove="Image\sprites duo\09_left_stepR.png" />
+    <None Remove="Image\sprites duo\10_right_idle.png" />
+    <None Remove="Image\sprites duo\11_right_stepL.png" />
+    <None Remove="Image\sprites duo\12_right_stepR.png" />
+    <None Remove="Image\sprites fille\01_front_idle.png" />
+    <None Remove="Image\sprites fille\02_front_stepL.png" />
+    <None Remove="Image\sprites fille\03_front_stepR.png" />
+    <None Remove="Image\sprites fille\04_back_idle.png" />
+    <None Remove="Image\sprites fille\05_back_stepL.png" />
+    <None Remove="Image\sprites fille\06_back_stepR.png" />
+    <None Remove="Image\sprites fille\07_left_idle.png" />
+    <None Remove="Image\sprites fille\08_left_stepL.png" />
+    <None Remove="Image\sprites fille\09_left_stepR.png" />
+    <None Remove="Image\sprites fille\10_right_idle.png" />
+    <None Remove="Image\sprites fille\11_right_stepL.png" />
+    <None Remove="Image\sprites fille\12_right_stepR.png" />
+    <None Remove="Image\sprites garcon\01_front_0.png" />
+    <None Remove="Image\sprites garcon\02_front_1.png" />
+    <None Remove="Image\sprites garcon\03_front_2.png" />
+    <None Remove="Image\sprites garcon\04_back_0.png" />
+    <None Remove="Image\sprites garcon\05_back_1.png" />
+    <None Remove="Image\sprites garcon\06_back_2.png" />
+    <None Remove="Image\sprites garcon\07_left_0.png" />
+    <None Remove="Image\sprites garcon\08_left_1.png" />
+    <None Remove="Image\sprites garcon\09_left_2.png" />
+    <None Remove="Image\sprites garcon\10_right_0.png" />
+    <None Remove="Image\sprites garcon\11_right_1.png" />
+    <None Remove="Image\sprites garcon\12_right_2.png" />
+    <None Remove="Image\sprites raph\01_front_idle.png" />
+    <None Remove="Image\sprites raph\02_front_stepL.png" />
+    <None Remove="Image\sprites raph\03_front_stepR.png" />
+    <None Remove="Image\sprites raph\04_back_idle.png" />
+    <None Remove="Image\sprites raph\05_back_stepL.png" />
+    <None Remove="Image\sprites raph\06_back_stepR.png" />
+    <None Remove="Image\sprites raph\07_left_idle.png" />
+    <None Remove="Image\sprites raph\08_left_stepL.png" />
+    <None Remove="Image\sprites raph\09_left_stepR.png" />
+    <None Remove="Image\sprites raph\10_right_idle.png" />
+    <None Remove="Image\sprites raph\11_right_stepL.png" />
+    <None Remove="Image\sprites raph\12_right_stepR.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +70,162 @@
 
   <ItemGroup>
     <Resource Include="Image\fondpoke.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\map poke\safari1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\map poke\safari2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\map poke\safari3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\map poke\safaricentral.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\01_front_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\02_front_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\03_front_stepR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\04_back_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\05_back_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\06_back_stepR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\07_left_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\08_left_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\09_left_stepR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\10_right_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\11_right_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites duo\12_right_stepR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\01_front_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\02_front_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\03_front_stepR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\04_back_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\05_back_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\06_back_stepR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\07_left_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\08_left_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\09_left_stepR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\10_right_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\11_right_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites fille\12_right_stepR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\01_front_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\02_front_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\03_front_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\04_back_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\05_back_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\06_back_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\07_left_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\08_left_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\09_left_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\10_right_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\11_right_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites garcon\12_right_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\01_front_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\02_front_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\03_front_stepR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\04_back_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\05_back_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\06_back_stepR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\07_left_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\08_left_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\09_left_stepR.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\10_right_idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\11_right_stepL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\sprites raph\12_right_stepR.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

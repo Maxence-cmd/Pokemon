@@ -426,13 +426,13 @@ namespace Pokemon
 
         private void Combat_Click(object sender, RoutedEventArgs e)
         {
-            combat combatWindow = new combat();
+            Views.combat combatWindow = new Views.combat();
             combatWindow.Show();
         }
 
         private void AideBtn_Click(object sender, RoutedEventArgs e)
         {
-            chatbot aideWindow = new chatbot();
+            Views.chatbot aideWindow = new Views.chatbot();
             aideWindow.Show();
 
         }
@@ -484,6 +484,12 @@ namespace Pokemon
             }
 
             return sb.ToString().Normalize(NormalizationForm.FormC);
+        }
+
+        private void ChasseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Views.chasse chasse = new Views.chasse();
+            chasse.Show();
         }
     }
 }

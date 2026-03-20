@@ -31,7 +31,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Shapes;
 
-namespace Pokemon
+namespace Pokemon.Views
 {
     /// <summary>
     /// Logique d'interaction pour combat.xaml
@@ -166,7 +166,7 @@ namespace Pokemon
                 if (critique)
                     message += "💥 Coup critique !";
                 else
-                    message += "Coup normal.";
+                    message += "Coup normal.\n";
                 if (efficacite > 1)
                     message += "C'est super efficace !";
                 else if (efficacite < 1)

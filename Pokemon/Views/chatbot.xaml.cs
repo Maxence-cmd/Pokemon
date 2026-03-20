@@ -12,7 +12,7 @@ using Pokemon.Models;
 using Pokemon.Services;
 
 
-namespace Pokemon
+namespace Pokemon.Views
 {
     /// <summary>
     /// Logique d'interaction pour chatbot.xaml

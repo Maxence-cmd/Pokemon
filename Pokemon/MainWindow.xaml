@@ -625,21 +625,32 @@
                    Opacity="0.7"/>
                             
                         </StackPanel>
-                        <StackPanel x:Name="aide" HorizontalAlignment="Center" Margin="0,20,0,0">
-
-                            <Button x:Name="AideBtn"
-     Content="❓ Aide"
-     Width="180"
-     Height="45"
-     FontWeight="Bold"
-     Background="#10B981"
-     Foreground="White"
-     BorderThickness="0" Click="AideBtn_Click"/>
-                        </StackPanel>
+                        
 
 
                     </StackPanel>
-                    
+                    <StackPanel x:Name="aide" HorizontalAlignment="Center" Margin="0,20,20,20">
+
+                        <Button x:Name="AideBtn"
+Content="❓ Aide"
+Width="180"
+Height="45"
+FontWeight="Bold"
+Background="#10B981"
+Foreground="White"
+BorderThickness="0" Click="AideBtn_Click"/>
+                        <Button x:Name="ChasseBtn"
+            Content="🌿 Chasser"
+            Width="160"
+            Height="45"
+            Margin="20,20"
+            FontWeight="Bold"
+            Background="#22C55E"
+            Foreground="White"
+            BorderThickness="0"
+            Click="ChasseBtn_Click"/>
+                    </StackPanel>
+
                 </StackPanel>
             </Border>
             
