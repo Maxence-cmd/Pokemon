@@ -20,7 +20,7 @@ namespace Pokemon.Services
         {
             // 🎯 Chance de critique (ex: 10%)
             bool critique = random.Next(0, 100) < 5;
-            bool esquive = random.Next(0, 100) < 99;
+            bool esquive = random.Next(0, 100) < 5;
 
             double critiqueBonus = critique ? 1.5 : 1.0;
 
