@@ -490,6 +490,7 @@ namespace Pokemon
         {
             Views.chasse chasse = new Views.chasse();
             chasse.Show();
+            this.Close();
         }
     }
 }
