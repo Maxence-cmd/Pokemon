@@ -22,7 +22,7 @@
 
                 <!-- ZONE BLOQUANTE -->
                 <Canvas x:Name="ZoneBloque">
-                    
+
                     <Rectangle Width="60" Height="43" Stroke="Black" Canvas.Left="432" Canvas.Top="284" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Rectangle Width="175" Height="15" Stroke="Black" Canvas.Left="306" Canvas.Top="251" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Rectangle Width="26" Height="10" Stroke="Black" Canvas.Left="455" Canvas.Top="241" HorizontalAlignment="Center" VerticalAlignment="Top"/>
@@ -87,28 +87,39 @@
                TextWrapping="Wrap"
                Margin="10"/>
                 </Border>
-                
+
             </Canvas>
 
         </Viewbox>
         <Grid x:Name="CombatScreen"
-Background="Black"
-Visibility="Hidden">
+      Background="Black"
+     Visibility="Hidden" >
 
-            <!-- Pokémon ennemi -->
-            <Image x:Name="EnemyPokemon"
-       Width="150"
-       Height="150"
-       VerticalAlignment="Top"
-       Margin="0,50,0,0"
-       gif:ImageBehavior.AnimatedSource="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif"/>
-            <!-- Ton Pokémon (plus bas) -->
-            <Image x:Name="PlayerPokemon"
-     Width="150"
-     Height="150"
-     VerticalAlignment="Bottom"
-     Margin="0,0,0,50"/>
+            <Viewbox Stretch="Uniform">
 
+                
+                <Canvas Width="800" Height="500">
+
+                    <!-- Pokémon ennemi (haut droite) -->
+                    <Image x:Name="EnemyPokemon"
+                   Width="150" Height="150"
+                   Canvas.Left="530" Canvas.Top="50"
+                   gif:ImageBehavior.RepeatBehavior="Forever"/>
+
+                    <!-- Pokémon joueur (bas gauche) -->
+                    <Image x:Name="PlayerPokemon"
+                   Width="150" Height="150"
+                   Canvas.Left="150" Canvas.Top="280"
+                   gif:ImageBehavior.RepeatBehavior="Forever"/>
+
+                    <!-- Trainer animation lancer -->
+                    <Image x:Name="PlayerTrainer"
+                   Width="400" Height="307"
+                   Canvas.Left="-90" Canvas.Top="250"
+                   Source="/Image/Gif/pokeball_throw_back.gif"/>
+
+                </Canvas>
+            </Viewbox>
         </Grid>
     </Grid>
 

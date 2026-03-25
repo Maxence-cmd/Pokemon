@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Pokemon.Models;
-using Pokemon.Models;
 using Pokemon.Services;
 using System.Globalization;
 using System.Net.Http;

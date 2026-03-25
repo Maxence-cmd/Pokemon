@@ -25,6 +25,10 @@ namespace Pokemon.Views
         Random random = new Random();
         int pokemonId;
         int pokemonIdEn;
+        int frame = 0;
+        int maxFrame = 3; // nombre d'images
+        int animationCounter = 0;
+        string direction = "front";
         public chasse()
         {
             InitializeComponent();
@@ -72,6 +76,41 @@ namespace Pokemon.Views
             {
                 Canvas.SetLeft(perso, newX);
                 Canvas.SetTop(perso, newY);
+                bool isMoving = left || right || up || down;
+
+                if (isMoving)
+                {
+                    animationCounter++;
+
+                    if (animationCounter >= 10) // vitesse animation
+                    {
+                        frame++;
+                        if (frame >= maxFrame)
+                            frame = 0;
+
+                        animationCounter = 0;
+                    }
+
+                    // direction
+                    if (left) direction = "left";
+                    if (right) direction = "right";
+                    if (up) direction = "back";
+                    if (down) direction = "front";
+
+                    // changer image
+                    perso.Source = new BitmapImage(
+                        new Uri($"pack://application:,,,/Image/sprites garcon/{direction}_{frame}.png")
+                    );
+                }
+                else
+                {
+                    // idle (frame 0)
+                    frame = 0;
+
+                    perso.Source = new BitmapImage(
+                        new Uri($"pack://application:,,,/Image/sprites garcon/{direction}_1.png")
+                    );
+                }
             }
         }
 
@@ -207,12 +246,10 @@ namespace Pokemon.Views
             left = right = up = down = false;
 
             CombatScreen.Visibility = Visibility.Visible;
-
-            // Pokémon random (1 à 151)
-           // pokemonIdEn = random.Next(1, 152);
-            //pokemonId = random.Next(1, 152);
-            pokemonId = 25;
-            pokemonIdEn = 25;
+            pokemonIdEn = random.Next(1, 152);
+            pokemonId = random.Next(1, 152);
+           // pokemonId = 25;
+            //pokemonIdEn = 25;
             // cacher au début
             EnemyPokemon.Visibility = Visibility.Hidden;
             PlayerPokemon.Visibility = Visibility.Hidden;
@@ -249,7 +286,7 @@ namespace Pokemon.Views
             await Task.Delay(1000);
 
             // 🎬 lancer pokeball (TON GIF)
-            //LancerAnimationPokeball();
+            LancerAnimationPokeball();
 
             // 🔥 apparition joueur
             await Task.Delay(1000);
@@ -276,6 +313,14 @@ namespace Pokemon.Views
             });
 
             PlayerPokemon.Visibility = Visibility.Visible;
+        }
+
+        private void LancerAnimationPokeball()
+        {
+            var uri = new Uri("pack://application:,,,/Image/Gif/pokeball_throw_back.gif");
+            var bitmap = new BitmapImage(uri);
+            ImageBehavior.SetAnimatedSource(PlayerTrainer, bitmap);
+            ImageBehavior.SetRepeatBehavior(PlayerTrainer, new RepeatBehavior(1));
         }
     }
 }
