@@ -10,6 +10,10 @@
 
   <ItemGroup>
     <None Remove="Image\fondpoke.png" />
+    <None Remove="Image\Gif\pokeball_catch.gif" />
+    <None Remove="Image\Gif\pokeball_open_1shake.gif" />
+    <None Remove="Image\Gif\pokeball_open_2shake.gif" />
+    <None Remove="Image\Gif\pokeball_open_direct.gif" />
     <None Remove="Image\Gif\pokeball_throw_back.gif" />
     <None Remove="Image\map poke\safari1.png" />
     <None Remove="Image\map poke\safari2.png" />
@@ -61,6 +65,18 @@
   <ItemGroup>
     <Resource Include="Image\fondpoke.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\pokeball_catch.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\pokeball_open_1shake.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\pokeball_open_2shake.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\pokeball_open_direct.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Image\Gif\pokeball_throw_back.gif">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

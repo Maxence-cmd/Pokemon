@@ -56,7 +56,7 @@
                 <!-- ZONE HERBE -->
                 <Canvas x:Name="ZoneHerbe">
 
-                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="259" Canvas.Top="290" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="357" Canvas.Top="350" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                 </Canvas>
                 <Canvas x:Name="ZoneTP">
@@ -97,8 +97,8 @@
 
             <Viewbox Stretch="Uniform">
 
-                
-                <Canvas Width="800" Height="500">
+
+                <Canvas Width="800" Height="500" >
 
                     <!-- Pokémon ennemi (haut droite) -->
                     <Image x:Name="EnemyPokemon"
@@ -117,6 +117,176 @@
                    Width="400" Height="307"
                    Canvas.Left="-90" Canvas.Top="250"
                    Source="/Image/Gif/pokeball_throw_back.gif"/>
+                    <!-- ══ BOÎTE ENNEMI (haut-gauche) ══ -->
+                    <Border Canvas.Left="20" Canvas.Top="18"
+              Width="260" Height="72"
+              Background="#F8F8D8"
+              BorderBrush="#282828" BorderThickness="3"
+              CornerRadius="6">
+                        <Grid Margin="10,6,10,6">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!-- Nom + Niveau -->
+                            <Grid Grid.Row="0">
+                                <TextBlock x:Name="EnemyName" Text="PIKACHU"
+                       FontFamily="Courier New" FontWeight="Bold" FontSize="13"
+                       HorizontalAlignment="Left"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock x:Name="EnemyGender" Text="♂"
+                         Foreground="#5078F0" FontSize="12" Margin="0,0,4,0"/>
+                                    <TextBlock x:Name="EnemyLevel" Text="Nv.35"
+                         FontFamily="Courier New" FontSize="11"
+                         Foreground="#505050"/>
+                                </StackPanel>
+                            </Grid>
+                            <!-- Label PV -->
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,4,0,2">
+                                <TextBlock Text="PV" FontFamily="Courier New" FontSize="10"
+               Foreground="#505050" Margin="0,0,4,0"
+               VerticalAlignment="Center"/>
+                                <Grid Width="160" Height="10" Background="#3A3A3A">
+                                    <Border x:Name="EnemyHpBar"
+            Background="#58D050"
+            HorizontalAlignment="Left"/>
+                                </Grid>
+
+                            </StackPanel>
+                            <!-- HP chiffres -->
+                            <TextBlock x:Name="EnemyHpText" Grid.Row="2"
+                      FontFamily="Courier New" FontSize="10"
+                     Foreground="#505050" HorizontalAlignment="Right"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- ══ BOÎTE JOUEUR (bas-droite) ══ -->
+                    <Border Canvas.Left="510" Canvas.Top="330"
+              Width="270" Height="90"
+              Background="#F8F8D8"
+              BorderBrush="#282828" BorderThickness="3"
+              CornerRadius="6">
+                        <Grid Margin="10,6,10,6">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock x:Name="PlayerName" Text="PIKACHU"
+                       FontFamily="Courier New" FontWeight="Bold" FontSize="13"
+                       HorizontalAlignment="Left"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock x:Name="PlayerGender" Text="♀"
+                         Foreground="#F05078" FontSize="12" Margin="0,0,4,0"/>
+                                    <TextBlock x:Name="PlayerLevel" Text="Nv.28"
+                         FontFamily="Courier New" FontSize="11"
+                                               SnapsToDevicePixels="True"
+UseLayoutRounding="True"
+                         Foreground="#505050"/>
+                                </StackPanel>
+                            </Grid>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,4,0,2">
+                                <TextBlock Text="PV" FontFamily="Courier New" FontSize="10"
+               Foreground="#505050" Margin="0,0,4,0"
+               VerticalAlignment="Center"/>
+                                <Grid Width="180" Height="10" Background="#3A3A3A">
+                                    <Border x:Name="PlayerHp"
+            Background="#58D050"
+            HorizontalAlignment="Left"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <!-- EXP -->
+                            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,4,0,0">
+                                <TextBlock Text="EXP" FontFamily="Courier New" FontSize="9"
+               Foreground="#5090F0" Margin="0,0,4,0"
+               VerticalAlignment="Center"/>
+                                <ProgressBar x:Name="PlayerExpBar"
+Width="180"
+Height="7"
+Style="{StaticResource ExpBarStyle}"/>
+                                <TextBlock x:Name="PlayerHpText" Grid.Row="2"
+Text="36/50" FontFamily="Courier New" FontSize="10"
+Foreground="#505050" HorizontalAlignment="Right"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- ══ BOÎTE TEXTE (bas-gauche) ══ -->
+                    <Border x:Name="TextBox"
+              Canvas.Left="8" Canvas.Top="420"
+              Width="392" Height="72"
+              Background="#F8F8D8"
+              BorderBrush="#282828" BorderThickness="3"
+              CornerRadius="6" Padding="12,8">
+                        <TextBlock x:Name="CombatText"
+                   Text="Un PIKACHU sauvage
+est apparu !"
+                   FontFamily="Courier New" FontSize="13"
+                   Foreground="#181818"
+                   TextWrapping="Wrap"/>
+                    </Border>
+
+                    <!-- ══ BOUTONS ACTION (bas-droite) ══ -->
+                    <Border Canvas.Left="408" Canvas.Top="420"
+              Width="384" Height="72"
+              Background="#F8F8D8"
+              BorderBrush="#282828" BorderThickness="3"
+              CornerRadius="6">
+                        <UniformGrid Rows="2" Columns="2" Margin="6">
+                            <Button x:Name="BtnCombat" Content="COMBAT"
+                  Background="#E83020" Foreground="White"
+                  FontFamily="Courier New" FontWeight="Bold" FontSize="12"
+                  Margin="3" Cursor="Hand" Click="BtnCombat_Click"
+                 />
+                            <Button x:Name="BtnPokemon" Content="POKÉMON"
+                  Background="#3878D0" Foreground="White"
+                  FontFamily="Courier New" FontWeight="Bold" FontSize="12"
+                  Margin="3" Cursor="Hand" Click="BtnPokemon_Click"
+                  />
+                            <Button x:Name="BtnSac" Content="SAC"
+                  Background="#E8C018" Foreground="White"
+                  FontFamily="Courier New" FontWeight="Bold" FontSize="12"
+                  Margin="3" Cursor="Hand" Click="BtnSac_Click"
+                  />
+                            <Button x:Name="BtnFuite" Content="FUITE"
+                  Background="#38A838" Foreground="White"
+                  FontFamily="Courier New" FontWeight="Bold" FontSize="12"
+                  Margin="3" Cursor="Hand" Click="BtnFuite_Click"
+                 />
+                        </UniformGrid>
+                    </Border>
+
+                    <!-- ══ PANEL ATTAQUES (masqué par défaut) ══ -->
+                    <Border x:Name="AttackPanel"
+              Canvas.Left="8" Canvas.Top="420"
+              Width="784" Height="72"
+              Background="#F8F8D8"
+              BorderBrush="#282828" BorderThickness="3"
+              CornerRadius="6"
+              Visibility="Collapsed">
+                        <UniformGrid Rows="2" Columns="2" Margin="6">
+                            <Button x:Name="BtnMove1" Content="TONNERRE"
+                  Background="#F8C830" Foreground="White"
+                  FontFamily="Courier New" FontWeight="Bold" FontSize="11"
+                  Margin="3" Click="BtnMove1_Click" />
+                            <Button x:Name="BtnMove2" Content="VIVE-ATTAQUE"
+                  Background="#A8A8A8" Foreground="White"
+                  FontFamily="Courier New" FontWeight="Bold" FontSize="11"
+                  Margin="3" Click="BtnMove2_Click" />
+                            <Button x:Name="BtnMove3" Content="QUEUE DE FER"
+                  Background="#A8A8A8" Foreground="White"
+                  FontFamily="Courier New" FontWeight="Bold" FontSize="11"
+                  Margin="3" Click="BtnMove3_Click" />
+                            <Button x:Name="BtnMove4" Content="RUGISSEMENT"
+                  Background="#A8A8A8" Foreground="White"
+                  FontFamily="Courier New" FontWeight="Bold" FontSize="11"
+                  Margin="3" Click="BtnMove4_Click" />
+                        </UniformGrid>
+                    </Border>
 
                 </Canvas>
             </Viewbox>
