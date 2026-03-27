@@ -93,7 +93,7 @@
         </Viewbox>
         <Grid x:Name="CombatScreen"
       Background="Black"
-     Visibility="Hidden" >
+     Visibility="Collapsed" >
 
             <Viewbox Stretch="Uniform">
 
@@ -229,11 +229,35 @@ est apparu !"
                    Foreground="#181818"
                    TextWrapping="Wrap"/>
                     </Border>
+                    <Button x:Name="BtnRetourCombat"
+        Width="35"
+        Height="28"
+        Canvas.Left="475"
+        Canvas.Top="392"
+        Cursor="Hand"
+        Click="BtnRetourCombat_Click" HorizontalAlignment="Left" VerticalAlignment="Center">
 
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="#2A2A2A"
+                    BorderBrush="#AAAAAA"
+                    BorderThickness="2"
+                    CornerRadius="4">
+                                    <TextBlock Text="◀"
+                           Foreground="White"
+                           FontSize="18"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
                     <!-- ══ BOUTONS ACTION (bas-droite) ══ -->
                     <Border Canvas.Left="408" Canvas.Top="420"
               Width="384" Height="72"
               Background="#F8F8D8"
+                            Name="ActionPanel"
               BorderBrush="#282828" BorderThickness="3"
               CornerRadius="6">
                         <UniformGrid Rows="2" Columns="2" Margin="6">
@@ -285,6 +309,93 @@ est apparu !"
                   Background="#A8A8A8" Foreground="White"
                   FontFamily="Courier New" FontWeight="Bold" FontSize="11"
                   Margin="3" Click="BtnMove4_Click" />
+                        </UniformGrid>
+                    </Border>
+                    <Border x:Name="BagPanel"
+        Canvas.Left="8"
+        Canvas.Top="420"
+        Width="784"
+        Height="72"
+        Background="#F8F8D8"
+        BorderBrush="#303030"
+        BorderThickness="4"
+        CornerRadius="0"
+        Visibility="Collapsed">
+
+                        <UniformGrid Rows="2" Columns="3" Margin="4">
+
+                            <!-- Poké Ball -->
+                            <Button Click="UsePokeBall_Click" Background="#E03030" Margin="0,0,27,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+                       Width="24" Height="20" Margin="4"/>
+                                    <TextBlock Text="Poké Ball x10"
+                           FontFamily="Consolas"
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Super Ball -->
+                            <Button Click="UseSuperBall_Click" Background="#3060E0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/great-ball.png"
+                       Width="24" Height="20" Margin="4"/>
+                                    <TextBlock Text="Super Ball x5"
+                           FontFamily="Consolas"
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Hyper Ball -->
+                            <Button Click="UseHyperBall_Click" Background="#202020" Margin="25,0,14,-6">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ultra-ball.png"
+                       Width="24" Height="20" Margin="4"/>
+                                    <TextBlock Text="Hyper Ball x2"
+                           FontFamily="Consolas"
+                           Foreground="Yellow"
+                           VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Potion -->
+                            <Button Click="UsePotion_Click" Background="#38A838" Margin="0,0,27,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png"
+                       Width="24" Height="20"/>
+                                    <TextBlock Text="Potion x5"
+                           FontFamily="Consolas"
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Super Potion -->
+                            <Button Click="UseSuperPotion_Click" Background="#50C878">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/super-potion.png"
+                       Width="24" Height="24"/>
+                                    <TextBlock Text="Super Potion x3"
+                           FontFamily="Consolas"
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!-- Hyper Potion -->
+                            <Button Click="UseHyperPotion_Click" Background="#A855F7" Margin="25,0,14,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/hyper-potion.png"
+                       Width="24" Height="24"/>
+                                    <TextBlock Text="Hyper Potion x1"
+                           FontFamily="Consolas"
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
                         </UniformGrid>
                     </Border>
 

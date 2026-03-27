@@ -43,10 +43,12 @@ namespace Pokemon.Views
         int pokemonId;
         int pokemonIdEn;
         int frame = 0;
+        int catchrate = 120; // taux de capture de base (ex : 120 pour un Pokémon rare)
         int maxFrame = 3; // nombre d'images
         int animationCounter = 0;
         string direction = "front";
         private bool _attackPanelOpen = false;
+        bool escapeSuccess;
         public chasse()
         {
             InitializeComponent();
@@ -254,7 +256,7 @@ namespace Pokemon.Views
 
         private void BtnCombat_Click(object sender, RoutedEventArgs e)
         {
-            TextBox.Visibility = Visibility.Collapsed;
+            //TextBox.Visibility = Visibility.Collapsed;
             AttackPanel.Visibility = Visibility.Visible;
             ShowActionButtons(false);
             _attackPanelOpen = true;
@@ -269,7 +271,9 @@ namespace Pokemon.Views
         private void BtnSac_Click(object sender, RoutedEventArgs e)
         {
             SetCombatText("Tu ouvres ton sac...");
-            // TODO : ouvrir inventaire
+            AttackPanel.Visibility = Visibility.Collapsed;
+
+            BagPanel.Visibility = Visibility.Visible;
 
         }
         public void UpdateHpBar(ProgressBar bar, TextBlock label, int current, int max)
@@ -347,6 +351,7 @@ namespace Pokemon.Views
 
             statsPlayer = playerData.stats;
             statsEnemy = enemyData.stats;
+            catchrate = enemyData.catch_rate ?? 45;
             PlayerName.Text = playerData.name.fr.ToUpper();
             EnemyName.Text = enemyData.name.fr.ToUpper();
             currentHpPlayer = statsPlayer.hp;
@@ -516,23 +521,26 @@ namespace Pokemon.Views
         {
             if (currentHpPlayer <= 0 || currentHpEnemy <= 0)
                 return;
-
             await TourCombat(attaque4);
         }
 
-        private async Task TourCombat(Attaque attaqueJoueur)
+        private async Task TourCombat(Attaque attaqueJoueur, bool poke = false)
         {
+            int degats;
+            if (!poke==true)
+            { 
             // 🟢 JOUEUR attaque
-            int degats = CalculDegatsAvecAttaque(statsPlayer, statsEnemy, attaqueJoueur);
+             degats = CalculDegatsAvecAttaque(statsPlayer, statsEnemy, attaqueJoueur);
             currentHpEnemy -= degats;
 
             if (currentHpEnemy < 0)
                 currentHpEnemy = 0;
 
             UpdateHpCustom(EnemyHpBar, currentHpEnemy, maxHpEnemy, 160);
-           
+
 
             SetCombatText($"{playerData.name.fr} utilise {attaqueJoueur.Nom} ! -{degats} PV");
+             }
 
             await Task.Delay(1000);
 
@@ -585,6 +593,45 @@ namespace Pokemon.Views
 
             return Math.Max(1, (int)degats);
         }
+
+        private void UsePokeBall_Click(object sender, RoutedEventArgs e)
+        {
+           TryCatch("poke");
+        }
+
+        private async void UseSuperBall_Click(object sender, RoutedEventArgs e)
+        {
+            TryCatch("super");         
+        }
+
+        private void UseHyperBall_Click(object sender, RoutedEventArgs e)
+        {
+            TryCatch("hyper");
+        }
+
+        private void UsePotion_Click(object sender, RoutedEventArgs e)
+        {
+            HealPokemon(20);
+        }
+
+        private void UseSuperPotion_Click(object sender, RoutedEventArgs e)
+        {
+            HealPokemon(50);
+        }
+
+        private void UseHyperPotion_Click(object sender, RoutedEventArgs e)
+        {
+            HealPokemon(200);
+        }
+
+        private void BtnRetourCombat_Click(object sender, RoutedEventArgs e)
+        {
+            BagPanel.Visibility = Visibility.Collapsed;
+            AttackPanel.Visibility = Visibility.Collapsed;
+            TextBox.Visibility = Visibility.Visible;
+            ShowActionButtons(true);
+        }
+
         void UpdateHpCustom(Border bar, int current, int max, double fullWidth)
         {
             double ratio = (double)current / max;
@@ -618,5 +665,83 @@ namespace Pokemon.Views
             CombatScreen.Visibility = Visibility.Hidden;
             enCombat = false;
         }
+        void HealPokemon(int amount)
+        {
+                if (currentHpPlayer <= 0)
+                    return;
+
+                if (currentHpPlayer >= maxHpPlayer)
+                {
+                    CombatText.Text = "Ton Pokémon est déjà full PV !";
+                    return;
+                }
+
+                currentHpPlayer += amount;
+
+                if (currentHpPlayer > maxHpPlayer)
+                    currentHpPlayer = maxHpPlayer;
+
+                // TEXTE
+                PlayerHpText.Text = $"{currentHpPlayer}/{maxHpPlayer}";
+
+                // BARRE (UNE SEULE FOIS)
+                UpdateHpCustom(PlayerHp, currentHpPlayer, maxHpPlayer, 180);
+
+                // MESSAGE
+                CombatText.Text = $"Ton Pokémon récupère {amount} PV !";
+        }
+        double GetBallMultiplier(string type)
+        {
+            return type switch
+            {
+                "poke" => 1.0,
+                "super" => 1.5,
+                "hyper" => 2.0,
+                _ => 1.0
+            };
+        }
+        bool TryCatchPokemon(int catchRate, string ballType)
+        {
+            double ballMultiplier = GetBallMultiplier(ballType);
+
+            double hpFactor = (double)(maxHpEnemy - currentHpEnemy) / maxHpEnemy;
+
+            double chance = catchRate * ballMultiplier * hpFactor;
+
+            // normaliser (optionnel)
+            if (chance > 255) chance = 255;
+
+            int roll = random.Next(0, 256);
+
+            return roll < chance;
+        }
+        async Task TryCatch(string ballType)
+        {
+            BagPanel.Visibility = Visibility.Collapsed;
+            SetCombatText("Tu lances une Poké Ball...");
+            await Task.Delay(1000);
+          
+            int catchRate = enemyData.catch_rate ?? 45; // ⚠️ adapte selon ton modèle
+
+            bool success = TryCatchPokemon(catchRate, ballType);
+
+            if (success)
+            {
+                SetCombatText($"Bravo ! {enemyData.name.fr} est capturé !");
+                await Task.Delay(1500);
+
+                FinCombat();
+            }
+            else
+            {
+                SetCombatText("Oh non ! Le Pokémon s'est échappé !");
+                await Task.Delay(1000);
+                escapeSuccess = true;
+                // L'ennemi attaque après échec
+                await TourCombat(new Attaque("Charge", enemyData.types[0].name, 40),escapeSuccess);
+            }
+            escapeSuccess = false;
+        }
     }
+
 }
