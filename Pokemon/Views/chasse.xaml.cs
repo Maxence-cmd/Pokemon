@@ -400,7 +400,7 @@ namespace Pokemon.Views
             // TEXTE HP
             PlayerHpText.Text = statsPlayer.hp + "/" + statsPlayer.hp;
             EnemyHpText.Text = statsEnemy.hp + "/" + statsEnemy.hp;
-
+            //M
             // TEXTE COMBAT
             CombatText.Text = $"Un {enemyData.name.fr.ToUpper()} sauvage apparaît !";
             // pokemonId = 25;
