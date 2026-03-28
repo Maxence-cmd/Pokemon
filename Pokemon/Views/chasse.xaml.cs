@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using Pokemon.Models;
 using Pokemon.Services;
-using Pokemon.Services;
-using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,6 +19,7 @@ namespace Pokemon.Views
     public partial class chasse : Window
     {
         public GetPokemon getPokemon;
+        List<GererEquipe> team = new List<GererEquipe>();
         Attaque attaque1;
         Attaque attaque2;
         Attaque attaque3;
@@ -29,6 +28,7 @@ namespace Pokemon.Views
         Root enemyData;
         int currentHpPlayer;
         int currentHpEnemy;
+        string starterChoisi = "";
         int maxHpEnemy;
         int maxHpPlayer;
         Stats statsPlayer;
@@ -49,6 +49,7 @@ namespace Pokemon.Views
         string direction = "front";
         private bool _attackPanelOpen = false;
         bool escapeSuccess;
+        string pokemonpremier = "nope";
         public chasse()
         {
             InitializeComponent();
@@ -345,10 +346,12 @@ namespace Pokemon.Views
 
             CombatScreen.Visibility = Visibility.Visible;
             pokemonId = random.Next(1, 152);
-            pokemonIdEn = random.Next(1, 152);
-            playerData = await getPokemon.GetApiPokemon(pokemonIdEn.ToString());
+            // pokemonIdEn = random.Next(1, 152);
+            if (pokemonpremier == "nope")
+                pokemonpremier = starterChoisi;
+            playerData = await getPokemon.GetApiPokemon(pokemonpremier);
             enemyData = await getPokemon.GetApiPokemon(pokemonId.ToString());
-
+            pokemonIdEn =playerData.pokedex_id;
             statsPlayer = playerData.stats;
             statsEnemy = enemyData.stats;
             catchrate = enemyData.catch_rate ?? 45;
@@ -480,6 +483,12 @@ namespace Pokemon.Views
             var bitmap = new BitmapImage(uri);
             ImageBehavior.SetAnimatedSource(PlayerTrainer, bitmap);
             ImageBehavior.SetRepeatBehavior(PlayerTrainer, new RepeatBehavior(1));
+        }
+        private void StartGame()
+        {
+            StartMenu.Visibility = Visibility.Collapsed;
+            GameView.Visibility = Visibility.Visible;
+            ZoneJeu.Focus(); // important pour les touches
         }
 
         private async void BtnMove1_Click(object sender, RoutedEventArgs e)
@@ -690,6 +699,33 @@ namespace Pokemon.Views
                 // MESSAGE
                 CombatText.Text = $"Ton Pokémon récupère {amount} PV !";
         }
+
+        private void ChooseBulbasaur_Click(object sender, RoutedEventArgs e)
+        {
+            starterChoisi = "Bulbizarre";
+            StartGame();
+        }
+
+        private void ChooseCharmander_Click(object sender, RoutedEventArgs e)
+        {
+            starterChoisi = "Salameche";
+            StartGame();
+        }
+
+        private void ChooseSquirtle_Click(object sender, RoutedEventArgs e)
+        {
+            starterChoisi = "Carapuce";
+            StartGame();
+        }
+
+        private void bttReglage_Click(object sender, RoutedEventArgs e)
+        {
+            TeamScreen.Visibility = Visibility.Visible;
+            GameView.Visibility = Visibility.Hidden;
+
+            UpdateTeamUI();
+        }
+
         double GetBallMultiplier(string type)
         {
             return type switch
@@ -715,6 +751,13 @@ namespace Pokemon.Views
 
             return roll < chance;
         }
+
+        private void Retour_Click(object sender, RoutedEventArgs e)
+        {
+            TeamScreen.Visibility = Visibility.Collapsed;
+            GameView.Visibility = Visibility.Visible;
+        }
+
         async Task TryCatch(string ballType)
         {
             BagPanel.Visibility = Visibility.Collapsed;
@@ -723,12 +766,13 @@ namespace Pokemon.Views
           
             int catchRate = enemyData.catch_rate ?? 45; // ⚠️ adapte selon ton modèle
 
-            bool success = TryCatchPokemon(catchRate, ballType);
-
+            // bool success = TryCatchPokemon(catchRate, ballType);
+            bool success = true;
             if (success)
             {
                 SetCombatText($"Bravo ! {enemyData.name.fr} est capturé !");
-                await Task.Delay(1500);
+                AjouterPokemonEquipe(enemyData.name.fr, enemyData.stats.hp, enemyData.pokedex_id.ToString());
+               await Task.Delay(1500);
 
                 FinCombat();
             }
@@ -741,6 +785,62 @@ namespace Pokemon.Views
                 await TourCombat(new Attaque("Charge", enemyData.types[0].name, 40),escapeSuccess);
             }
             escapeSuccess = false;
+        }
+        private async void UpdateTeamUI()
+        {
+            var slots = new[]
+            {
+        (Slot1, Name1, Hp1, Img1),
+        (Slot2, Name2, Hp2, Img2),
+        (Slot3, Name3, Hp3, Img3),
+        (Slot4, Name4, Hp4, Img4),
+        (Slot5, Name5, Hp5, Img5),
+        (Slot6, Name6, Hp6, Img6),
+    };
+
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (i < team.Count)
+                {
+                    var p = team[i];
+
+                    slots[i].Item2.Text = p.Name;
+                    slots[i].Item3.Text = $"{p.CurrentHP}/{p.MaxHP}";
+                    var recupId = await getPokemon.GetApiPokemon(slots[i].Item2.Text);
+                    string url = $"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/{p.Id}.gif";
+                    slots[i].Item4.Source = new BitmapImage(new Uri(url));
+
+                    // 🔥 Couleur selon HP
+                    double ratio = (double)p.CurrentHP / p.MaxHP;
+
+                    if (ratio <= 0)
+                        slots[i].Item1.Background = Brushes.Red;
+                    else if (ratio < 0.5)
+                        slots[i].Item1.Background = Brushes.Orange;
+                    else
+                        slots[i].Item1.Background = Brushes.Green;
+                }
+                else
+                {
+                    // N/A
+                    slots[i].Item2.Text = "N/A";
+                    slots[i].Item3.Text = "";
+                    slots[i].Item4.Source = null;
+                    slots[i].Item1.Background = Brushes.Gray;
+                }
+            }
+        }
+        private async Task AjouterPokemonEquipe(string nom, int hpMax,string IdNouveau)
+        {
+            var pokemon = new GererEquipe
+            {
+                Name = nom,
+                CurrentHP = hpMax,
+                MaxHP = hpMax,
+                Id = IdNouveau
+            };
+
+            team.Add(pokemon);
         }
     }
 

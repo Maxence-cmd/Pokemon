@@ -8,10 +8,229 @@
         Focusable="True"
         WindowState="Maximized"
         ResizeMode="NoResize">
-
     <Grid Background="Black">
+        <Grid x:Name="TeamScreen" Background="#A8D0D0" Visibility="Collapsed">
 
-        <Viewbox Stretch="Uniform">
+            <Canvas Width="900" Height="550">
+
+                <!-- ===== SLOT 1 ===== -->
+                <Border x:Name="Slot1" Canvas.Left="20" Canvas.Top="20"
+                Width="300" Height="100"
+                Background="#F8F8D8"
+                BorderBrush="#282828" BorderThickness="4"
+                CornerRadius="8">
+                    <Grid Margin="8">
+                        <Image x:Name="Img1" Width="70" Height="70"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <StackPanel Margin="90,0,0,0">
+                            <TextBlock x:Name="Name1" Text="N/A" FontSize="16" FontWeight="Bold"/>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                <TextBlock Text="HP" Margin="0,0,6,0"/>
+                                <Grid Width="180" Height="10" Background="#3A3A3A">
+                                    <Border x:Name="HpBar1" Background="#58D050"
+                                    HorizontalAlignment="Left" Width="180"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <TextBlock x:Name="Hp1" Text="0/0" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ===== SLOT 2 ===== -->
+                <Border x:Name="Slot2" Canvas.Left="350" Canvas.Top="50"
+                Width="300" Height="100"
+                Background="#F8F8D8"
+                BorderBrush="#282828" BorderThickness="4"
+                CornerRadius="8">
+                    <Grid Margin="8">
+                        <Image x:Name="Img2" Width="70" Height="70"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <StackPanel Margin="90,0,0,0">
+                            <TextBlock x:Name="Name2" Text="N/A" FontSize="16"/>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="HP" Margin="0,0,6,0"/>
+                                <Grid Width="180" Height="10" Background="#3A3A3A">
+                                    <Border x:Name="HpBar2" Background="#58D050"
+                                    HorizontalAlignment="Left" Width="180"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <TextBlock x:Name="Hp2" Text="0/0"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ===== SLOT 3 ===== -->
+                <Border x:Name="Slot3" Canvas.Left="20" Canvas.Top="150"
+                Width="300" Height="100"
+                Background="#F8F8D8"
+                BorderBrush="#282828" BorderThickness="4"
+                CornerRadius="8">
+                    <Grid Margin="8">
+                        <Image x:Name="Img3" Width="70" Height="70"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <StackPanel Margin="90,0,0,0">
+                            <TextBlock x:Name="Name3" Text="N/A"/>
+
+                            <Grid Width="180" Height="10" Background="#3A3A3A">
+                                <Border x:Name="HpBar3" Background="#58D050"
+                                HorizontalAlignment="Left" Width="180"/>
+                            </Grid>
+
+                            <TextBlock x:Name="Hp3" Text="0/0"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ===== SLOT 4 ===== -->
+                <Border x:Name="Slot4" Canvas.Left="350" Canvas.Top="180"
+                Width="300" Height="100"
+                Background="#F8F8D8"
+                BorderBrush="#282828" BorderThickness="4"
+                CornerRadius="8">
+                    <Grid Margin="8">
+                        <Image x:Name="Img4" Width="70" Height="70"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <StackPanel Margin="90,0,0,0">
+                            <TextBlock x:Name="Name4" Text="N/A"/>
+
+                            <Grid Width="180" Height="10" Background="#3A3A3A">
+                                <Border x:Name="HpBar4" Background="#58D050"
+                                HorizontalAlignment="Left" Width="180"/>
+                            </Grid>
+
+                            <TextBlock x:Name="Hp4" Text="0/0"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ===== SLOT 5 ===== -->
+                <Border x:Name="Slot5" Canvas.Left="20" Canvas.Top="280"
+                Width="300" Height="100"
+                Background="#F8F8D8"
+                BorderBrush="#282828" BorderThickness="4"
+                CornerRadius="8">
+                    <Grid Margin="8">
+                        <Image x:Name="Img5" Width="70" Height="70"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <StackPanel Margin="90,0,0,0">
+                            <TextBlock x:Name="Name5" Text="N/A"/>
+
+                            <Grid Width="180" Height="10" Background="#3A3A3A">
+                                <Border x:Name="HpBar5" Background="#58D050"
+                                HorizontalAlignment="Left" Width="180"/>
+                            </Grid>
+
+                            <TextBlock x:Name="Hp5" Text="0/0"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ===== SLOT 6 ===== -->
+                <Border x:Name="Slot6" Canvas.Left="350" Canvas.Top="310"
+                Width="300" Height="100"
+                Background="#F8F8D8"
+                BorderBrush="#282828" BorderThickness="4"
+                CornerRadius="8">
+                    <Grid Margin="8">
+                        <Image x:Name="Img6" Width="70" Height="70"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                        <StackPanel Margin="90,0,0,0">
+                            <TextBlock x:Name="Name6" Text="N/A"/>
+
+                            <Grid Width="180" Height="10" Background="#3A3A3A">
+                                <Border x:Name="HpBar6" Background="#58D050"
+                                HorizontalAlignment="Left" Width="180"/>
+                            </Grid>
+
+                            <TextBlock x:Name="Hp6" Text="0/0"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- ===== TEXTE BAS ===== -->
+                <Border Canvas.Left="20" Canvas.Top="420"
+                Width="630" Height="80"
+                Background="#E8E8E8"
+                BorderBrush="#303030"
+                BorderThickness="4">
+                    <TextBlock Text="Choisis un Pokémon"
+                       VerticalAlignment="Center"
+                       Margin="15"
+                       FontSize="16"/>
+                </Border>
+
+                <!-- ===== BOUTON RETOUR ===== -->
+                <Button Content="◀ RETOUR"
+                Width="180"
+                Height="60"
+                Canvas.Left="680"
+                Canvas.Top="440"
+                FontSize="18"
+                FontWeight="Bold"
+                Background="#2A2A2A"
+                Foreground="White"
+                BorderBrush="#AAAAAA"
+                BorderThickness="3"
+                Click="Retour_Click"/>
+
+            </Canvas>
+        </Grid>
+        <Grid x:Name="StartMenu" Background="Black" Visibility="Visible">
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <TextBlock Text="Choisis ton starter"
+                   Foreground="White"
+                   FontSize="30"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <!-- Bulbizarre -->
+                    <Button Click="ChooseBulbasaur_Click" Margin="10">
+                        <StackPanel Height="98" Width="111">
+                            <Image Width="100"
+       gif:ImageBehavior.AnimatedSource="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif"
+       gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
+                            <TextBlock Text="Bulbizarre" Foreground="White" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Salamèche -->
+                    <Button Click="ChooseCharmander_Click" Margin="10">
+                        <StackPanel>
+                            <Image Width="100"
+gif:ImageBehavior.AnimatedSource="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/4.gif"
+gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Carapuce -->
+                    <Button Click="ChooseSquirtle_Click" Margin="10">
+                        <StackPanel>
+                            <Image Width="100"
+gif:ImageBehavior.AnimatedSource="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/7.gif"
+gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </Grid>
+        <Viewbox Stretch="Uniform" Visibility="Collapsed" x:Name="GameView">
 
             <Canvas x:Name="ZoneJeu" Width="800" Height="450">
 
@@ -19,7 +238,11 @@
                 <Image Source="/Image/map poke/safaricentral.png"
                        Width="800"
                        Height="450"/>
-
+                <Button x:Name="bttReglage"
+        Content="ÉQUIPE"
+        Width="63"
+        Height="23"
+        Click="bttReglage_Click" Canvas.Top="12" Canvas.Left="640" Style="{StaticResource OldPokemonButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 <!-- ZONE BLOQUANTE -->
                 <Canvas x:Name="ZoneBloque">
 
