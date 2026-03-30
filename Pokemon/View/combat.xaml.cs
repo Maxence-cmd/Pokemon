@@ -8,106 +8,245 @@ namespace Pokemon.View
 {
     public partial class combat : UserControl
     {
-        private Root currentPokemon1;
-        private Root currentPokemon2;
+        private PokemonCombat player1;
+        private PokemonCombat player2;
 
         private GetPokemon api = new GetPokemon();
         private Random rnd = new Random();
+
+        private bool isPlayer1Turn;
+        private bool fightEnded = false;
 
         public combat()
         {
             InitializeComponent();
         }
 
-        // 🎲 Bouton aléatoire
+        // 🎲 Choisir Pokémon
         private async void RandomPokemonButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            fightEnded = false;
+
+            int id1 = rnd.Next(1, 1025);
+            int id2 = rnd.Next(1, 1025);
+
+            var p1 = await api.GetApiPokemon(id1.ToString());
+            var p2 = await api.GetApiPokemon(id2.ToString());
+
+            player1 = new PokemonCombat(p1);
+            player2 = new PokemonCombat(p2);
+
+            InitUI();
+
+            // Qui commence
+            isPlayer1Turn = p1.stats.vit >= p2.stats.vit;
+
+            UpdateTurnUI();
+
+            ResultText.Text = isPlayer1Turn
+                ? "Tour du Joueur 1 ⚔️"
+                : "Tour du Joueur 2 ⚔️";
+        }
+
+        // 🎨 UI
+        private void InitUI()
+        {
+            // J1
+            Pokemon1Name.Text = player1.Pokemon.name.fr;
+            Pokemon1Attack.Text = player1.Pokemon.stats.atk.ToString();
+            Pokemon1Defense.Text = player1.Pokemon.stats.def.ToString();
+            Pokemon1Speed.Text = player1.Pokemon.stats.vit.ToString();
+            Pokemon1Image.Source = PokemonHelper.GetPokemonImage(player1.Pokemon);
+
+            // J2
+            Pokemon2Name.Text = player2.Pokemon.name.fr;
+            Pokemon2Attack.Text = player2.Pokemon.stats.atk.ToString();
+            Pokemon2Defense.Text = player2.Pokemon.stats.def.ToString();
+            Pokemon2Speed.Text = player2.Pokemon.stats.vit.ToString();
+            Pokemon2Image.Source = PokemonHelper.GetPokemonImage(player2.Pokemon);
+
+            UpdateUI();
+        }
+
+        private void UpdateUI()
+        {
+            // HP J1
+            Pokemon1HPBar.Maximum = player1.MaxHP;
+            Pokemon1HPBar.Value = player1.CurrentHP;
+            Pokemon1HP.Text = $"{player1.CurrentHP} / {player1.MaxHP}";
+
+            // HP J2
+            Pokemon2HPBar.Maximum = player2.MaxHP;
+            Pokemon2HPBar.Value = player2.CurrentHP;
+            Pokemon2HP.Text = $"{player2.CurrentHP} / {player2.MaxHP}";
+        }
+
+        // 🔄 Gérer les tours (TRÈS IMPORTANT)
+        private void UpdateTurnUI()
+        {
+            // Activer / désactiver boutons
+            SetPlayer1Buttons(isPlayer1Turn);
+            SetPlayer2Buttons(!isPlayer1Turn);
+        }
+
+        private void SetPlayer1Buttons(bool enabled)
+        {
+            AttackP1.IsEnabled = enabled;
+            BagP1.IsEnabled = enabled;
+            PokemonP1.IsEnabled = enabled;
+            RunP1.IsEnabled = enabled;
+        }
+
+        private void SetPlayer2Buttons(bool enabled)
+        {
+            AttackP2.IsEnabled = enabled;
+            BagP2.IsEnabled = enabled;
+            PokemonP2.IsEnabled = enabled;
+            RunP2.IsEnabled = enabled;
+        }
+
+        // 💥 Attaque
+        private void Attack(PokemonCombat attacker, PokemonCombat defender, string playerName)
+        {
+            int atk = attacker.Pokemon.stats.atk;
+            int def = defender.Pokemon.stats.def;
+
+            int damage = Math.Max(5, atk - def / 2);
+
+            defender.CurrentHP -= damage;
+            if (defender.CurrentHP < 0)
+                defender.CurrentHP = 0;
+
+            ResultText.Text = $"{playerName} inflige {damage} dégâts !";
+
+            UpdateUI();
+
+            if (defender.IsDead())
             {
-                int id1 = rnd.Next(1, 1025);
-                int id2 = rnd.Next(1, 1025);
-
-                currentPokemon1 = await api.GetApiPokemon(id1.ToString());
-                currentPokemon2 = await api.GetApiPokemon(id2.ToString());
-
-                // Pokémon 1
-                if (currentPokemon1 != null)
-                {
-                    Pokemon1Name.Text = currentPokemon1.name?.fr ?? "???";
-                    Pokemon1HP.Text = currentPokemon1.stats?.hp.ToString() ?? "0";
-                    Pokemon1Attack.Text = currentPokemon1.stats?.atk.ToString() ?? "0";
-                    Pokemon1Defense.Text = currentPokemon1.stats?.def.ToString() ?? "0";
-                    Pokemon1Speed.Text = currentPokemon1.stats?.vit.ToString() ?? "0";
-                    Pokemon1Image.Source = PokemonHelper.GetPokemonImage(currentPokemon1);
-                }
-
-                // Pokémon 2
-                if (currentPokemon2 != null)
-                {
-                    Pokemon2Name.Text = currentPokemon2.name?.fr ?? "???";
-                    Pokemon2HP.Text = currentPokemon2.stats?.hp.ToString() ?? "0";
-                    Pokemon2Attack.Text = currentPokemon2.stats?.atk.ToString() ?? "0";
-                    Pokemon2Defense.Text = currentPokemon2.stats?.def.ToString() ?? "0";
-                    Pokemon2Speed.Text = currentPokemon2.stats?.vit.ToString() ?? "0";
-                    Pokemon2Image.Source = PokemonHelper.GetPokemonImage(currentPokemon2);
-                }
-
-                ResultText.Text = "Pokémons choisis ! Clique sur combattre ⚔️";
-            }
-            catch (Exception ex)
-            {
-                ResultText.Text = "Erreur : " + ex.Message;
+                ResultText.Text += $"\n{playerName} gagne ! 🏆";
+                fightEnded = true;
+                SetPlayer1Buttons(false);
+                SetPlayer2Buttons(false);
             }
         }
 
-        // ⚔️ Combat
+        // ⚔️ Joueur 1 attaque
+        private void AttackP1_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isPlayer1Turn || fightEnded) return;
+
+            Attack(player1, player2, "Joueur 1");
+
+            isPlayer1Turn = false;
+            UpdateTurnUI();
+
+            if (!fightEnded)
+                ResultText.Text += "\nTour du Joueur 2";
+        }
+
+        // ⚔️ Joueur 2 attaque
+        private void AttackP2_Click(object sender, RoutedEventArgs e)
+        {
+            if (isPlayer1Turn || fightEnded) return;
+
+            Attack(player2, player1, "Joueur 2");
+
+            isPlayer1Turn = true;
+            UpdateTurnUI();
+
+            if (!fightEnded)
+                ResultText.Text += "\nTour du Joueur 1";
+        }
+
+        // 🎒 Soin
+        private void Heal(PokemonCombat p, string playerName)
+        {
+            int heal = p.MaxHP / 4;
+
+            p.CurrentHP += heal;
+            if (p.CurrentHP > p.MaxHP)
+                p.CurrentHP = p.MaxHP;
+
+            ResultText.Text = $"{playerName} récupère {heal} HP ❤️";
+
+            UpdateUI();
+        }
+
+        private void BagP1_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isPlayer1Turn || fightEnded) return;
+
+            Heal(player1, "Joueur 1");
+
+            isPlayer1Turn = false;
+            UpdateTurnUI();
+        }
+
+        private void BagP2_Click(object sender, RoutedEventArgs e)
+        {
+            if (isPlayer1Turn || fightEnded) return;
+
+            Heal(player2, "Joueur 2");
+
+            isPlayer1Turn = true;
+            UpdateTurnUI();
+        }
+
+        // 🐾 Changer Pokémon
+        private async void PokemonP1_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isPlayer1Turn || fightEnded) return;
+
+            var newPoke = await api.GetApiPokemon(rnd.Next(1, 1025).ToString());
+            player1 = new PokemonCombat(newPoke);
+
+            InitUI();
+
+            ResultText.Text = $"Joueur 1 change de Pokémon !";
+
+            isPlayer1Turn = false;
+            UpdateTurnUI();
+        }
+
+        private async void PokemonP2_Click(object sender, RoutedEventArgs e)
+        {
+            if (isPlayer1Turn || fightEnded) return;
+
+            var newPoke = await api.GetApiPokemon(rnd.Next(1, 1025).ToString());
+            player2 = new PokemonCombat(newPoke);
+
+            InitUI();
+
+            ResultText.Text = $"Joueur 2 change de Pokémon !";
+
+            isPlayer1Turn = true;
+            UpdateTurnUI();
+        }
+
+        // 🏃 Abandon
+        private void RunP1_Click(object sender, RoutedEventArgs e)
+        {
+            if (fightEnded) return;
+
+            ResultText.Text = "Joueur 1 abandonne ! Joueur 2 gagne 🏆";
+            fightEnded = true;
+            SetPlayer1Buttons(false);
+            SetPlayer2Buttons(false);
+        }
+
+        private void RunP2_Click(object sender, RoutedEventArgs e)
+        {
+            if (fightEnded) return;
+
+            ResultText.Text = "Joueur 2 abandonne ! Joueur 1 gagne 🏆";
+            fightEnded = true;
+            SetPlayer1Buttons(false);
+            SetPlayer2Buttons(false);
+        }
+
         private void FightButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPokemon1 == null || currentPokemon2 == null)
-            {
-                ResultText.Text = "Choisis d'abord les Pokémon !";
-                return;
-            }
-
-            string result = SimulateFight(currentPokemon1, currentPokemon2);
-            ResultText.Text = result;
-        }
-
-        // 💥 Logique combat
-        private string SimulateFight(Root p1, Root p2)
-        {
-            int hp1 = p1.stats?.hp ?? 0;
-            int hp2 = p2.stats?.hp ?? 0;
-
-            int atk1 = p1.stats?.atk ?? 0;
-            int def1 = p1.stats?.def ?? 0;
-            int vit1 = p1.stats?.vit ?? 0;
-
-            int atk2 = p2.stats?.atk ?? 0;
-            int def2 = p2.stats?.def ?? 0;
-            int vit2 = p2.stats?.vit ?? 0;
-
-            bool p1Turn = vit1 >= vit2;
-
-            while (hp1 > 0 && hp2 > 0)
-            {
-                if (p1Turn)
-                {
-                    int damage = Math.Max(1, atk1 - def2 / 2);
-                    hp2 -= damage;
-                }
-                else
-                {
-                    int damage = Math.Max(1, atk2 - def1 / 2);
-                    hp1 -= damage;
-                }
-
-                p1Turn = !p1Turn;
-            }
-
-            return hp1 > 0
-                ? $"{p1.name?.fr} gagne ! 🏆"
-                : $"{p2.name?.fr} gagne ! 🏆";
+            ResultText.Text = "Utilisez les boutons des joueurs 👇";
         }
     }
 }

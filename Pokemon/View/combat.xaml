@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Pokemon.View"
              mc:Ignorable="d" 
-             d:DesignHeight="550" d:DesignWidth="900"  Background="#F5F5F5">
+             d:DesignHeight="719.324" d:DesignWidth="1186.91"  Background="#F5F5F5">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -91,17 +91,57 @@
 
                     <StackPanel Margin="10">
 
-                        <TextBlock Text="HP:" FontWeight="Bold"/>
-                        <TextBlock x:Name="Pokemon1HP" Text="0" Margin="0,0,0,5"/>
+                        <TextBlock Text="Vie:" FontWeight="Bold"/>
 
-                        <TextBlock Text="Attack:" FontWeight="Bold"/>
-                        <TextBlock x:Name="Pokemon1Attack" Text="0" Margin="0,0,0,5"/>
+                        <ProgressBar x:Name="Pokemon1HPBar"
+                                         Minimum="0"
+                                         Maximum="100"
+                                         Value="100"
+                                         Height="20"
+                                         Margin="0,0,0,5"/>
 
-                        <TextBlock Text="Defense:" FontWeight="Bold"/>
-                        <TextBlock x:Name="Pokemon1Defense" Text="0" Margin="0,0,0,5"/>
+                        <TextBlock x:Name="Pokemon1HP"
+                                   Text="100 / 100"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,5"/>
 
-                        <TextBlock Text="Speed:" FontWeight="Bold"/>
-                        <TextBlock x:Name="Pokemon1Speed" Text="0"/>
+                        <Grid Margin="10">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button x:Name="AttackP1"
+            Content="⚔️ Attaque"
+            Grid.Row="0" Grid.Column="0"
+            Margin="5"
+            Click="AttackP1_Click"/>
+
+                            <Button x:Name="BagP1"
+            Content="🎒 Sac"
+            Grid.Row="0" Grid.Column="1"
+            Margin="5"
+            Click="BagP1_Click"/>
+
+                            <Button x:Name="PokemonP1"
+            Content="🐾 Pokémon"
+            Grid.Row="1" Grid.Column="0"
+            Margin="5"
+            Click="PokemonP1_Click"/>
+
+                            <Button x:Name="RunP1"
+            Content="🏃 Abandon"
+            Grid.Row="1" Grid.Column="1"
+            Margin="5"
+            Click="RunP1_Click"/>
+
+                        </Grid>
 
                     </StackPanel>
 
@@ -151,17 +191,57 @@
 
                     <StackPanel Margin="10">
 
-                        <TextBlock Text="HP:" FontWeight="Bold"/>
-                        <TextBlock x:Name="Pokemon2HP" Text="0" Margin="0,0,0,5"/>
+                        <TextBlock Text="Vie:" FontWeight="Bold"/>
 
-                        <TextBlock Text="Attack:" FontWeight="Bold"/>
-                        <TextBlock x:Name="Pokemon2Attack" Text="0" Margin="0,0,0,5"/>
+                        <ProgressBar x:Name="Pokemon2HPBar"
+                                     Minimum="0"
+                                     Maximum="100"
+                                     Value="100"
+                                     Height="20"
+                                     Margin="0,0,0,5"/>
 
-                        <TextBlock Text="Defense:" FontWeight="Bold"/>
-                        <TextBlock x:Name="Pokemon2Defense" Text="0" Margin="0,0,0,5"/>
+                        <TextBlock x:Name="Pokemon2HP"
+                                   Text="100 / 100"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,5"/>
 
-                        <TextBlock Text="Speed:" FontWeight="Bold"/>
-                        <TextBlock x:Name="Pokemon2Speed" Text="0"/>
+                        <Grid Margin="10">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button x:Name="AttackP2"
+            Content="⚔️ Attaque"
+            Grid.Row="0" Grid.Column="0"
+            Margin="5"
+            Click="AttackP2_Click"/>
+
+                            <Button x:Name="BagP2"
+            Content="🎒 Sac"
+            Grid.Row="0" Grid.Column="1"
+            Margin="5"
+            Click="BagP2_Click"/>
+
+                            <Button x:Name="PokemonP2"
+            Content="🐾 Pokémon"
+            Grid.Row="1" Grid.Column="0"
+            Margin="5"
+            Click="PokemonP2_Click"/>
+
+                            <Button x:Name="RunP2"
+            Content="🏃 Abandon"
+            Grid.Row="1" Grid.Column="1"
+            Margin="5"
+            Click="RunP2_Click"/>
+
+                        </Grid>
 
                     </StackPanel>
 
