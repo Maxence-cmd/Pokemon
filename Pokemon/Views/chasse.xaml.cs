@@ -19,6 +19,8 @@ namespace Pokemon.Views
     public partial class chasse : Window
     {
         public GetPokemon getPokemon;
+        bool modeRemplacement = false;
+        GererEquipe pokemonEnAttente = null;
         List<GererEquipe> team = new List<GererEquipe>();
         Attaque attaque1;
         Attaque attaque2;
@@ -703,18 +705,21 @@ namespace Pokemon.Views
         private void ChooseBulbasaur_Click(object sender, RoutedEventArgs e)
         {
             starterChoisi = "Bulbizarre";
+            AjouterPokemonEquipe("Bulbizarre", 45, "1");
             StartGame();
         }
 
         private void ChooseCharmander_Click(object sender, RoutedEventArgs e)
         {
             starterChoisi = "Salameche";
+            AjouterPokemonEquipe("Salameche",39, "4");
             StartGame();
         }
 
         private void ChooseSquirtle_Click(object sender, RoutedEventArgs e)
         {
             starterChoisi = "Carapuce";
+            AjouterPokemonEquipe("Carapuce",44,"7");
             StartGame();
         }
 
@@ -758,6 +763,41 @@ namespace Pokemon.Views
             GameView.Visibility = Visibility.Visible;
         }
 
+        private void Slot_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (!modeRemplacement || pokemonEnAttente == null)
+                return;
+
+            Border clickedSlot = sender as Border;
+
+            int index = -1;
+
+            if (clickedSlot == Slot1) index = 0;
+            else if (clickedSlot == Slot2) index = 1;
+            else if (clickedSlot == Slot3) index = 2;
+            else if (clickedSlot == Slot4) index = 3;
+            else if (clickedSlot == Slot5) index = 4;
+            else if (clickedSlot == Slot6) index = 5;
+
+            if (index == -1) return;
+
+            var ancien = team[index];
+            team[index] = pokemonEnAttente;
+
+            MessageBox.Show($"{ancien.Name} est remplacé par {pokemonEnAttente.Name}");
+
+            modeRemplacement = false;
+            pokemonEnAttente = null;
+
+            UpdateTeamUI();
+
+            TeamScreen.Visibility = Visibility.Collapsed;
+            GameView.Visibility = Visibility.Visible;
+
+            // 🔥 FIN DU COMBAT ICI
+            FinCombat();
+        }
+
         async Task TryCatch(string ballType)
         {
             BagPanel.Visibility = Visibility.Collapsed;
@@ -771,10 +811,17 @@ namespace Pokemon.Views
             if (success)
             {
                 SetCombatText($"Bravo ! {enemyData.name.fr} est capturé !");
-                AjouterPokemonEquipe(enemyData.name.fr, enemyData.stats.hp, enemyData.pokedex_id.ToString());
-               await Task.Delay(1500);
+                bool remplacement = await AjouterPokemonEquipe(
+    enemyData.name.fr,
+    enemyData.stats.hp,
+    enemyData.pokedex_id.ToString()
+);
 
-                FinCombat();
+                if (!remplacement)
+                {
+                    await Task.Delay(1500);
+                    FinCombat();
+                }
             }
             else
             {
@@ -800,6 +847,7 @@ namespace Pokemon.Views
 
             for (int i = 0; i < slots.Length; i++)
             {
+              
                 if (i < team.Count)
                 {
                     var p = team[i];
@@ -830,7 +878,7 @@ namespace Pokemon.Views
                 }
             }
         }
-        private async Task AjouterPokemonEquipe(string nom, int hpMax,string IdNouveau)
+        private async Task<bool> AjouterPokemonEquipe(string nom, int hpMax, string IdNouveau)
         {
             var pokemon = new GererEquipe
             {
@@ -840,7 +888,27 @@ namespace Pokemon.Views
                 Id = IdNouveau
             };
 
-            team.Add(pokemon);
+            if (team.Count < 6)
+            {
+                team.Add(pokemon);
+                return false; // pas de remplacement
+            }
+            else
+            {
+                
+                pokemonEnAttente = pokemon;
+                modeRemplacement = true;
+
+                MessageBox.Show("Ton équipe est pleine ! Choisis un Pokémon à remplacer.");
+
+                TeamScreen.Visibility = Visibility.Visible;
+                GameView.Visibility = Visibility.Hidden;
+                CombatScreen.Visibility = Visibility.Hidden;
+
+                UpdateTeamUI();
+
+                return true; // remplacement en cours
+            }
         }
     }
 

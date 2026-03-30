@@ -18,7 +18,7 @@
                 Width="300" Height="100"
                 Background="#F8F8D8"
                 BorderBrush="#282828" BorderThickness="4"
-                CornerRadius="8">
+                CornerRadius="8" MouseDown="Slot_Click">
                     <Grid Margin="8">
                         <Image x:Name="Img1" Width="70" Height="70"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -44,7 +44,7 @@
                 Width="300" Height="100"
                 Background="#F8F8D8"
                 BorderBrush="#282828" BorderThickness="4"
-                CornerRadius="8">
+                CornerRadius="8" MouseDown="Slot_Click">
                     <Grid Margin="8">
                         <Image x:Name="Img2" Width="70" Height="70"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -70,7 +70,7 @@
                 Width="300" Height="100"
                 Background="#F8F8D8"
                 BorderBrush="#282828" BorderThickness="4"
-                CornerRadius="8">
+                CornerRadius="8" MouseDown="Slot_Click">
                     <Grid Margin="8">
                         <Image x:Name="Img3" Width="70" Height="70"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -93,7 +93,7 @@
                 Width="300" Height="100"
                 Background="#F8F8D8"
                 BorderBrush="#282828" BorderThickness="4"
-                CornerRadius="8">
+                CornerRadius="8" MouseDown="Slot_Click">
                     <Grid Margin="8">
                         <Image x:Name="Img4" Width="70" Height="70"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -116,7 +116,7 @@
                 Width="300" Height="100"
                 Background="#F8F8D8"
                 BorderBrush="#282828" BorderThickness="4"
-                CornerRadius="8">
+                CornerRadius="8" MouseDown="Slot_Click">
                     <Grid Margin="8">
                         <Image x:Name="Img5" Width="70" Height="70"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -139,7 +139,7 @@
                 Width="300" Height="100"
                 Background="#F8F8D8"
                 BorderBrush="#282828" BorderThickness="4"
-                CornerRadius="8">
+                CornerRadius="8" MouseDown="Slot_Click">
                     <Grid Margin="8">
                         <Image x:Name="Img6" Width="70" Height="70"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>

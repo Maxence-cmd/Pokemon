@@ -12,11 +12,11 @@ namespace Pokemon.Services
     public string Type { get; set; }
     public int Puissance { get; set; }
 
-    public Attaque(string nom, string type, int puissance)
-    {
-        Nom = nom;
-        Type = type;
-        Puissance = puissance;
-    }
+        public Attaque(string nom, string type, int puissance)
+        {
+            Nom = nom;
+            Type = type;
+            Puissance = puissance;
+        }
     }
 }
