@@ -322,7 +322,14 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
 
 
                 <Canvas Width="800" Height="500" >
-
+                    <Image x:Name="PokeballAnim"
+           Width="120"
+           Height="120"
+           Visibility="Collapsed"
+           Canvas.Left="50"
+           Canvas.Top="400"
+           gif:ImageBehavior.AnimatedSource="/Image/Gif/pokeball_catch.gif"
+           gif:ImageBehavior.RepeatBehavior="1x"/>
                     <!-- Pokémon ennemi (haut droite) -->
                     <Image x:Name="EnemyPokemon"
                    Width="150" Height="150"

@@ -10,6 +10,14 @@
 
   <ItemGroup>
     <None Remove="Image\fondpoke.png" />
+    <None Remove="Image\Gif\hyperball_catch.gif" />
+    <None Remove="Image\Gif\hyperball_open_1shake.gif" />
+    <None Remove="Image\Gif\hyperball_open_2shake.gif" />
+    <None Remove="Image\Gif\hyperball_open_direct.gif" />
+    <None Remove="Image\Gif\megaball_catch.gif" />
+    <None Remove="Image\Gif\megaball_open_1shake.gif" />
+    <None Remove="Image\Gif\megaball_open_2shake.gif" />
+    <None Remove="Image\Gif\megaball_open_direct.gif" />
     <None Remove="Image\Gif\pokeball_catch.gif" />
     <None Remove="Image\Gif\pokeball_open_1shake.gif" />
     <None Remove="Image\Gif\pokeball_open_2shake.gif" />
@@ -65,6 +73,30 @@
   <ItemGroup>
     <Resource Include="Image\fondpoke.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\hyperball_catch.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\hyperball_open_1shake.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\hyperball_open_2shake.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\hyperball_open_direct.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\megaball_catch.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\megaball_open_1shake.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\megaball_open_2shake.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Gif\megaball_open_direct.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Image\Gif\pokeball_catch.gif">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

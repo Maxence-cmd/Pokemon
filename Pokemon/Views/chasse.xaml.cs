@@ -363,6 +363,26 @@ namespace Pokemon.Views
              maxHpPlayer = statsPlayer.hp;
             currentHpEnemy = statsEnemy.hp;
             maxHpEnemy = statsEnemy.hp;
+            var url = $"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/{pokemonId}.gif";
+            byte[] enemyGifBytes;
+            using (var client = new HttpClient())
+                enemyGifBytes = await client.GetByteArrayAsync(url);
+
+            await Dispatcher.InvokeAsync(() =>
+            {
+                using var ms = new MemoryStream(enemyGifBytes);
+
+                var enemyImage = new BitmapImage();
+                enemyImage.BeginInit();
+                enemyImage.StreamSource = ms;
+                enemyImage.CacheOption = BitmapCacheOption.OnLoad;
+                enemyImage.EndInit();
+                enemyImage.Freeze();
+
+                ImageBehavior.SetAnimatedSource(EnemyPokemon, enemyImage);
+                ImageBehavior.SetRepeatBehavior(EnemyPokemon, RepeatBehavior.Forever);
+            });
+            EnemyPokemon.Visibility = Visibility.Visible;
             var talents = playerData.talents;
 
             // attaque 1 API
@@ -416,14 +436,14 @@ namespace Pokemon.Views
             // pokemonId = 25;
             //pokemonIdEn = 25;
             // cacher au début
-            EnemyPokemon.Visibility = Visibility.Hidden;
+           
             PlayerPokemon.Visibility = Visibility.Hidden;
 
             // 🐲 Apparition ennemi
             await Task.Delay(500);
 
             // Hors du Dispatcher (téléchargement en background)
-            var url = $"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/{pokemonIdEn}.gif";
+             url = $"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/{pokemonIdEn}.gif";
 
             byte[] gifBytes;
             using (var client = new HttpClient())
@@ -445,7 +465,7 @@ namespace Pokemon.Views
                 ImageBehavior.SetRepeatBehavior(PlayerPokemon, RepeatBehavior.Forever);
             });
 
-            EnemyPokemon.Visibility = Visibility.Visible;
+           
 
             // 🎬 pause
             await Task.Delay(1000);
@@ -456,26 +476,9 @@ namespace Pokemon.Views
             // 🔥 apparition joueur
             await Task.Delay(1000);
 
-            url = $"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/{pokemonId}.gif";
+            
 
-            byte[] enemyGifBytes;
-            using (var client = new HttpClient())
-                enemyGifBytes = await client.GetByteArrayAsync(url);
-
-            await Dispatcher.InvokeAsync(() =>
-            {
-                using var ms = new MemoryStream(enemyGifBytes);
-
-                var enemyImage = new BitmapImage();
-                enemyImage.BeginInit();
-                enemyImage.StreamSource = ms;
-                enemyImage.CacheOption = BitmapCacheOption.OnLoad;
-                enemyImage.EndInit();
-                enemyImage.Freeze();
-
-                ImageBehavior.SetAnimatedSource(EnemyPokemon, enemyImage);
-                ImageBehavior.SetRepeatBehavior(EnemyPokemon, RepeatBehavior.Forever);
-            });
+           
 
             PlayerPokemon.Visibility = Visibility.Visible;
         }
@@ -800,22 +803,22 @@ namespace Pokemon.Views
 
         async Task TryCatch(string ballType)
         {
-            BagPanel.Visibility = Visibility.Collapsed;
-            SetCombatText("Tu lances une Poké Ball...");
-            await Task.Delay(1000);
-          
             int catchRate = enemyData.catch_rate ?? 45; // ⚠️ adapte selon ton modèle
 
             // bool success = TryCatchPokemon(catchRate, ballType);
             bool success = true;
+            BagPanel.Visibility = Visibility.Collapsed;
+            SetCombatText("Tu lances une Poké Ball...");
+        _: LancerPokeball();
+            await Task.Delay(5500);
             if (success)
             {
                 SetCombatText($"Bravo ! {enemyData.name.fr} est capturé !");
                 bool remplacement = await AjouterPokemonEquipe(
-    enemyData.name.fr,
-    enemyData.stats.hp,
-    enemyData.pokedex_id.ToString()
-);
+                enemyData.name.fr,
+                enemyData.stats.hp,
+                enemyData.pokedex_id.ToString()
+                );
 
                 if (!remplacement)
                 {
@@ -909,6 +912,85 @@ namespace Pokemon.Views
 
                 return true; // remplacement en cours
             }
+        }
+        private async Task LancerPokeball()
+        {
+            string gifPath = "/Image/Gif/pokeball_catch.gif";
+
+            RestartGif(PokeballAnim, gifPath);
+            PokeballAnim.Visibility = Visibility.Visible;
+
+            PathGeometry path = new PathGeometry();
+            PathFigure figure = new PathFigure();
+
+            // 🔥 départ (bas gauche)
+            figure.StartPoint = new Point(50, 400);
+
+            // 🔥 courbe (arc)
+            QuadraticBezierSegment curve = new QuadraticBezierSegment(
+                new Point(300, 0),   // hauteur de l'arc
+                new Point(550, 120), // destination
+                true
+            );
+
+            figure.Segments.Add(curve);
+            path.Figures.Add(figure);
+
+            int duration = 1900;
+            int stayTime = 10000;
+
+            var animX = new DoubleAnimationUsingPath
+            {
+                PathGeometry = path,
+                Duration = TimeSpan.FromMilliseconds(duration),
+                Source = PathAnimationSource.X
+            };
+
+            var animY = new DoubleAnimationUsingPath
+            {
+                PathGeometry = path,
+                Duration = TimeSpan.FromMilliseconds(duration),
+                Source = PathAnimationSource.Y
+            };
+
+            PokeballAnim.BeginAnimation(Canvas.LeftProperty, animX);
+            PokeballAnim.BeginAnimation(Canvas.TopProperty, animY);
+            await Task.Delay(duration);
+            await DisparaitrePokemon(EnemyPokemon);
+            await Task.Delay(duration + stayTime);
+           
+            PokeballAnim.Visibility = Visibility.Collapsed;
+        }
+
+        private void RestartGif(Image img, string path)
+    {
+        ImageBehavior.SetAnimatedSource(img, null); // reset
+        ImageBehavior.SetAnimatedSource(img, new BitmapImage(new Uri(path, UriKind.Relative)));
+    }
+        private async Task DisparaitrePokemon(Image pokemon)
+        {
+            // 🔥 Fade (opacité)
+            DoubleAnimation fade = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(500));
+
+            // 🔥 Scale (réduction)
+            ScaleTransform scale = new ScaleTransform(1, 1);
+            pokemon.RenderTransform = scale;
+            pokemon.RenderTransformOrigin = new Point(0.5, 0.5);
+
+            DoubleAnimation shrinkX = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(500));
+            DoubleAnimation shrinkY = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(500));
+
+            // lancer animations
+            pokemon.BeginAnimation(UIElement.OpacityProperty, fade);
+            scale.BeginAnimation(ScaleTransform.ScaleXProperty, shrinkX);
+            scale.BeginAnimation(ScaleTransform.ScaleYProperty, shrinkY);
+
+            await Task.Delay(500);
+
+            // reset propre
+            pokemon.Visibility = Visibility.Hidden;
+            pokemon.Opacity = 1;
+            pokemon.RenderTransform = null;
         }
     }
 
