@@ -1,8 +1,6 @@
-﻿using Microsoft.VisualBasic;
-using Pokemon.Models;
-using Pokemon.Services;
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +10,9 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Microsoft.VisualBasic;
+using Pokemon.Models;
+using Pokemon.Services;
 using WpfAnimatedGif;
 
 namespace Pokemon.Views
@@ -19,6 +20,12 @@ namespace Pokemon.Views
     public partial class chasse : Window
     {
         public GetPokemon getPokemon;
+        int nbPokeBall = 10;
+        int nbSuperBall = 5;
+        int nbHyperBall = 2;
+        int nbPotion = 5;
+        int nbSuperPotion = 3;
+        int nbHyperPotion = 1;
         bool modeRemplacement = false;
         GererEquipe pokemonEnAttente = null;
         List<GererEquipe> team = new List<GererEquipe>();
@@ -55,7 +62,7 @@ namespace Pokemon.Views
         public chasse()
         {
             InitializeComponent();
-
+            UpdateBagUI();
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(16);
             timer.Tick += GameLoop;
@@ -267,8 +274,12 @@ namespace Pokemon.Views
 
         private void BtnPokemon_Click(object sender, RoutedEventArgs e)
         {
+            UpdateTeamUI();
             SetCombatText("Choisis un Pokémon !");
-            // TODO : ouvrir écran équipe
+            TeamScreen.Visibility = Visibility.Visible;
+            CombatScreen.Visibility = Visibility.Hidden;
+            ZoneJeu.Visibility = Visibility.Hidden;
+            modeRemplacement = false; // ⚠️ important (on switch, pas remplacement équipe)
         }
 
         private void BtnSac_Click(object sender, RoutedEventArgs e)
@@ -283,7 +294,7 @@ namespace Pokemon.Views
         {
             bar.Maximum = max;
 
-            // 🔥 FORCE UPDATE
+              
             bar.Value = 0;
             bar.Value = current;
 
@@ -309,6 +320,7 @@ namespace Pokemon.Views
             SetCombatText("Tu prends la fuite...");
             await Task.Delay(1200);
             CombatScreen.Visibility = Visibility.Hidden;
+            ZoneJeu.Visibility = Visibility.Visible;
             // TODO : retour map
         }
         public void SetCombatText(string text)
@@ -342,8 +354,10 @@ namespace Pokemon.Views
         }
         private async void LancerCombat()
         {
+            PlayerPokemon.Visibility = Visibility.Hidden;
+            EnemyPokemon.Visibility = Visibility.Visible;
             enCombat = true;
-
+           PokeballAnim.Visibility = Visibility.Hidden;
             left = right = up = down = false;
 
             CombatScreen.Visibility = Visibility.Visible;
@@ -382,6 +396,7 @@ namespace Pokemon.Views
                 ImageBehavior.SetAnimatedSource(EnemyPokemon, enemyImage);
                 ImageBehavior.SetRepeatBehavior(EnemyPokemon, RepeatBehavior.Forever);
             });
+            ApparaitrePokemon(EnemyPokemon);
             EnemyPokemon.Visibility = Visibility.Visible;
             var talents = playerData.talents;
 
@@ -474,7 +489,7 @@ namespace Pokemon.Views
             LancerAnimationPokeball();
 
             // 🔥 apparition joueur
-            await Task.Delay(1000);
+            await Task.Delay(1300);
 
             
 
@@ -610,31 +625,87 @@ namespace Pokemon.Views
 
         private void UsePokeBall_Click(object sender, RoutedEventArgs e)
         {
-           TryCatch("poke");
+
+            if (nbPokeBall <= 0)
+            {
+                SetCombatText("Tu n'as plus de Poké Ball !");
+                return;
+            }
+
+            nbPokeBall--;
+            UpdateBagUI();
+
+            TryCatch("pokeball");
         }
 
         private async void UseSuperBall_Click(object sender, RoutedEventArgs e)
         {
-            TryCatch("super");         
+
+            if (nbSuperBall <= 0)
+            {
+                SetCombatText("Tu n'as plus de Super Ball !");
+                return;
+            }
+
+            nbSuperBall--;
+            UpdateBagUI();
+
+            TryCatch("megaball");
         }
 
         private void UseHyperBall_Click(object sender, RoutedEventArgs e)
         {
-            TryCatch("hyper");
+            if (nbHyperBall <= 0)
+            {
+                SetCombatText("Tu n'as plus de Hyper Ball !");
+                return;
+            }
+
+            nbHyperBall--;
+            UpdateBagUI();
+
+            TryCatch("hyperball");
         }
 
         private void UsePotion_Click(object sender, RoutedEventArgs e)
         {
+            if (nbPotion <= 0)
+            {
+                SetCombatText("Plus de potion !");
+                return;
+            }
+
+            nbPotion--;
+            UpdateBagUI();
+
             HealPokemon(20);
         }
 
         private void UseSuperPotion_Click(object sender, RoutedEventArgs e)
         {
+            if (nbSuperPotion <= 0)
+            {
+                SetCombatText("Plus de Super Potion !");
+                return;
+            }
+
+            nbSuperPotion--;
+            UpdateBagUI();
+
             HealPokemon(50);
         }
 
         private void UseHyperPotion_Click(object sender, RoutedEventArgs e)
         {
+            if (nbHyperPotion <= 0)
+            {
+                SetCombatText("Plus de Hyper Potion !");
+                return;
+            }
+
+            nbHyperPotion--;
+            UpdateBagUI();
+
             HealPokemon(200);
         }
 
@@ -675,7 +746,7 @@ namespace Pokemon.Views
         private async void FinCombat()
         {
             await Task.Delay(1500);
-
+            ZoneJeu.Visibility = Visibility.Visible;
             CombatScreen.Visibility = Visibility.Hidden;
             enCombat = false;
         }
@@ -766,39 +837,74 @@ namespace Pokemon.Views
             GameView.Visibility = Visibility.Visible;
         }
 
-        private void Slot_Click(object sender, MouseButtonEventArgs e)
+        private async void Slot_Click(object sender, MouseButtonEventArgs e)
         {
-            if (!modeRemplacement || pokemonEnAttente == null)
-                return;
-
             Border clickedSlot = sender as Border;
 
-            int index = -1;
+            int index = clickedSlot == Slot1 ? 0 :
+                        clickedSlot == Slot2 ? 1 :
+                        clickedSlot == Slot3 ? 2 :
+                        clickedSlot == Slot4 ? 3 :
+                        clickedSlot == Slot5 ? 4 :
+                        clickedSlot == Slot6 ? 5 : -1;
 
-            if (clickedSlot == Slot1) index = 0;
-            else if (clickedSlot == Slot2) index = 1;
-            else if (clickedSlot == Slot3) index = 2;
-            else if (clickedSlot == Slot4) index = 3;
-            else if (clickedSlot == Slot5) index = 4;
-            else if (clickedSlot == Slot6) index = 5;
+            if (index == -1 || index >= team.Count)
+                return;
 
-            if (index == -1) return;
+            var nouveauPokemon = team[index];
 
-            var ancien = team[index];
-            team[index] = pokemonEnAttente;
-
-            MessageBox.Show($"{ancien.Name} est remplacé par {pokemonEnAttente.Name}");
-
-            modeRemplacement = false;
-            pokemonEnAttente = null;
-
-            UpdateTeamUI();
-
+            // 🔥 retour combat
             TeamScreen.Visibility = Visibility.Collapsed;
-            GameView.Visibility = Visibility.Visible;
+            CombatScreen.Visibility = Visibility.Visible;
 
-            // 🔥 FIN DU COMBAT ICI
-            FinCombat();
+            SetCombatText($"Go {nouveauPokemon.Name} !");
+
+            // 🔥 animation switch complète
+            await SwitchPokemon(nouveauPokemon);
+        }
+        private async Task SwitchPokemon(GererEquipe nouveau)
+        {
+            // 🔴 ancien disparaît
+            await DisparaitrePokemon(PlayerPokemon);
+
+            // 🎯 lancer pokeball (même anim)
+            LancerAnimationPokeball();
+
+            // 🧠 update data joueur
+            playerData = await getPokemon.GetApiPokemon(nouveau.Id);
+            statsPlayer = playerData.stats;
+
+            currentHpPlayer = nouveau.CurrentHP;
+            maxHpPlayer = nouveau.MaxHP;
+
+            PlayerName.Text = nouveau.Name.ToUpper();
+
+            UpdateHpCustom(PlayerHp, currentHpPlayer, maxHpPlayer, 180);
+            PlayerHpText.Text = $"{currentHpPlayer}/{maxHpPlayer}";
+
+            // 🎥 charger sprite
+            var url = $"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/back/{nouveau.Id}.gif";
+
+            byte[] gifBytes;
+            using (var client = new HttpClient())
+                gifBytes = await client.GetByteArrayAsync(url);
+
+            await Dispatcher.InvokeAsync(() =>
+            {
+                using var ms = new MemoryStream(gifBytes);
+
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.StreamSource = ms;
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                bitmap.Freeze();
+
+                ImageBehavior.SetAnimatedSource(PlayerPokemon, bitmap);
+            });
+
+            // 🟢 apparition
+            await ApparaitrePokemon(PlayerPokemon);
         }
 
         async Task TryCatch(string ballType)
@@ -809,7 +915,7 @@ namespace Pokemon.Views
             bool success = true;
             BagPanel.Visibility = Visibility.Collapsed;
             SetCombatText("Tu lances une Poké Ball...");
-        _: LancerPokeball();
+        _: LancerPokeball(ballType,success);
             await Task.Delay(5500);
             if (success)
             {
@@ -913,11 +1019,20 @@ namespace Pokemon.Views
                 return true; // remplacement en cours
             }
         }
-        private async Task LancerPokeball()
+        private async Task LancerPokeball(string ball,bool reussi)
         {
-            string gifPath = "/Image/Gif/pokeball_catch.gif";
-
-            RestartGif(PokeballAnim, gifPath);
+            string gifPath="";
+            if (reussi == true)
+            {
+                gifPath = $"/Image/Gif/{ball}_catch.gif";
+            }
+            else
+            {
+                Random rnd = new Random();
+                int nombre = rnd.Next(1, 4);
+                gifPath=$" / Image / Gif / {ball}_open_{nombre}shake.gif";
+            }
+                RestartGif(PokeballAnim, gifPath);
             PokeballAnim.Visibility = Visibility.Visible;
 
             PathGeometry path = new PathGeometry();
@@ -991,6 +1106,49 @@ namespace Pokemon.Views
             pokemon.Visibility = Visibility.Hidden;
             pokemon.Opacity = 1;
             pokemon.RenderTransform = null;
+        }
+        private async Task ApparaitrePokemon(Image pokemon)
+        {
+            pokemon.Visibility = Visibility.Visible;
+
+            pokemon.Opacity = 0;
+
+            DoubleAnimation fade = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(300));
+            pokemon.BeginAnimation(UIElement.OpacityProperty, fade);
+
+            await Task.Delay(300);
+
+            pokemon.Opacity = 1;
+        }
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            await YouTubePlayer.EnsureCoreWebView2Async();
+
+            string videoId = "tdD57sinnT0";
+
+            string html = $@"
+    <html>
+    <body style='margin:0;background:black;overflow:hidden;'>
+        <iframe width='100%' height='100%'
+        src='https://www.youtube.com/embed/{videoId}?autoplay=1&controls=0'
+        frameborder='0'
+        allow='autoplay'
+        allowfullscreen>
+        </iframe>
+    </body>
+    </html>";
+
+            YouTubePlayer.NavigateToString(html);
+        }
+        void UpdateBagUI()
+        {
+            BtnPokeBall.Content = $"Poké Ball x{nbPokeBall}";
+            BtnSuperBall.Content = $"Super Ball x{nbSuperBall}";
+            BtnHyperBall.Content = $"Hyper Ball x{nbHyperBall}";
+
+            BtnPotion.Content = $"Potion x{nbPotion}";
+            BtnSuperPotion.Content = $"Super Potion x{nbSuperPotion}";
+            BtnHyperPotion.Content = $"Hyper Potion x{nbHyperPotion}";
         }
     }
 

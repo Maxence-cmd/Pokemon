@@ -5,10 +5,15 @@
         Title="chasse"
         KeyDown="Window_KeyDown"
         KeyUp="Window_KeyUp"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Loaded="Window_Loaded"
         Focusable="True"
         WindowState="Maximized"
         ResizeMode="NoResize">
     <Grid Background="Black">
+        <Grid Visibility="Collapsed">
+            <wv2:WebView2 x:Name="YouTubePlayer"/>
+        </Grid>
         <Grid x:Name="TeamScreen" Background="#A8D0D0" Visibility="Collapsed">
 
             <Canvas Width="900" Height="550">
@@ -555,7 +560,7 @@ est apparu !"
                         <UniformGrid Rows="2" Columns="3" Margin="4">
 
                             <!-- Poké Ball -->
-                            <Button Click="UsePokeBall_Click" Background="#E03030" Margin="0,0,27,0">
+                            <Button x:Name="BtnPokeBall" Click="UsePokeBall_Click" Background="#E03030" Margin="0,0,27,0">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
                        Width="24" Height="20" Margin="4"/>
@@ -567,7 +572,7 @@ est apparu !"
                             </Button>
 
                             <!-- Super Ball -->
-                            <Button Click="UseSuperBall_Click" Background="#3060E0">
+                            <Button x:Name="BtnSuperBall" Click="UseSuperBall_Click" Background="#3060E0">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/great-ball.png"
                        Width="24" Height="20" Margin="4"/>
@@ -579,7 +584,7 @@ est apparu !"
                             </Button>
 
                             <!-- Hyper Ball -->
-                            <Button Click="UseHyperBall_Click" Background="#202020" Margin="25,0,14,-6">
+                            <Button x:Name="BtnHyperBall" Click="UseHyperBall_Click" Background="#202020" Margin="25,0,14,-6">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ultra-ball.png"
                        Width="24" Height="20" Margin="4"/>
@@ -591,7 +596,7 @@ est apparu !"
                             </Button>
 
                             <!-- Potion -->
-                            <Button Click="UsePotion_Click" Background="#38A838" Margin="0,0,27,0">
+                            <Button x:Name="BtnPotion" Click="UsePotion_Click" Background="#38A838" Margin="0,0,27,0">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png"
                        Width="24" Height="20"/>
@@ -603,7 +608,7 @@ est apparu !"
                             </Button>
 
                             <!-- Super Potion -->
-                            <Button Click="UseSuperPotion_Click" Background="#50C878">
+                            <Button x:Name="BtnSuperPotion" Click="UseSuperPotion_Click" Background="#50C878">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/super-potion.png"
                        Width="24" Height="24"/>
@@ -615,7 +620,7 @@ est apparu !"
                             </Button>
 
                             <!-- Hyper Potion -->
-                            <Button Click="UseHyperPotion_Click" Background="#A855F7" Margin="25,0,14,0">
+                            <Button x:Name="BtnHyperPotion" Click="UseHyperPotion_Click" Background="#A855F7" Margin="25,0,14,0">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/hyper-potion.png"
                        Width="24" Height="24"/>
