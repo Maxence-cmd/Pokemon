@@ -697,7 +697,7 @@ namespace Pokemon.Views
             (this.FindName($"Interaction{dep}") as Canvas).Visibility = Visibility.Collapsed;
             Interaction0.Visibility = Visibility.Hidden;
             ImgBck.Source = new BitmapImage(
-    new Uri("/Image/map poke/safaricentrale.png", UriKind.Relative)
+    new Uri("/Image/map poke/safaricentral.png", UriKind.Relative)
 );
             // 🧍 joueur position
             Canvas.SetLeft(perso, x);
