@@ -630,7 +630,7 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
                     <Rectangle Width="22" Name="RectDroit0" Height="30" Stroke="Blue" Canvas.Left="695" Canvas.Top="188" HorizontalAlignment="Left" VerticalAlignment="Center" Tag="0to1"/>
                 </Canvas>
                 <Canvas x:Name="ZoneTP1" Visibility="Collapsed">
-                    <Rectangle Width="50" Name="RectTopGauche1" Height="33" Stroke="Blue" Canvas.Left="22" Canvas.Top="119" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="50" Name="RectTopGauche1" Height="33" Stroke="Blue" Canvas.Left="22" Canvas.Top="119" HorizontalAlignment="Center" VerticalAlignment="Top" Tag="1to2"/>
                     <Rectangle Width="11" Name="RectMaison1" Height="11" Stroke="Blue" Canvas.Left="568" Canvas.Top="197" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="1to2"/>
                     <Rectangle Width="22" Name="RectBasGauche1" Height="30" Stroke="Blue" Canvas.Left="50" Canvas.Top="336" HorizontalAlignment="Left" VerticalAlignment="Center" Tag="1to0"/>
                 </Canvas>
