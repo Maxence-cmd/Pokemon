@@ -43,7 +43,7 @@ namespace Pokemon.Views
         Stats statsPlayer;
         Stats statsEnemy;
         bool left, right, up, down;
-        double speed = 1.5;
+        double speed = 10;
         DispatcherTimer timer;
         bool interactionActive = false;
         bool enCombat = false;
@@ -569,7 +569,7 @@ namespace Pokemon.Views
                                 break;
 
                             case "0to2":
-                                SwitchToMap2(416, 420, "0");
+                                SwitchToMap2(426, 420, "0");
                                 break;
 
                             case "31to21":
@@ -581,7 +581,7 @@ namespace Pokemon.Views
                                 break;
 
                             case "1to2":
-                                SwitchToMap2(672, 360, "1");
+                                SwitchToMap2(672, 355, "1");
                                 break;
 
                             case "0to3":
