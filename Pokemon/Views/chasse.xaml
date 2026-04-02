@@ -235,7 +235,7 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
             </StackPanel>
 
         </Grid>
-        <Viewbox Stretch="Uniform" Visibility="Visible" x:Name="GameView">
+        <Viewbox Stretch="Uniform" Visibility="Collapsed" x:Name="GameView">
 
 
             <Canvas x:Name="ZoneJeu1" Width="800" Height="450">
@@ -250,7 +250,7 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
         Height="23"
         Click="bttReglage_Click" Canvas.Top="12" Canvas.Left="640" Style="{StaticResource OldPokemonButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 <!-- ZONE BLOQUANTE -->
-                <Canvas x:Name="ZoneBloque0" Visibility="Collapsed">
+                <Canvas x:Name="ZoneBloque0" Visibility="Hidden">
 
                     <Rectangle Width="60" Height="43" Stroke="Black" Canvas.Left="432" Canvas.Top="284" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Rectangle Width="175" Height="15" Stroke="Black" Canvas.Left="306" Canvas.Top="251" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -647,7 +647,7 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
                 </Canvas>
                 <Canvas x:Name="Interaction0"  Visibility="Hidden">
                     <Rectangle Width="19" Height="11" Stroke="GreenYellow" Canvas.Left="452" Canvas.Top="338" HorizontalAlignment="Left" VerticalAlignment="Center" Tag="Maison de Raphael"/>
-                    <Rectangle Width="19" Height="11" Stroke="GreenYellow" Canvas.Left="391" Canvas.Top="350" HorizontalAlignment="Left" VerticalAlignment="Center" Tag="Bonjour jeune dresseur !"/>
+                    <Rectangle Width="19" Height="11" Stroke="GreenYellow" Canvas.Left="391" Canvas.Top="350" HorizontalAlignment="Left" VerticalAlignment="Center" Tag="Bonjour @rvph_j et @maxencelprt!"/>
                     <Rectangle Width="19" Height="11" Stroke="GreenYellow" Canvas.Left="490" Canvas.Top="265" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="Trouve Electhor"/>
                 </Canvas>
                 <Canvas x:Name="Interaction1"  Visibility="Collapsed">

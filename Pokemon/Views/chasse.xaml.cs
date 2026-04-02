@@ -19,7 +19,7 @@ namespace Pokemon.Views
 {
     public partial class chasse : Window
     {
-        public GetPokemon getPokemon;
+        public GetPokemon getPokemon;  
         int nbPokeBall = 50;
         int nbSuperBall = 15;
         int nbHyperBall = 5;
@@ -1262,8 +1262,8 @@ namespace Pokemon.Views
         {
             int catchRate = enemyData.catch_rate ?? 45; // ⚠️ adapte selon ton modèle
 
-            bool success = TryCatchPokemon(catchRate, ballType);
-           // bool success = true;
+            //bool success = TryCatchPokemon(catchRate, ballType);
+           bool success = true;
             BagPanel.Visibility = Visibility.Collapsed;
             SetCombatText("Tu lances une Poké Ball...");
         _: LancerPokeball(ballType,success);
