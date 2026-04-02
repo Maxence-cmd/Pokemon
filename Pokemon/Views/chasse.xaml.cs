@@ -525,7 +525,7 @@ namespace Pokemon.Views
                 perso.Height);
 
             // 🔥 liste de toutes les zones TP
-            var zonesTP = new List<Canvas> { ZoneTP0, ZoneTP1, ZoneTP2 };
+            var zonesTP = new List<Canvas> { ZoneTP0, ZoneTP1, ZoneTP2 ,ZoneTP3};
 
             foreach (var zone in zonesTP)
             {
@@ -569,7 +569,7 @@ namespace Pokemon.Views
                                 break;
 
                             case "0to2":
-                                SwitchToMap2(426, 420, "0");
+                                SwitchToMap2(420, 420, "0");
                                 break;
 
                             case "31to21":

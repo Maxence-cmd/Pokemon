@@ -250,7 +250,7 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
         Height="23"
         Click="bttReglage_Click" Canvas.Top="12" Canvas.Left="640" Style="{StaticResource OldPokemonButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 <!-- ZONE BLOQUANTE -->
-                <Canvas x:Name="ZoneBloque0" Visibility="Hidden">
+                <Canvas x:Name="ZoneBloque0" Visibility="Collapsed">
 
                     <Rectangle Width="60" Height="43" Stroke="Black" Canvas.Left="432" Canvas.Top="284" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Rectangle Width="175" Height="15" Stroke="Black" Canvas.Left="306" Canvas.Top="251" HorizontalAlignment="Left" VerticalAlignment="Center"/>
