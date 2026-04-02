@@ -43,7 +43,7 @@ namespace Pokemon.Views
         Stats statsPlayer;
         Stats statsEnemy;
         bool left, right, up, down;
-        double speed = 10;
+        double speed = 1.5;
         DispatcherTimer timer;
         bool interactionActive = false;
         bool enCombat = false;
