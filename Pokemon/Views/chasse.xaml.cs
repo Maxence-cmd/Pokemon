@@ -20,9 +20,9 @@ namespace Pokemon.Views
     public partial class chasse : Window
     {
         public GetPokemon getPokemon;
-        int nbPokeBall = 10;
-        int nbSuperBall = 5;
-        int nbHyperBall = 2;
+        int nbPokeBall = 50;
+        int nbSuperBall = 15;
+        int nbHyperBall = 5;
         int nbPotion = 5;
         int nbSuperPotion = 3;
         int nbHyperPotion = 1;
@@ -58,6 +58,7 @@ namespace Pokemon.Views
         string direction = "front";
         private bool _attackPanelOpen = false;
         bool escapeSuccess;
+        bool isTeleporting = false;
         string pokemonpremier = "nope";
         public chasse()
         {
@@ -113,7 +114,7 @@ namespace Pokemon.Views
                 Canvas.SetLeft(perso, newX);
                 Canvas.SetTop(perso, newY);
                 bool isMoving = left || right || up || down;
-
+                CheckTeleport();
                 if (isMoving)
                 {
                     animationCounter++;
@@ -200,18 +201,72 @@ namespace Pokemon.Views
 
         private bool CollisionAvecObstacle(Rect futurPerso)
         {
-            foreach (UIElement element in ZoneBloque.Children)
+            if (ZoneBloque0.Visibility == Visibility.Visible || ZoneBloque0.Visibility == Visibility.Hidden)
             {
-                if (element is Rectangle rect)
+                foreach (UIElement element in ZoneBloque0.Children)
                 {
-                    double x = Canvas.GetLeft(rect);
-                    double y = Canvas.GetTop(rect);
-
-                    Rect obstacle = new Rect(x, y, rect.Width, rect.Height);
-
-                    if (futurPerso.IntersectsWith(obstacle))
+                    if (element is Rectangle rect)
                     {
-                        return true;
+                        Rect obstacle = new Rect(
+                            Canvas.GetLeft(rect),
+                            Canvas.GetTop(rect),
+                            rect.Width,
+                            rect.Height);
+
+                        if (futurPerso.IntersectsWith(obstacle))
+                            return true;
+                    }
+                }
+            }
+
+            if (ZoneBloque1.Visibility == Visibility.Visible || ZoneBloque1.Visibility == Visibility.Hidden)
+            {
+                foreach (UIElement element in ZoneBloque1.Children)
+                {
+                    if (element is Rectangle rect)
+                    {
+                        Rect obstacle = new Rect(
+                            Canvas.GetLeft(rect),
+                            Canvas.GetTop(rect),
+                            rect.Width,
+                            rect.Height);
+
+                        if (futurPerso.IntersectsWith(obstacle))
+                            return true;
+                    }
+                }
+            }
+            if (ZoneBloque2.Visibility == Visibility.Visible || ZoneBloque2.Visibility == Visibility.Hidden)
+            {
+                foreach (UIElement element in ZoneBloque2.Children)
+                {
+                    if (element is Rectangle rect)
+                    {
+                        Rect obstacle = new Rect(
+                            Canvas.GetLeft(rect),
+                            Canvas.GetTop(rect),
+                            rect.Width,
+                            rect.Height);
+
+                        if (futurPerso.IntersectsWith(obstacle))
+                            return true;
+                    }
+                }
+            }
+            if (ZoneBloque3.Visibility == Visibility.Visible || ZoneBloque3.Visibility == Visibility.Hidden)
+            {
+                foreach (UIElement element in ZoneBloque3.Children)
+                {
+                    if (element is Rectangle rect)
+                    {
+                        Rect obstacle = new Rect(
+                            Canvas.GetLeft(rect),
+                            Canvas.GetTop(rect),
+                            rect.Width,
+                            rect.Height);
+
+                        if (futurPerso.IntersectsWith(obstacle))
+                            return true;
                     }
                 }
             }
@@ -236,19 +291,75 @@ namespace Pokemon.Views
                 hitboxWidth,
                 hitboxHeight
             );
-
-            foreach (UIElement element in Interaction.Children)
+            if (Interaction0.Visibility == Visibility.Visible || Interaction0.Visibility == Visibility.Hidden)
             {
-                if (element is Rectangle rect)
+                foreach (UIElement element in Interaction0.Children)
                 {
-                    double rx = Canvas.GetLeft(rect);
-                    double ry = Canvas.GetTop(rect);
-
-                    Rect zone = new Rect(rx, ry, rect.Width, rect.Height);
-
-                    if (persoRect.IntersectsWith(zone))
+                    if (element is Rectangle rect)
                     {
-                        return rect;
+                        double rx = Canvas.GetLeft(rect);
+                        double ry = Canvas.GetTop(rect);
+
+                        Rect zone = new Rect(rx, ry, rect.Width, rect.Height);
+
+                        if (persoRect.IntersectsWith(zone))
+                        {
+                            return rect;
+                        }
+                    }
+                }
+            }
+            if (Interaction1.Visibility == Visibility.Visible || Interaction1.Visibility == Visibility.Hidden)
+            {
+                foreach (UIElement element in Interaction1.Children)
+                {
+                    if (element is Rectangle rect)
+                    {
+                        double rx = Canvas.GetLeft(rect);
+                        double ry = Canvas.GetTop(rect);
+
+                        Rect zone = new Rect(rx, ry, rect.Width, rect.Height);
+
+                        if (persoRect.IntersectsWith(zone))
+                        {
+                            return rect;
+                        }
+                    }
+                }
+            }
+            if (Interaction2.Visibility == Visibility.Visible || Interaction2.Visibility == Visibility.Hidden)
+            {
+                foreach (UIElement element in Interaction2.Children)
+                {
+                    if (element is Rectangle rect)
+                    {
+                        double rx = Canvas.GetLeft(rect);
+                        double ry = Canvas.GetTop(rect);
+
+                        Rect zone = new Rect(rx, ry, rect.Width, rect.Height);
+
+                        if (persoRect.IntersectsWith(zone))
+                        {
+                            return rect;
+                        }
+                    }
+                }
+            }
+            if (Interaction3.Visibility == Visibility.Visible || Interaction3.Visibility == Visibility.Hidden)
+            {
+                foreach (UIElement element in Interaction3.Children)
+                {
+                    if (element is Rectangle rect)
+                    {
+                        double rx = Canvas.GetLeft(rect);
+                        double ry = Canvas.GetTop(rect);
+
+                        Rect zone = new Rect(rx, ry, rect.Width, rect.Height);
+
+                        if (persoRect.IntersectsWith(zone))
+                        {
+                            return rect;
+                        }
                     }
                 }
             }
@@ -278,7 +389,7 @@ namespace Pokemon.Views
             SetCombatText("Choisis un Pokémon !");
             TeamScreen.Visibility = Visibility.Visible;
             CombatScreen.Visibility = Visibility.Hidden;
-            ZoneJeu.Visibility = Visibility.Hidden;
+            ZoneJeu1.Visibility = Visibility.Hidden;
             modeRemplacement = false; // ⚠️ important (on switch, pas remplacement équipe)
         }
 
@@ -320,7 +431,7 @@ namespace Pokemon.Views
             SetCombatText("Tu prends la fuite...");
             await Task.Delay(1200);
             CombatScreen.Visibility = Visibility.Hidden;
-            ZoneJeu.Visibility = Visibility.Visible;
+            ZoneJeu1.Visibility = Visibility.Visible;
             // TODO : retour map
         }
         public void SetCombatText(string text)
@@ -334,23 +445,263 @@ namespace Pokemon.Views
 
         private bool DansHerbe(Rect futurPerso)
         {
-            foreach (UIElement element in ZoneHerbe.Children)
+            if (ZoneHerbe0.Visibility == Visibility.Visible || ZoneHerbe0.Visibility == Visibility.Hidden)
             {
-                if (element is Rectangle rect)
+                foreach (UIElement element in ZoneHerbe0.Children)
                 {
-                    double x = Canvas.GetLeft(rect);
-                    double y = Canvas.GetTop(rect);
-
-                    Rect herbe = new Rect(x, y, rect.Width, rect.Height);
-
-                    if (futurPerso.IntersectsWith(herbe))
+                    if (element is Rectangle rect)
                     {
-                        return true;
+                        double rx = Canvas.GetLeft(rect);
+                        double ry = Canvas.GetTop(rect);
+
+                        Rect herbe = new Rect(rx, ry, rect.Width, rect.Height);
+                        if (futurPerso.IntersectsWith(herbe))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            if (ZoneHerbe1.Visibility == Visibility.Visible || ZoneHerbe1.Visibility == Visibility.Hidden)
+            {
+                foreach (UIElement element in ZoneHerbe1.Children)
+                {
+                    if (element is Rectangle rect)
+                    {
+                        double rx = Canvas.GetLeft(rect);
+                        double ry = Canvas.GetTop(rect);
+
+                        Rect herbe = new Rect(rx, ry, rect.Width, rect.Height);
+                        if (futurPerso.IntersectsWith(herbe))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            if (ZoneHerbe3.Visibility == Visibility.Visible || ZoneHerbe3.Visibility == Visibility.Hidden)
+            {
+                foreach (UIElement element in ZoneHerbe3.Children)
+                {
+                    if (element is Rectangle rect)
+                    {
+                        double rx = Canvas.GetLeft(rect);
+                        double ry = Canvas.GetTop(rect);
+
+                        Rect herbe = new Rect(rx, ry, rect.Width, rect.Height);
+                        if (futurPerso.IntersectsWith(herbe))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            if (ZoneHerbe2.Visibility == Visibility.Visible || ZoneHerbe2.Visibility == Visibility.Hidden)
+            {
+                foreach (UIElement element in ZoneHerbe2.Children)
+                {
+                    if (element is Rectangle rect)
+                    {
+                        double rx = Canvas.GetLeft(rect);
+                        double ry = Canvas.GetTop(rect);
+
+                        Rect herbe = new Rect(rx, ry, rect.Width, rect.Height);
+                        if (futurPerso.IntersectsWith(herbe))
+                        {
+                            return true;
+                        }
                     }
                 }
             }
 
             return false;
+        }
+        private void CheckTeleport()
+        {
+            Rect playerRect = new Rect(
+                Canvas.GetLeft(perso),
+                Canvas.GetTop(perso),
+                perso.Width,
+                perso.Height);
+
+            // 🔥 liste de toutes les zones TP
+            var zonesTP = new List<Canvas> { ZoneTP0, ZoneTP1, ZoneTP2 };
+
+            foreach (var zone in zonesTP)
+            {
+                if (zone.Visibility != Visibility.Visible && zone.Visibility != Visibility.Hidden)
+                    continue;
+
+                foreach (var rect in zone.Children.OfType<Rectangle>())
+                {
+                    Rect tpRect = new Rect(
+                        Canvas.GetLeft(rect),
+                        Canvas.GetTop(rect),
+                        rect.Width,
+                        rect.Height);
+
+                    if (!isTeleporting && playerRect.IntersectsWith(tpRect))
+                    {
+                        string tag = rect.Tag as string;
+
+                        isTeleporting = true;
+
+                        switch (tag)
+                        {
+                            case "0to1":
+                                SwitchToMap1(98, 347, "0");
+                                break;
+
+                            case "2to1":
+                                SwitchToMap1(105, 126, "2");
+                                break;
+
+                            case "3to0":
+                                SwitchToMap0(107, 218, "3");
+                                break;
+
+                            case "2to0":
+                                SwitchToMap0(400, 46, "2");
+                                break;
+
+                            case "1to0":
+                                SwitchToMap0(672, 195, "1");
+                                break;
+
+                            case "0to2":
+                                SwitchToMap2(416, 420, "0");
+                                break;
+
+                            case "31to21":
+                                SwitchToMap2(416, 310, "3");
+                                break;
+
+                            case "32to22":
+                                SwitchToMap2(416, 196, "3");
+                                break;
+
+                            case "1to2":
+                                SwitchToMap2(672, 360, "1");
+                                break;
+
+                            case "0to3":
+                                SwitchToMap3(658, 330, "0");
+                                break;
+
+                            case "21to31":
+                                SwitchToMap3(569, 24, "2");
+                                break;
+
+                            case "22to32":
+                                SwitchToMap3(482, 24, "2");
+                                break;
+                        }
+
+                        Task.Delay(500).ContinueWith(_ =>
+                        {
+                            Dispatcher.Invoke(() => isTeleporting = false);
+                        });
+
+                        return;
+                    }
+                }
+            }
+        }
+        private void SwitchToMap1(int x,int y, string dep)
+        {
+            // 🔁 zones collision
+            (this.FindName($"ZoneBloque{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneBloque1.Visibility = Visibility.Hidden;
+
+            // 🌿 herbe
+            (this.FindName($"ZoneHerbe{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneHerbe1.Visibility = Visibility.Hidden;
+
+            // 🚪 TP
+            (this.FindName($"ZoneTP{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneTP1.Visibility = Visibility.Hidden;
+
+            // 💬 interactions
+            (this.FindName($"Interaction{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            Interaction1.Visibility = Visibility.Hidden;
+            ImgBck.Source = new BitmapImage(
+    new Uri("/Image/map poke/safari1.png", UriKind.Relative)
+);
+            // 🧍 joueur position
+            Canvas.SetLeft(perso, x);
+            Canvas.SetTop(perso, y);
+        }
+        private void SwitchToMap2(int x, int y, string dep)
+        {
+            // 🔁 zones collision
+            (this.FindName($"ZoneBloque{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneBloque2.Visibility = Visibility.Hidden;
+
+            // 🌿 herbe
+            (this.FindName($"ZoneHerbe{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneHerbe2.Visibility = Visibility.Hidden;
+
+            // 🚪 TP
+            (this.FindName($"ZoneTP{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneTP2.Visibility = Visibility.Hidden;
+
+            // 💬 interactions
+            (this.FindName($"Interaction{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            Interaction2.Visibility = Visibility.Hidden;
+            ImgBck.Source = new BitmapImage(
+    new Uri("/Image/map poke/safari2.png", UriKind.Relative)
+);
+            // 🧍 joueur position
+            Canvas.SetLeft(perso, x);
+            Canvas.SetTop(perso, y);
+        }
+        private void SwitchToMap3(int x, int y, string dep)
+        {
+            // 🔁 zones collision
+            (this.FindName($"ZoneBloque{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneBloque3.Visibility = Visibility.Hidden;
+
+            // 🌿 herbe
+            (this.FindName($"ZoneHerbe{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneHerbe3.Visibility = Visibility.Hidden;
+
+            // 🚪 TP
+            (this.FindName($"ZoneTP{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneTP3.Visibility = Visibility.Hidden;
+
+            // 💬 interactions
+            (this.FindName($"Interaction{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            Interaction3.Visibility = Visibility.Hidden;
+            ImgBck.Source = new BitmapImage(
+    new Uri("/Image/map poke/safari3.png", UriKind.Relative)
+);
+            // 🧍 joueur position
+            Canvas.SetLeft(perso, x);
+            Canvas.SetTop(perso, y);
+        }
+        private void SwitchToMap0(int x, int y, string dep)
+        {
+            // 🔁 zones collision
+            (this.FindName($"ZoneBloque{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneBloque0.Visibility = Visibility.Hidden;
+
+            // 🌿 herbe
+            (this.FindName($"ZoneHerbe{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneHerbe0.Visibility = Visibility.Hidden;
+
+            // 🚪 TP
+            (this.FindName($"ZoneTP{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            ZoneTP0.Visibility = Visibility.Hidden;
+
+            // 💬 interactions
+            (this.FindName($"Interaction{dep}") as Canvas).Visibility = Visibility.Collapsed;
+            Interaction0.Visibility = Visibility.Hidden;
+            ImgBck.Source = new BitmapImage(
+    new Uri("/Image/map poke/safaricentrale.png", UriKind.Relative)
+);
+            // 🧍 joueur position
+            Canvas.SetLeft(perso, x);
+            Canvas.SetTop(perso, y);
         }
         private async void LancerCombat()
         {
@@ -508,7 +859,7 @@ namespace Pokemon.Views
         {
             StartMenu.Visibility = Visibility.Collapsed;
             GameView.Visibility = Visibility.Visible;
-            ZoneJeu.Focus(); // important pour les touches
+            ZoneJeu1.Focus(); // important pour les touches
         }
 
         private async void BtnMove1_Click(object sender, RoutedEventArgs e)
@@ -746,7 +1097,7 @@ namespace Pokemon.Views
         private async void FinCombat()
         {
             await Task.Delay(1500);
-            ZoneJeu.Visibility = Visibility.Visible;
+            ZoneJeu1.Visibility = Visibility.Visible;
             CombatScreen.Visibility = Visibility.Hidden;
             enCombat = false;
         }
@@ -911,8 +1262,8 @@ namespace Pokemon.Views
         {
             int catchRate = enemyData.catch_rate ?? 45; // ⚠️ adapte selon ton modèle
 
-            // bool success = TryCatchPokemon(catchRate, ballType);
-            bool success = true;
+            bool success = TryCatchPokemon(catchRate, ballType);
+           // bool success = true;
             BagPanel.Visibility = Visibility.Collapsed;
             SetCombatText("Tu lances une Poké Ball...");
         _: LancerPokeball(ballType,success);
@@ -1019,40 +1370,40 @@ namespace Pokemon.Views
                 return true; // remplacement en cours
             }
         }
-        private async Task LancerPokeball(string ball,bool reussi)
+        private async Task LancerPokeball(string ball, bool reussi)
         {
-            string gifPath="";
-            if (reussi == true)
+            string gifPath;
+            int nombre = random.Next(1, 4); // ✅ utilise ton Random global
+
+            if (reussi)
             {
                 gifPath = $"/Image/Gif/{ball}_catch.gif";
             }
             else
             {
-                Random rnd = new Random();
-                int nombre = rnd.Next(1, 4);
-                gifPath=$" / Image / Gif / {ball}_open_{nombre}shake.gif";
+                gifPath = nombre == 3
+                    ? $"/Image/Gif/{ball}_open_direct.gif"
+                    : $"/Image/Gif/{ball}_open_{nombre}shake.gif";
             }
-                RestartGif(PokeballAnim, gifPath);
+
+            RestartGif(PokeballAnim, gifPath);
             PokeballAnim.Visibility = Visibility.Visible;
 
+            // 🔥 TRAJECTOIRE
             PathGeometry path = new PathGeometry();
-            PathFigure figure = new PathFigure();
+            PathFigure figure = new PathFigure
+            {
+                StartPoint = new Point(50, 400)
+            };
 
-            // 🔥 départ (bas gauche)
-            figure.StartPoint = new Point(50, 400);
+            figure.Segments.Add(new QuadraticBezierSegment(
+                new Point(300, 0),
+                new Point(550, 120),
+                true));
 
-            // 🔥 courbe (arc)
-            QuadraticBezierSegment curve = new QuadraticBezierSegment(
-                new Point(300, 0),   // hauteur de l'arc
-                new Point(550, 120), // destination
-                true
-            );
-
-            figure.Segments.Add(curve);
             path.Figures.Add(figure);
 
             int duration = 1900;
-            int stayTime = 10000;
 
             var animX = new DoubleAnimationUsingPath
             {
@@ -1068,12 +1419,32 @@ namespace Pokemon.Views
                 Source = PathAnimationSource.Y
             };
 
+            // 🔥 LANCER TOUJOURS (succès OU échec)
             PokeballAnim.BeginAnimation(Canvas.LeftProperty, animX);
             PokeballAnim.BeginAnimation(Canvas.TopProperty, animY);
+
             await Task.Delay(duration);
+
+            // 🔥 disparition Pokémon
             await DisparaitrePokemon(EnemyPokemon);
-            await Task.Delay(duration + stayTime);
-           
+
+            // ⏱ durée des shakes
+            int waitTime = nombre switch
+            {
+                1 => 1800,
+                2 => 2800,
+                _ => 100
+            };
+
+            await Task.Delay(waitTime);
+
+            // ❌ ÉCHEC → réapparition stylée
+            if (!reussi)
+            {
+                await ApparaitrePokemon(EnemyPokemon);
+            }
+
+            // 🧼 clean
             PokeballAnim.Visibility = Visibility.Collapsed;
         }
 
@@ -1142,13 +1513,69 @@ namespace Pokemon.Views
         }
         void UpdateBagUI()
         {
-            BtnPokeBall.Content = $"Poké Ball x{nbPokeBall}";
-            BtnSuperBall.Content = $"Super Ball x{nbSuperBall}";
-            BtnHyperBall.Content = $"Hyper Ball x{nbHyperBall}";
+            SetButtonContent(
+                BtnPokeBall,
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png",
+                $"Poké Ball x{nbPokeBall}"
+            );
 
-            BtnPotion.Content = $"Potion x{nbPotion}";
-            BtnSuperPotion.Content = $"Super Potion x{nbSuperPotion}";
-            BtnHyperPotion.Content = $"Hyper Potion x{nbHyperPotion}";
+            SetButtonContent(
+                BtnSuperBall,
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/great-ball.png",
+                $"Super Ball x{nbSuperBall}"
+            );
+
+            SetButtonContent(
+                BtnHyperBall,
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ultra-ball.png",
+                $"Hyper Ball x{nbHyperBall}"
+            );
+
+            SetButtonContent(
+                BtnPotion,
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png",
+                $"Potion x{nbPotion}"
+            );
+
+            SetButtonContent(
+                BtnSuperPotion,
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/super-potion.png",
+                $"Super Potion x{nbSuperPotion}"
+            );
+
+            SetButtonContent(
+                BtnHyperPotion,
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/hyper-potion.png",
+                $"Hyper Potion x{nbHyperPotion}"
+            );
+        }
+        void SetButtonContent(Button btn, string imageUrl, string text)
+        {
+            StackPanel panel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal
+            };
+
+            Image img = new Image
+            {
+                Source = new BitmapImage(new Uri(imageUrl)),
+                Width = 24,
+                Height = 20,
+                Margin = new Thickness(4)
+            };
+
+            TextBlock txt = new TextBlock
+            {
+                Text = text,
+                FontFamily = new FontFamily("Consolas"),
+                Foreground = Brushes.White,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            panel.Children.Add(img);
+            panel.Children.Add(txt);
+
+            btn.Content = panel;
         }
     }
 

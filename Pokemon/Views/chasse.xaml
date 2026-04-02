@@ -235,12 +235,13 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
             </StackPanel>
 
         </Grid>
-        <Viewbox Stretch="Uniform" Visibility="Collapsed" x:Name="GameView">
+        <Viewbox Stretch="Uniform" Visibility="Hidden" x:Name="GameView">
 
-            <Canvas x:Name="ZoneJeu" Width="800" Height="450">
+
+            <Canvas x:Name="ZoneJeu1" Width="800" Height="450">
 
                 <!-- BACKGROUND -->
-                <Image Source="/Image/map poke/safaricentral.png"
+                <Image x:Name="ImgBck" Source="/Image/map poke/safaricentral.png"
                        Width="800"
                        Height="450"/>
                 <Button x:Name="bttReglage"
@@ -249,7 +250,7 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
         Height="23"
         Click="bttReglage_Click" Canvas.Top="12" Canvas.Left="640" Style="{StaticResource OldPokemonButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 <!-- ZONE BLOQUANTE -->
-                <Canvas x:Name="ZoneBloque">
+                <Canvas x:Name="ZoneBloque0" Visibility="Hidden">
 
                     <Rectangle Width="60" Height="43" Stroke="Black" Canvas.Left="432" Canvas.Top="284" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Rectangle Width="175" Height="15" Stroke="Black" Canvas.Left="306" Canvas.Top="251" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -263,7 +264,7 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
                     <Rectangle Width="141" Height="205" Stroke="Black" Canvas.Left="54" Canvas.Top="241"/>
                     <Rectangle Width="260" Height="75" Stroke="Black" Canvas.Left="122" Canvas.Top="377" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Rectangle Width="14" Height="112" Stroke="Black" Canvas.Left="356" Canvas.Top="55" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Rectangle Width="383" Height="75" Stroke="Black" Canvas.Left="432" Canvas.Top="377" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="437" Height="75" Stroke="Black" Canvas.Left="378" Canvas.Top="377" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <Rectangle Width="125" Height="203" Stroke="Black" Canvas.Left="614" Canvas.Top="219" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <Rectangle Width="175" Height="12" Stroke="Black" Canvas.Left="503" Canvas.Top="178" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                     <Rectangle Width="16" Height="77" Stroke="Black" Canvas.Left="378" Canvas.Top="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -271,33 +272,402 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
                     <Rectangle Width="12" Height="12" Stroke="Black" Canvas.Left="455" Canvas.Top="327" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <Rectangle Width="12" Height="12" Stroke="Black" Canvas.Left="493" Canvas.Top="254" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-                </Canvas>
+                </Canvas >
 
+                <Canvas x:Name="ZoneBloque1" Visibility="Collapsed">
+                    <Rectangle Width="63" Height="43" Stroke="Black" Canvas.Left="555" Canvas.Top="154" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="157" Height="190" Stroke="Black" Canvas.Left="51" Canvas.Top="149" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="157" Height="550" Stroke="Black" Canvas.Left="633" Canvas.Top="-3" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="592" Height="299" Stroke="Black" Canvas.Left="51" Canvas.Top="390" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="582" Height="134" Stroke="Black" Canvas.Left="51" Canvas.Top="-54" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="236" Height="13" Stroke="Black" Canvas.Left="51" Canvas.Top="108" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="236" Height="13" Stroke="Black" Canvas.Left="12844" Canvas.Top="12878" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="114" Height="43" Stroke="Black" Canvas.Left="51" Canvas.Top="80" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="284" Height="13" Stroke="Black" Canvas.Left="51" Canvas.Top="148" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="12" Height="14" Stroke="Black" Canvas.Left="606" Canvas.Top="197" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="149" Height="5" Stroke="Black" Canvas.Left="494" Canvas.Top="223" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="31" Height="38" Stroke="Black" Canvas.Left="494" Canvas.Top="251" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="51" Height="10" Stroke="Black" Canvas.Left="592" Canvas.Top="252" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="65" Height="10" Stroke="Black" Canvas.Left="386" Canvas.Top="162" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="108" Height="36" Stroke="Black" Canvas.Left="386" Canvas.Top="200" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="30" Height="26" Stroke="Black" Canvas.Left="485" Canvas.Top="200" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="33" Height="59" Stroke="Black" Canvas.Left="467" Canvas.Top="228" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="108" Height="36" Stroke="Black" Canvas.Left="386" Canvas.Top="200" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Rectangle Width="139" Height="25" Stroke="Black" Canvas.Left="386" Canvas.Top="265" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="144" Height="5" Stroke="Black" Canvas.Left="381" Canvas.Top="301" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="13" Height="88" Stroke="Black" Canvas.Left="555" Canvas.Top="252" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="62" Height="10" Stroke="Black" Canvas.Left="453" Canvas.Top="329" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="46" Height="10" Stroke="Black" Canvas.Left="378" Canvas.Top="329" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="28" Height="10" Stroke="Black" Canvas.Left="540" Canvas.Top="329" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="109" Height="12" Stroke="Black" Canvas.Left="200" Canvas.Top="328" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="73" Height="45" Stroke="Black" Canvas.Left="208" Canvas.Top="289" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Rectangle Width="193" Height="12" Stroke="Black" Canvas.Left="285" Canvas.Top="354" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="13" Height="12" Stroke="Black" Canvas.Left="296" Canvas.Top="340" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="13" Height="12" Stroke="Black" Canvas.Left="465" Canvas.Top="340" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="13" Height="23" Stroke="Black" Canvas.Left="375" Canvas.Top="306" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="23" Height="23" Stroke="Black" Canvas.Left="401" Canvas.Top="175" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="23" Height="23" Stroke="Black" Canvas.Left="620" Canvas.Top="229" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="118" Height="45" Stroke="Black" Canvas.Left="51" Canvas.Top="368" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="23" Height="10" Stroke="Black" Canvas.Left="477" Canvas.Top="162" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="22" Height="10" Stroke="Black" Canvas.Left="340" Canvas.Top="162" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="9" Height="35" Stroke="Black" Canvas.Left="491" Canvas.Top="125" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="8" Height="35" Stroke="Black" Canvas.Left="340" Canvas.Top="127" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="150" Height="5" Stroke="Black" Canvas.Left="346" Canvas.Top="122" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </Canvas>
+                <Canvas x:Name="ZoneBloque2" Visibility="Collapsed">
+                    <Rectangle Width="105" Height="453" Stroke="Black" Canvas.Left="76" Canvas.Top="-3" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="134" Height="11" Stroke="Black" Canvas.Left="328" Canvas.Top="90" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="105" Height="373" Stroke="Black" Canvas.Left="622" Canvas.Top="-24" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="279" Height="69" Stroke="Black" Canvas.Left="437" Canvas.Top="381" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="69" Stroke="Black" Canvas.Left="181" Canvas.Top="381" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="12" Height="125" Stroke="Black" Canvas.Left="237" Canvas.Top="258" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="10" Height="77" Stroke="Black" Canvas.Left="371" Canvas.Top="306" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="93" Height="69" Stroke="Black" Canvas.Left="214" Canvas.Top="381" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="93" Height="69" Stroke="Black" Canvas.Left="328" Canvas.Top="381" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="450" Height="65" Stroke="Black" Canvas.Left="181" Canvas.Top="-12" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="31" Height="28" Stroke="Black" Canvas.Left="181" Canvas.Top="148" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="31" Height="28" Stroke="Black" Canvas.Left="294" Canvas.Top="93" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="32" Height="28" Stroke="Black" Canvas.Left="360" Canvas.Top="148" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="31" Height="28" Stroke="Black" Canvas.Left="406" Canvas.Top="93" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="58" Height="37" Stroke="Black" Canvas.Left="551" Canvas.Top="64" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="8" Height="9" Stroke="Black" Canvas.Left="227" Canvas.Top="305" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="9" Stroke="Black" Canvas.Left="337" Canvas.Top="350" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="8" Height="9" Stroke="Black" Canvas.Left="408" Canvas.Top="360" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="8" Height="9" Stroke="Black" Canvas.Left="464" Canvas.Top="316" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="134" Height="3" Stroke="Black" Canvas.Left="523" Canvas.Top="168" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="137" Height="12" Stroke="Black" Canvas.Left="392" Canvas.Top="156" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="8" Height="9" Stroke="Black" Canvas.Left="577" Canvas.Top="101" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="17" Height="10" Stroke="Black" Canvas.Left="523" Canvas.Top="203" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="17" Height="10" Stroke="Black" Canvas.Left="564" Canvas.Top="203" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="12" Height="32" Stroke="Black" Canvas.Left="518" Canvas.Top="171" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="12" Height="66" Stroke="Black" Canvas.Left="573" Canvas.Top="203" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="109" Height="1" Stroke="Black" Canvas.Left="346" Canvas.Top="236" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="134" Height="9" Stroke="Black" Canvas.Left="518" Canvas.Top="305" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="134" Stroke="Black" Canvas.Left="610" Canvas.Top="171" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="12" Height="44" Stroke="Black" Canvas.Left="464" Canvas.Top="270" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="20" Height="9" Stroke="Black" Canvas.Left="476" Canvas.Top="305" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="12" Height="78" Stroke="Black" Canvas.Left="337" Canvas.Top="236" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="12" Height="44" Stroke="Black" Canvas.Left="394" Canvas.Top="270" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="8" Height="44" Stroke="Black" Canvas.Left="452" Canvas.Top="238" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="125" Height="1" Stroke="Black" Canvas.Left="460" Canvas.Top="269" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="13" Height="11" Stroke="Black" Canvas.Left="381" Canvas.Top="303" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="13" Height="10" Stroke="Black" Canvas.Left="439" Canvas.Top="270" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="13" Height="11" Stroke="Black" Canvas.Left="403" Canvas.Top="271" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="12" Height="65" Stroke="Black" Canvas.Left="360" Canvas.Top="171" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="134" Height="9" Stroke="Black" Canvas.Left="622" Canvas.Top="372" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="45" Height="65" Stroke="Black" Canvas.Left="225" Canvas.Top="193" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="45" Height="65" Stroke="Black" Canvas.Left="270" Canvas.Top="126" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle Width="45" Height="57" Stroke="Black" Canvas.Left="270" Canvas.Top="292" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                </Canvas>
+                <Canvas x:Name="ZoneBloque3" Visibility="Collapsed">
+                    <Rectangle Width="110" Height="453" Stroke="Black" Canvas.Left="76" Canvas.Top="-3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="278" Height="92" Stroke="Black" Canvas.Left="186" Canvas.Top="-3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="126" Height="343" Stroke="Black" Canvas.Left="601" Canvas.Top="-24" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="38" Height="82" Stroke="Black" Canvas.Left="186" Canvas.Top="43" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="48" Height="82" Stroke="Black" Canvas.Left="287" Canvas.Top="43" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="62" Height="74" Stroke="Black" Canvas.Left="501" Canvas.Top="-3" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="40" Height="211" Stroke="Black" Canvas.Left="512" Canvas.Top="60" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="74" Stroke="Black" Canvas.Left="464" Canvas.Top="-3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="58" Height="74" Stroke="Black" Canvas.Left="586" Canvas.Top="-2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="522" Height="60" Stroke="Black" Canvas.Left="186" Canvas.Top="390" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="48" Stroke="Black" Canvas.Left="452" Canvas.Top="337" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="48" Stroke="Black" Canvas.Left="238" Canvas.Top="290" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="48" Stroke="Black" Canvas.Left="427" Canvas.Top="290" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="48" Stroke="Black" Canvas.Left="500" Canvas.Top="253" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="99" Stroke="Black" Canvas.Left="387" Canvas.Top="190" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="103" Stroke="Black" Canvas.Left="427" Canvas.Top="150" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="53" Stroke="Black" Canvas.Left="325" Canvas.Top="150" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="139" Height="51" Stroke="Black" Canvas.Left="186" Canvas.Top="203" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="63" Height="48" Stroke="Black" Canvas.Left="324" Canvas.Top="190" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="148" Height="1" Stroke="Black" Canvas.Left="250" Canvas.Top="290" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="153" Height="10" Stroke="Black" Canvas.Left="299" Canvas.Top="326" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="20" Height="12" Stroke="Black" Canvas.Left="250" Canvas.Top="326" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="102" Height="1" Stroke="Black" Canvas.Left="331" Canvas.Top="149" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="73" Height="1" Stroke="Black" Canvas.Left="439" Canvas.Top="252" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="23" Height="10" Stroke="Black" Canvas.Left="441" Canvas.Top="290" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="23" Height="10" Stroke="Black" Canvas.Left="489" Canvas.Top="291" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="10" Stroke="Black" Canvas.Left="540" Canvas.Top="326" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="10" Stroke="Black" Canvas.Left="375" Canvas.Top="238" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="10" Stroke="Black" Canvas.Left="439" Canvas.Top="115" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="10" Stroke="Black" Canvas.Left="551" Canvas.Top="125" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="101" Height="39" Stroke="Black" Canvas.Left="601" Canvas.Top="351" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+                </Canvas>
                 <!-- JOUEUR -->
                 <Image x:Name="perso"
-                       Source="/Image/sprites garcon/01_front_0.png"
+                       Source="/Image/sprites garcon/front_0.png"
                        Width="14"
                        Height="16"
                        Canvas.Left="398"
                        Canvas.Top="359" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                 <!-- ZONE HERBE -->
-                <Canvas x:Name="ZoneHerbe">
+                <Canvas x:Name="ZoneHerbe0" Visibility="Hidden">
 
                     <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="357" Canvas.Top="350" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="345" Canvas.Top="327" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="283" Canvas.Top="339" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="295" Canvas.Top="302" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="247" Canvas.Top="302" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="506" Canvas.Top="327" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="517" Canvas.Top="216" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="553" Canvas.Top="277" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="517" Canvas.Top="252" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="494" Canvas.Top="117" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="406" Canvas.Top="129" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="506" Canvas.Top="153" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="295" Canvas.Top="167" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="270" Canvas.Top="216" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="222" Canvas.Top="129" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="247" Canvas.Top="179" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="295" Canvas.Top="92" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="295" Canvas.Top="129" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                 </Canvas>
-                <Canvas x:Name="ZoneTP">
-                    <Rectangle Width="50" Height="30" Stroke="Blue" Canvas.Left="382" Canvas.Top="378" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Rectangle Width="11" Height="11" Stroke="Blue" Canvas.Left="444" Canvas.Top="318" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <Rectangle Width="14" Height="30" Stroke="Blue" Canvas.Left="85" Canvas.Top="210" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <Rectangle Width="50" Height="30" Stroke="Blue" Canvas.Left="382" Canvas.Top="-1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <Rectangle Width="22" Height="30" Stroke="Blue" Canvas.Left="695" Canvas.Top="188" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Canvas x:Name="ZoneHerbe1" Visibility="Collapsed">
+
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="426" Canvas.Top="367" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="412" Canvas.Top="237" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="312" Canvas.Top="289" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="12" Stroke="Red" Canvas.Left="476" Canvas.Top="340" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="14" Stroke="Red" Canvas.Left="502" Canvas.Top="160" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="594" Canvas.Top="352" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="14" Stroke="Red" Canvas.Left="502" Canvas.Top="122" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="557" Canvas.Top="83" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="608" Canvas.Top="109" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="273" Canvas.Top="237" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="247" Canvas.Top="265" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="207" Canvas.Top="216" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="362" Canvas.Top="83" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="12" Stroke="Red" Canvas.Left="312" Canvas.Top="174" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
                 </Canvas>
-                <Canvas x:Name="Interaction">
+                <Canvas x:Name="ZoneHerbe2" Visibility="Collapsed">
+
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="383" Canvas.Top="314" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="318" Canvas.Top="192" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="318" Canvas.Top="314" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="12" Stroke="Red" Canvas.Left="405" Canvas.Top="337" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="14" Stroke="Red" Canvas.Left="541" Canvas.Top="146" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="427" Canvas.Top="282" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="14" Stroke="Red" Canvas.Left="470" Canvas.Top="123" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="496" Canvas.Top="54" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="247" Canvas.Top="100" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="12" Stroke="Red" Canvas.Left="271" Canvas.Top="210" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="12" Stroke="Red" Canvas.Left="247" Canvas.Top="296" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="14" Stroke="Red" Canvas.Left="284" Canvas.Top="258" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="192" Canvas.Top="123" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="12" Stroke="Red" Canvas.Left="327" Canvas.Top="153" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+                </Canvas>
+                <Canvas x:Name="ZoneHerbe3" Visibility="Collapsed">
+
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="350" Canvas.Top="337" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="318" Canvas.Top="192" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="13" Stroke="Red" Canvas.Left="290" Canvas.Top="364" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="12" Stroke="Red" Canvas.Left="414" Canvas.Top="364" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="12" Height="14" Stroke="Red" Canvas.Left="201" Canvas.Top="329" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+                </Canvas>
+                <Canvas x:Name="ZoneTP0" Visibility="Hidden">
+
+                    <Rectangle Width="11" Name="RectMaison0" Height="11" Stroke="Blue" Canvas.Left="444" Canvas.Top="318" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="14" Name="RectGauche0" Height="30" Stroke="Blue" Canvas.Left="85" Canvas.Top="210" HorizontalAlignment="Center" VerticalAlignment="Top" Tag="0to3"/>
+                    <Rectangle Width="50" Name="RectTop0" Height="30" Stroke="Blue" Canvas.Left="382" Canvas.Top="-1" HorizontalAlignment="Center" VerticalAlignment="Top" Tag="0to2"/>
+                    <Rectangle Width="22" Name="RectDroit0" Height="30" Stroke="Blue" Canvas.Left="695" Canvas.Top="188" HorizontalAlignment="Left" VerticalAlignment="Center" Tag="0to1"/>
+                </Canvas>
+                <Canvas x:Name="ZoneTP1" Visibility="Collapsed">
+                    <Rectangle Width="50" Name="RectTopGauche1" Height="33" Stroke="Blue" Canvas.Left="22" Canvas.Top="119" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Rectangle Width="11" Name="RectMaison1" Height="11" Stroke="Blue" Canvas.Left="568" Canvas.Top="197" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="1to2"/>
+                    <Rectangle Width="22" Name="RectBasGauche1" Height="30" Stroke="Blue" Canvas.Left="50" Canvas.Top="336" HorizontalAlignment="Left" VerticalAlignment="Center" Tag="1to0"/>
+                </Canvas>
+                <Canvas x:Name="ZoneTP2" Visibility="Collapsed">
+                    <Rectangle Width="50" Name="RectBasGauche21" Height="33" Stroke="Blue" Canvas.Left="289" Canvas.Top="440" HorizontalAlignment="Center" VerticalAlignment="Top" Tag="2to31"/>
+                    <Rectangle Width="48" Name="RectBas2" Height="11" Stroke="Blue" Canvas.Left="406" Canvas.Top="440" HorizontalAlignment="Left" VerticalAlignment="Center" Tag="2to0"/>
+                    <Rectangle Width="22" Name="RectBasGauche22" Height="30" Stroke="Blue" Canvas.Left="191" Canvas.Top="440" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="2to32"/>
+                    <Rectangle Width="48" x:Name="RectDroit2" Height="43" Stroke="Blue" Canvas.Left="708" Canvas.Top="341" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="2to1"/>
+                </Canvas>
+                <Canvas x:Name="ZoneTP3" Visibility="Collapsed">
+                    <Rectangle Width="50" Name="RectBasG" Height="34" Stroke="Blue" Canvas.Left="466" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="32to22" Canvas.Top="-23"/>
+                    <Rectangle Width="48" Name="RectBas23" Height="11" Stroke="Blue" Canvas.Left="551" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="31to21"/>
+                    <Rectangle Width="48" x:Name="RectDroit3" Height="43" Stroke="Blue" Canvas.Left="687" Canvas.Top="320" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="3to0"/>
+                </Canvas>
+                <Canvas x:Name="Interaction0"  Visibility="Hidden">
                     <Rectangle Width="19" Height="11" Stroke="GreenYellow" Canvas.Left="452" Canvas.Top="338" HorizontalAlignment="Left" VerticalAlignment="Center" Tag="Maison de Raphael"/>
                     <Rectangle Width="19" Height="11" Stroke="GreenYellow" Canvas.Left="391" Canvas.Top="350" HorizontalAlignment="Left" VerticalAlignment="Center" Tag="Bonjour jeune dresseur !"/>
                     <Rectangle Width="19" Height="11" Stroke="GreenYellow" Canvas.Left="490" Canvas.Top="265" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="Trouve Electhor"/>
+                </Canvas>
+                <Canvas x:Name="Interaction1"  Visibility="Collapsed">
+                    <Rectangle Width="19" Height="11" Stroke="GreenYellow" Canvas.Left="281" Canvas.Top="363" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="T'es cardio j'aurais déjà changer de jeu"/>
+                    <Rectangle Width="19" Height="11" Stroke="GreenYellow" Canvas.Left="604" Canvas.Top="207" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="Abandonne t'as déjà fais le tour il y a rien de nouveau"/>
+                    <Rectangle Width="18" Height="11" Stroke="GreenYellow" Canvas.Left="269" Canvas.Top="117" Tag="Bah bon chance" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                </Canvas>
+                <Canvas x:Name="Interaction2"  Visibility="Collapsed">
+                    <Rectangle Width="19" Height="11" Stroke="GreenYellow" Canvas.Left="335" Canvas.Top="357" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="T'aimes bien le jeu perso j'y ai jamais joué"/>
+                    <Rectangle Width="19" Height="10" Stroke="GreenYellow" Canvas.Left="402" Canvas.Top="368" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="Plus d'idée"/>
+                    <Rectangle Width="18" Height="11" Stroke="GreenYellow" Canvas.Left="222" Canvas.Top="312" Tag="C'est long" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="19" Height="10" Stroke="GreenYellow" Canvas.Left="459" Canvas.Top="324" Tag="Tu tournes en rond la " HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="19" Height="10" Stroke="GreenYellow" Canvas.Left="571" Canvas.Top="110" Tag="Askip il y a un boss caché" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </Canvas>
+                <Canvas x:Name="Interaction3"  Visibility="Collapsed">
+                    <Rectangle Width="19" Height="11" Stroke="GreenYellow" Canvas.Left="373" Canvas.Top="248" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="Donne 20 balles"/>
+                    <Rectangle Width="19" Height="10" Stroke="GreenYellow" Canvas.Left="534" Canvas.Top="335" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="Plus d'idée"/>
+                    <Rectangle Width="18" Height="11" Stroke="GreenYellow" Canvas.Left="435" Canvas.Top="121" Tag="JEan neymar" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="19" Height="10" Stroke="GreenYellow" Canvas.Left="459" Canvas.Top="324" Tag="6 and what Amine ?" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Width="19" Height="10" Stroke="GreenYellow" Canvas.Left="549" Canvas.Top="133" Tag="Piouf enfin la fin ?" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 </Canvas>
                 <Border x:Name="DialogueBox"
         Width="400"
