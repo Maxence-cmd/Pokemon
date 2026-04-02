@@ -573,15 +573,15 @@ namespace Pokemon.Views
                                 break;
 
                             case "31to21":
-                                SwitchToMap2(416, 310, "3");
+                                SwitchToMap2(307, 420, "3");
                                 break;
 
                             case "32to22":
-                                SwitchToMap2(416, 196, "3");
+                                SwitchToMap2(416, 420, "3");
                                 break;
 
                             case "1to2":
-                                SwitchToMap2(672, 355, "1");
+                                SwitchToMap2(196, 419, "1");
                                 break;
 
                             case "0to3":

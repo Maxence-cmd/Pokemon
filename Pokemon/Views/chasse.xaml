@@ -235,7 +235,7 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
             </StackPanel>
 
         </Grid>
-        <Viewbox Stretch="Uniform" Visibility="Hidden" x:Name="GameView">
+        <Viewbox Stretch="Uniform" Visibility="Visible" x:Name="GameView">
 
 
             <Canvas x:Name="ZoneJeu1" Width="800" Height="450">
@@ -551,8 +551,8 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
                        Source="/Image/sprites garcon/front_0.png"
                        Width="14"
                        Height="16"
-                       Canvas.Left="398"
-                       Canvas.Top="359" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                       Canvas.Left="396"
+                       Canvas.Top="362" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                 <!-- ZONE HERBE -->
                 <Canvas x:Name="ZoneHerbe0" Visibility="Hidden">
@@ -641,8 +641,8 @@ gif:ImageBehavior.RepeatBehavior="Forever" Height="100"/>
                     <Rectangle Width="48" x:Name="RectDroit2" Height="43" Stroke="Blue" Canvas.Left="708" Canvas.Top="341" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="2to1"/>
                 </Canvas>
                 <Canvas x:Name="ZoneTP3" Visibility="Collapsed">
-                    <Rectangle Width="50" Name="RectBasG" Height="34" Stroke="Blue" Canvas.Left="466" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="32to22" Canvas.Top="-23"/>
-                    <Rectangle Width="48" Name="RectBas23" Height="11" Stroke="Blue" Canvas.Left="551" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="31to21"/>
+                    <Rectangle Width="50" Name="RectBasG" Height="34" Stroke="Blue" Canvas.Left="465" HorizontalAlignment="Center" VerticalAlignment="Top" Tag="32to22" Canvas.Top="-20"/>
+                    <Rectangle Width="48" Name="RectBas23" Height="20" Stroke="Blue" Canvas.Left="551" HorizontalAlignment="Center" VerticalAlignment="Top" Tag="31to21" Canvas.Top="-8"/>
                     <Rectangle Width="48" x:Name="RectDroit3" Height="43" Stroke="Blue" Canvas.Left="687" Canvas.Top="320" HorizontalAlignment="Left" VerticalAlignment="Top" Tag="3to0"/>
                 </Canvas>
                 <Canvas x:Name="Interaction0"  Visibility="Hidden">
